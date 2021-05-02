@@ -6,6 +6,10 @@ const SideBar: FunctionComponent = function () {
 }
 
 const sideBarStyle = css`
+  position: absolute;
+  top: 0;
+  right: 0;
+
   width: 400px;
   height: 100%;
   padding: 50px;

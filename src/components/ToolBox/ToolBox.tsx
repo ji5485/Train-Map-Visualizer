@@ -6,7 +6,7 @@ const ToolBox: FunctionComponent = function () {
 }
 
 const toolBoxStyle = css`
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 30px;
   transform: translateY(-50%);

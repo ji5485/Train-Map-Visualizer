@@ -17,8 +17,8 @@ const ZoomWidget: FunctionComponent = function () {
 const zoomWidgetStyle = css`
   display: flex;
 
-  position: absolute;
-  right: 20px;
+  position: fixed;
+  left: 20px;
   bottom: 20px;
 
   width: 80px;

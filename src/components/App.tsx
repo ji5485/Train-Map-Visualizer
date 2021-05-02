@@ -1,16 +1,14 @@
 import React, { FunctionComponent } from 'react'
 import { Global, css } from '@emotion/react'
 import Display from 'components/Display'
-import SideBar from 'components/SideBar'
-import ToolBox from 'components/ToolBox'
+// import SideBar from 'components/SideBar'
 
 const App: FunctionComponent = function () {
   return (
     <>
       <Global styles={globalStyle} />
       <Display />
-      <SideBar />
-      <ToolBox />
+      {/* <SideBar /> */}
     </>
   )
 }
@@ -29,8 +27,6 @@ const globalStyle = css`
   }
 
   #root {
-    display: grid;
-    grid-template-columns: 1fr 400px;
     position: relative;
   }
 `
