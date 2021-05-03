@@ -15,10 +15,11 @@ const Display: FunctionComponent = function () {
 }
 
 const displayStyle = css`
-  overflow: auto;
+  display: flex;
+  overflow: scroll;
   position: relative;
-  min-width: 100%;
-  min-height: 100%;
+  width: 100%;
+  height: 100%;
   background: lightgrey;
 `
 

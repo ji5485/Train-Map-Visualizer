@@ -1,15 +1,25 @@
-import { FunctionComponent } from 'react'
+import { FunctionComponent, ChangeEvent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { zoomState } from 'state/zoomState'
-import { useSetRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
 
 const ZoomWidget: FunctionComponent = function () {
-  const setZoomState = useSetRecoilState<number>(zoomState)
+  const [zoom, setZoom] = useRecoilState<number>(zoomState)
+
+  const handleChangeZoom = ({
+    target: { value },
+  }: ChangeEvent<HTMLInputElement>) => setZoom(parseFloat(value))
 
   return (
     <div css={zoomWidgetStyle}>
-      <div onClick={() => setZoomState(zoom => zoom + 0.25)}>+</div>
-      <div onClick={() => setZoomState(zoom => zoom - 0.25)}>-</div>
+      <input
+        type="range"
+        value={zoom}
+        min="0.1"
+        max="2"
+        step="0.01"
+        onChange={handleChangeZoom}
+      />
     </div>
   )
 }
@@ -19,7 +29,7 @@ const zoomWidgetStyle = css`
 
   position: fixed;
   left: 20px;
-  bottom: 20px;
+  bottom: 30px;
 
   width: 80px;
   height: 25px;

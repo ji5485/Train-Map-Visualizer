@@ -27,6 +27,7 @@ const globalStyle = css`
   }
 
   #root {
+    overflow: hidden;
     position: relative;
   }
 `
