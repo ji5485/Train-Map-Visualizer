@@ -28,12 +28,15 @@ const coordinatesBackgroundStyle = (zoom: number) => css`
   width: calc(120px * 8 * ${zoom});
   height: calc(120px * 6 * ${zoom});
   margin: auto;
+  padding: 100px 150px;
+  box-sizing: initial;
 `
 
 const coordinatesContentStyle = (zoom: number) => css`
+  width: calc(120px * 8);
   height: calc(120px * 6);
   transform: scale(${zoom});
-  transform-origin: center;
+  transform-origin: 0% 0%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 `
 

@@ -17,7 +17,7 @@ const ZoomWidget: FunctionComponent = function () {
         value={zoom}
         min="0.1"
         max="2"
-        step="0.01"
+        step="0.001"
         onChange={handleChangeZoom}
       />
     </div>
