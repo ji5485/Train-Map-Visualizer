@@ -1,4 +1,4 @@
-import { useEffect, useRef, FunctionComponent } from 'react'
+import { useState, useEffect, useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import Coordinates from 'components/Coordinates'
 import ToolBox from 'components/ToolBox'
@@ -11,19 +11,34 @@ const Display: FunctionComponent = function () {
   const coordinatesRef = useRef<HTMLDivElement | null>(null)
   const zoom = useRecoilValue(zoomState)
 
+  const [coord, setCoord] = useState({ width: 0, height: 0 })
+
   useEffect(() => {
     const coordinates = coordinatesRef?.current
 
     if (coordinates === null) return
 
-    // const { scrollHeight: height, scrollWidth: width } = coordinates
+    const contents = coordinates.children[0].children[0]
+    const { width, height } = contents.getBoundingClientRect()
 
-    // const scrollYCenterPos = (height - window.innerHeight) / 2
-    // const scrollXCenterPos = (width - window.innerWidth) / 2
+    setCoord({ width, height })
+  }, [])
 
-    console.log(coordinates.scrollTop)
+  useEffect(() => {
+    const coordinates = coordinatesRef?.current
 
-    // coordinates.scrollTo(scrollXCenterPos, scrollYCenterPos)
+    if (coordinates === null) return
+
+    const {
+      width: currentWidth,
+      height: currentHeight,
+    } = coordinates.children[0].children[0].getBoundingClientRect()
+
+    coordinates.scrollBy(
+      (currentWidth - coord.width) / 2,
+      (currentHeight - coord.height) / 2,
+    )
+    setCoord({ width: currentWidth, height: currentHeight })
   }, [zoom])
 
   return (
