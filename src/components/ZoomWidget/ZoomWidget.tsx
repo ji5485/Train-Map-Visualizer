@@ -1,10 +1,9 @@
 import { FunctionComponent, ChangeEvent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { zoomState } from 'state/zoomState'
-import { useRecoilState } from 'recoil'
+import { useStateCoordinatesZoom } from 'state/coordinatesState'
 
 const ZoomWidget: FunctionComponent = function () {
-  const [zoom, setZoom] = useRecoilState<number>(zoomState)
+  const [zoom, setZoom] = useStateCoordinatesZoom()
 
   const handleChangeZoom = ({
     target: { value },

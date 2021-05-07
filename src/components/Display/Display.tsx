@@ -3,13 +3,11 @@ import { jsx, css } from '@emotion/react'
 import Coordinates from 'components/Coordinates'
 import ToolBox from 'components/ToolBox'
 import ZoomWidget from 'components/ZoomWidget'
-
-import { zoomState } from 'state/zoomState'
-import { useRecoilValue } from 'recoil'
+import { useGetCoordinatesZoom } from 'state/coordinatesState'
 
 const Display: FunctionComponent = function () {
   const coordinatesRef = useRef<HTMLDivElement | null>(null)
-  const zoom = useRecoilValue(zoomState)
+  const zoom = useGetCoordinatesZoom()
 
   const [coord, setCoord] = useState({ width: 0, height: 0 })
 

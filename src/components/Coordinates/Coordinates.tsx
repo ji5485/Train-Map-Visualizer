@@ -1,11 +1,12 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import Node from 'components/Node'
-import { zoomState } from 'state/zoomState'
-import { useRecoilValue } from 'recoil'
+import { useGetCoordinatesZoom } from 'state/coordinatesState'
 
 const Coordinates: FunctionComponent = function () {
-  const zoom = useRecoilValue(zoomState)
+  const zoom = useGetCoordinatesZoom()
+
+  console.log(zoom)
 
   return (
     <div css={coordinatesBackgroundStyle(zoom)}>
