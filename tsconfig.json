@@ -23,7 +23,8 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "baseUrl": "./src",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "downlevelIteration": true
   },
   "include": [
     "src"

@@ -1,19 +1,35 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import Node from 'components/Node'
-import { useGetCoordinatesZoom } from 'state/coordinatesState'
+import { useGetCoordinatesZoom } from 'state/coordinatesZoomState'
+import {
+  useSetCoordinatesSize,
+  useGetCoordinatesCalculatedSize,
+} from 'state/coordinatesSizeState'
 
-const Coordinates: FunctionComponent = function () {
+type CoordinatesProps = {
+  width: number
+  height: number
+}
+
+const Coordinates: FunctionComponent<CoordinatesProps> = function ({
+  width,
+  height,
+}) {
+  useSetCoordinatesSize(width, height)
+
   const zoom = useGetCoordinatesZoom()
-
-  console.log(zoom)
+  const {
+    width: calculatedWidth,
+    height: calculatedHeight,
+  } = useGetCoordinatesCalculatedSize()
 
   return (
-    <div css={coordinatesBackgroundStyle(zoom)}>
-      <div css={coordinatesContentStyle(zoom)}>
-        {[1, 2, 3, 4, 5, 6].map((row: number) => (
+    <div css={coordinatesBackgroundStyle(calculatedWidth, calculatedHeight)}>
+      <div css={coordinatesContentStyle(width, height, zoom)}>
+        {[...Array<number>(height).keys()].map((row: number) => (
           <div css={rowStyle} key={`row-${row}`}>
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((column: number) => (
+            {[...Array<number>(width).keys()].map((column: number) => (
               <Node key={`${row}-${column}`} />
             ))}
           </div>
@@ -23,19 +39,23 @@ const Coordinates: FunctionComponent = function () {
   )
 }
 
-const coordinatesBackgroundStyle = (zoom: number) => css`
+const coordinatesBackgroundStyle = (width: number, height: number) => css`
   flex-shrink: 0;
   display: flex;
-  width: calc(120px * 8 * ${zoom});
-  height: calc(120px * 6 * ${zoom});
+  width: ${width}px;
+  height: ${height}px;
   margin: auto;
   padding: 100px 150px;
   box-sizing: initial;
 `
 
-const coordinatesContentStyle = (zoom: number) => css`
-  width: calc(120px * 8);
-  height: calc(120px * 6);
+const coordinatesContentStyle = (
+  width: number,
+  height: number,
+  zoom: number,
+) => css`
+  width: calc(120px * ${width});
+  height: calc(120px * ${height});
   transform: scale(${zoom});
   transform-origin: 0% 0%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);

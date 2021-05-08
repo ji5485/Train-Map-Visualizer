@@ -3,11 +3,16 @@ import { jsx, css } from '@emotion/react'
 import Coordinates from 'components/Coordinates'
 import ToolBox from 'components/ToolBox'
 import ZoomWidget from 'components/ZoomWidget'
-import { useGetCoordinatesZoom } from 'state/coordinatesState'
+import { useGetCoordinatesZoom } from 'state/coordinatesZoomState'
+import { useGetCoordinatesCalculatedSize } from 'state/coordinatesSizeState'
 
 const Display: FunctionComponent = function () {
   const coordinatesRef = useRef<HTMLDivElement | null>(null)
   const zoom = useGetCoordinatesZoom()
+  const {
+    width: calculatedWidth,
+    height: calculatedHeight,
+  } = useGetCoordinatesCalculatedSize()
 
   const [coord, setCoord] = useState({ width: 0, height: 0 })
 
@@ -27,21 +32,16 @@ const Display: FunctionComponent = function () {
 
     if (coordinates === null) return
 
-    const {
-      width: currentWidth,
-      height: currentHeight,
-    } = coordinates.children[0].children[0].getBoundingClientRect()
-
     coordinates.scrollBy(
-      (currentWidth - coord.width) / 2,
-      (currentHeight - coord.height) / 2,
+      (calculatedWidth - coord.width) / 2,
+      (calculatedHeight - coord.height) / 2,
     )
-    setCoord({ width: currentWidth, height: currentHeight })
+    setCoord({ width: calculatedWidth, height: calculatedHeight })
   }, [zoom])
 
   return (
     <div css={displayStyle} ref={coordinatesRef}>
-      <Coordinates />
+      <Coordinates width={9} height={6} />
       <ToolBox />
       <ZoomWidget />
     </div>

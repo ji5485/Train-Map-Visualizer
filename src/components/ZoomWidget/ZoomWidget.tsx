@@ -1,6 +1,6 @@
 import { FunctionComponent, ChangeEvent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { useStateCoordinatesZoom } from 'state/coordinatesState'
+import { useStateCoordinatesZoom } from 'state/coordinatesZoomState'
 
 const ZoomWidget: FunctionComponent = function () {
   const [zoom, setZoom] = useStateCoordinatesZoom()
@@ -27,13 +27,13 @@ const zoomWidgetStyle = css`
   display: flex;
 
   position: fixed;
-  left: 20px;
+  right: 30px;
   bottom: 30px;
 
-  width: 80px;
+  width: 200px;
   height: 25px;
   background: grey;
-  border-radius: 12.5px;
+  border-radius: 3px;
 `
 
 export default ZoomWidget
