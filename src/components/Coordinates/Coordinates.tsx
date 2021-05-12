@@ -25,8 +25,18 @@ const Coordinates: FunctionComponent<CoordinatesProps> = function ({
   } = useGetCoordinatesCalculatedSize()
 
   return (
-    <div css={coordinatesBackgroundStyle(calculatedWidth, calculatedHeight)}>
-      <div css={coordinatesContentStyle(width, height, zoom)}>
+    <div
+      css={coordinatesBackgroundStyle}
+      style={{ width: `${calculatedWidth}px`, height: `${calculatedHeight}px` }}
+    >
+      <div
+        css={coordinatesContentStyle}
+        style={{
+          width: `${width * 120}px`,
+          height: `${height * 120}px`,
+          transform: `scale(${zoom})`,
+        }}
+      >
         {[...Array<number>(height).keys()].map((row: number) => (
           <div css={rowStyle} key={`row-${row}`}>
             {[...Array<number>(width).keys()].map((column: number) => (
@@ -39,24 +49,15 @@ const Coordinates: FunctionComponent<CoordinatesProps> = function ({
   )
 }
 
-const coordinatesBackgroundStyle = (width: number, height: number) => css`
+const coordinatesBackgroundStyle = css`
   flex-shrink: 0;
   display: flex;
-  width: ${width}px;
-  height: ${height}px;
   margin: auto;
   padding: 100px 150px;
   box-sizing: initial;
 `
 
-const coordinatesContentStyle = (
-  width: number,
-  height: number,
-  zoom: number,
-) => css`
-  width: calc(120px * ${width});
-  height: calc(120px * ${height});
-  transform: scale(${zoom});
+const coordinatesContentStyle = css`
   transform-origin: 0% 0%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 `
