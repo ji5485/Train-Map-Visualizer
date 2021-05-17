@@ -1,14 +1,19 @@
 import React, { FunctionComponent } from 'react'
-import { Global, css } from '@emotion/react'
+import { Global, css, jsx } from '@emotion/react'
 import Display from 'components/Display'
-// import SideBar from 'components/SideBar'
+import SideBar from 'components/SideBar'
+// import { useGetSideBar } from 'state/sideBarState'
 
 const App: FunctionComponent = function () {
+  // const { isOpen } = useGetSideBar()
+
   return (
     <>
       <Global styles={globalStyle} />
-      <Display />
-      {/* <SideBar /> */}
+      <div css={appContainerStyle}>
+        <Display />
+        <SideBar />
+      </div>
     </>
   )
 }
@@ -30,6 +35,12 @@ const globalStyle = css`
     overflow: hidden;
     position: relative;
   }
+`
+
+const appContainerStyle = css`
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  height: 100%;
 `
 
 export default App

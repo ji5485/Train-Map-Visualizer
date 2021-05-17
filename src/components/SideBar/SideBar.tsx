@@ -6,15 +6,10 @@ const SideBar: FunctionComponent = function () {
 }
 
 const sideBarStyle = css`
-  position: absolute;
-  top: 0;
-  right: 0;
-
   width: 400px;
   height: 100%;
-  padding: 50px;
-  background: beige;
-  border-radius: 50px 0 0 50px;
+  padding: 40px;
+  background: #ffffff;
 `
 
 export default SideBar
