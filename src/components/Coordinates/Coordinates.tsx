@@ -1,11 +1,13 @@
-import { FunctionComponent } from 'react'
+import { useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import Node from 'components/Node'
-import { useGetCoordinatesZoom } from 'state/coordinatesZoomState'
+import { useGetCoordinatesZoom } from 'state/coordinates/coordinatesZoomState'
 import {
   useSetCoordinatesSize,
   useGetCoordinatesCalculatedSize,
-} from 'state/coordinatesSizeState'
+} from 'state/coordinates/coordinatesSizeState'
+import useChangeCursor from 'hooks/useChangeCursor'
+import useScrollWithMouse from 'hooks/useScrollWithMouse'
 
 type CoordinatesProps = {
   width: number
@@ -16,6 +18,9 @@ const Coordinates: FunctionComponent<CoordinatesProps> = function ({
   width,
   height,
 }) {
+  const elementRef = useRef<HTMLDivElement | null>(null)
+  useChangeCursor(elementRef)
+  useScrollWithMouse(elementRef)
   useSetCoordinatesSize(width, height)
 
   const zoom = useGetCoordinatesZoom()
@@ -26,6 +31,7 @@ const Coordinates: FunctionComponent<CoordinatesProps> = function ({
 
   return (
     <div
+      ref={elementRef}
       css={coordinatesBackgroundStyle}
       style={{ width: `${calculatedWidth}px`, height: `${calculatedHeight}px` }}
     >

@@ -1,5 +1,5 @@
 import { atom, selector, useRecoilValue, useSetRecoilState } from 'recoil'
-import { coordinatesZoomState } from 'state/coordinatesZoomState'
+import { coordinatesZoomState } from 'state/coordinates/coordinatesZoomState'
 import { useEffect } from 'react'
 
 type CoordinatesSizeType = {

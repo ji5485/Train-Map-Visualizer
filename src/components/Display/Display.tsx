@@ -3,8 +3,8 @@ import { jsx, css } from '@emotion/react'
 import Coordinates from 'components/Coordinates'
 import ToolBox from 'components/ToolBox'
 import ZoomWidget from 'components/ZoomWidget'
-import { useGetCoordinatesZoom } from 'state/coordinatesZoomState'
-import { useGetCoordinatesCalculatedSize } from 'state/coordinatesSizeState'
+import { useGetCoordinatesZoom } from 'state/coordinates/coordinatesZoomState'
+import { useGetCoordinatesCalculatedSize } from 'state/coordinates/coordinatesSizeState'
 
 const Display: FunctionComponent = function () {
   const coordinatesRef = useRef<HTMLDivElement | null>(null)
@@ -49,10 +49,10 @@ const Display: FunctionComponent = function () {
 }
 
 const displayStyle = css`
+  flex: 1;
   display: flex;
   overflow: scroll;
   position: relative;
-  width: 100%;
   height: 100%;
   background: lightgrey;
 `
