@@ -11,21 +11,21 @@ const TOOL_ICON = {
   line: AiOutlineEdit,
 }
 
-type ToolIconProps = {
+type ToolMenuProps = {
   type: keyof typeof TOOL_ICON
   onClick: () => void
 }
 
-const ToolIcon: FunctionComponent<ToolIconProps> = function ({
+const ToolMenu: FunctionComponent<ToolMenuProps> = function ({
   type,
   onClick,
 }) {
-  return createElement(TOOL_ICON[type], { style: toolIconStyle, onClick })
+  return createElement(TOOL_ICON[type], { style: toolMenuStyle, onClick })
 }
 
-const toolIconStyle = {
+const toolMenuStyle = {
   fontSize: '1.5rem',
   cursor: 'pointer',
 }
 
-export default ToolIcon
+export default ToolMenu

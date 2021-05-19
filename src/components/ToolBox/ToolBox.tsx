@@ -1,19 +1,19 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { useSetSideBar, CurrentModeType } from 'state/sideBar/sideBarState'
-import ToolIcon from 'components/ToolIcon'
+import { useStateSideBar, CurrentModeType } from 'state/sideBar/sideBarState'
+import ToolIcon from 'components/ToolMenu'
 
 const ToolBox: FunctionComponent = function () {
-  const setSideBar = useSetSideBar()
+  const [{ isOpen }, setSideBar] = useStateSideBar()
 
   const handleClickToolMenu = (menu: CurrentModeType, isOpen: boolean) => () =>
     setSideBar({ isOpen, currentMode: menu })
 
   return (
     <div css={toolBoxStyle}>
-      <ToolIcon type="hand" onClick={handleClickToolMenu('hand', false)} />
+      <ToolIcon type="hand" onClick={handleClickToolMenu('hand', isOpen)} />
       <ToolIcon type="select" onClick={handleClickToolMenu('select', false)} />
-      <ToolIcon type="append" onClick={handleClickToolMenu('append', true)} />
+      <ToolIcon type="append" onClick={handleClickToolMenu('hand', true)} />
       <ToolIcon type="line" onClick={handleClickToolMenu('line', false)} />
     </div>
   )

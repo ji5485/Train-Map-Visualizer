@@ -18,9 +18,9 @@ const Coordinates: FunctionComponent<CoordinatesProps> = function ({
   width,
   height,
 }) {
-  const elementRef = useRef<HTMLDivElement | null>(null)
-  useChangeCursor(elementRef)
-  useScrollWithMouse(elementRef)
+  const coordinatesRef = useRef<HTMLDivElement | null>(null)
+  useChangeCursor(coordinatesRef)
+  useScrollWithMouse(coordinatesRef)
   useSetCoordinatesSize(width, height)
 
   const zoom = useGetCoordinatesZoom()
@@ -30,30 +30,56 @@ const Coordinates: FunctionComponent<CoordinatesProps> = function ({
   } = useGetCoordinatesCalculatedSize()
 
   return (
-    <div
-      ref={elementRef}
-      css={coordinatesBackgroundStyle}
-      style={{ width: `${calculatedWidth}px`, height: `${calculatedHeight}px` }}
-    >
+    <div ref={coordinatesRef} css={coordinatesStyle}>
       <div
-        css={coordinatesContentStyle}
+        css={coordinatesBackgroundStyle}
         style={{
-          width: `${width * 120}px`,
-          height: `${height * 120}px`,
-          transform: `scale(${zoom})`,
+          width: `${calculatedWidth}px`,
+          height: `${calculatedHeight}px`,
         }}
       >
-        {[...Array<number>(height).keys()].map((row: number) => (
-          <div css={rowStyle} key={`row-${row}`}>
-            {[...Array<number>(width).keys()].map((column: number) => (
-              <Node key={`${row}-${column}`} />
-            ))}
-          </div>
-        ))}
+        <div
+          css={coordinatesContentStyle}
+          style={{
+            width: `${width * 120}px`,
+            height: `${height * 120}px`,
+            transform: `scale(${zoom})`,
+          }}
+        >
+          {[...Array<number>(height).keys()].map((row: number) => (
+            <div css={rowStyle} key={`row-${row}`}>
+              {[...Array<number>(width).keys()].map((column: number) => (
+                <Node key={`${row}-${column}`} />
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )
 }
+
+const coordinatesStyle = css`
+  flex: 1;
+  display: flex;
+  overflow: scroll;
+  height: 100%;
+  background: lightgrey;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: lightgrey;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ffffff;
+    border-radius: 3px;
+  }
+`
 
 const coordinatesBackgroundStyle = css`
   flex-shrink: 0;
