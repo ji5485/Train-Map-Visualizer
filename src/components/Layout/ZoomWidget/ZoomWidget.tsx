@@ -1,10 +1,10 @@
 import { FunctionComponent, ChangeEvent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { FaSearch } from 'react-icons/fa'
-import { useStateCoordinatesZoom } from 'state/coordinates/coordinatesZoomState'
+import { useStateCoordinatePlaneZoom } from 'state/coordinateSystem/coordinatePlaneZoomState'
 
 const ZoomWidget: FunctionComponent = function () {
-  const [zoom, setZoom] = useStateCoordinatesZoom()
+  const [zoom, setZoom] = useStateCoordinatePlaneZoom()
 
   const handleChangeZoom = ({
     target: { value },

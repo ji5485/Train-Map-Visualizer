@@ -1,5 +1,5 @@
 import { useEffect, MutableRefObject } from 'react'
-import { useGetSideBar } from 'state/sideBar/sideBarState'
+import { useGetCoordinateSystemCurrentMode } from 'state/coordinateSystem/coordinateSystemCurrentModeState'
 
 const CURSOR_BY_CURRENT_MODE = {
   hand: 'grab',
@@ -11,7 +11,7 @@ const CURSOR_BY_CURRENT_MODE = {
 export default function useChangeCursor(
   elementRef: MutableRefObject<HTMLDivElement | null>,
 ): void {
-  const { currentMode } = useGetSideBar()
+  const currentMode = useGetCoordinateSystemCurrentMode()
 
   useEffect(() => {
     if (elementRef.current === null) return

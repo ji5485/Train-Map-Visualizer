@@ -1,13 +1,13 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import Coordinates from 'components/Coordinates'
-import ToolBox from 'components/ToolBox'
-import ZoomWidget from 'components/ZoomWidget'
+import CoordinatePlane from 'components/CoordinateSystem/CoordinatePlane'
+import ToolBox from 'components/Layout/ToolBox'
+import ZoomWidget from 'components/Layout/ZoomWidget'
 
 const Display: FunctionComponent = function () {
   return (
     <div css={displayStyle}>
-      <Coordinates width={9} height={6} />
+      <CoordinatePlane width={9} height={6} />
       <ToolBox />
       <ZoomWidget />
     </div>

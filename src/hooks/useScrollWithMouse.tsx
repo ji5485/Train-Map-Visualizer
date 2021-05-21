@@ -1,5 +1,5 @@
 import { useState, useEffect, MutableRefObject } from 'react'
-import { useGetSideBar } from 'state/sideBar/sideBarState'
+import { useGetCoordinateSystemCurrentMode } from 'state/coordinateSystem/coordinateSystemCurrentModeState'
 
 type PositionType = {
   scrollX: number
@@ -18,7 +18,7 @@ export default function useScrollWithMouse(
     cursorX: 0,
     cursorY: 0,
   })
-  const { currentMode } = useGetSideBar()
+  const currentMode = useGetCoordinateSystemCurrentMode()
 
   const handleMouseDown = (event: MouseEvent) => {
     if (elementRef.current === null) return

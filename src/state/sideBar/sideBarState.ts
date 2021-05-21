@@ -6,18 +6,18 @@ import {
   useRecoilState,
 } from 'recoil'
 
-export type CurrentModeType = 'hand' | 'select' | 'append' | 'line'
+export type SideBarContentType = 'select_train' | 'select_line' | 'append'
 
-type SideBarType = {
+export type SideBarType = {
   isOpen: boolean
-  currentMode: CurrentModeType
+  menu: SideBarContentType | null
 }
 
 const sideBarState = atom<SideBarType>({
   key: 'sideBar',
   default: {
     isOpen: false,
-    currentMode: 'hand',
+    menu: null,
   },
 })
 

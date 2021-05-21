@@ -1,45 +1,45 @@
 import { useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import Node from 'components/Node'
-import { useGetCoordinatesZoom } from 'state/coordinates/coordinatesZoomState'
+import Node from 'components/CoordinateSystem/Node'
+import { useGetCoordinatePlaneZoom } from 'state/coordinateSystem/coordinatePlaneZoomState'
 import {
-  useSetCoordinatesSize,
-  useGetCoordinatesCalculatedSize,
-} from 'state/coordinates/coordinatesSizeState'
+  useSetCoordinatePlaneSize,
+  useGetCalculatedCoordinatePlaneSize,
+} from 'state/coordinateSystem/coordinatePlaneSizeState'
 import useChangeCursor from 'hooks/useChangeCursor'
 import useScrollWithMouse from 'hooks/useScrollWithMouse'
 
-type CoordinatesProps = {
+type CoordinatePlaneProps = {
   width: number
   height: number
 }
 
-const Coordinates: FunctionComponent<CoordinatesProps> = function ({
+const CoordinatePlane: FunctionComponent<CoordinatePlaneProps> = function ({
   width,
   height,
 }) {
-  const coordinatesRef = useRef<HTMLDivElement | null>(null)
-  useChangeCursor(coordinatesRef)
-  useScrollWithMouse(coordinatesRef)
-  useSetCoordinatesSize(width, height)
+  const coordPlaneRef = useRef<HTMLDivElement | null>(null)
+  useChangeCursor(coordPlaneRef)
+  useScrollWithMouse(coordPlaneRef)
+  useSetCoordinatePlaneSize(width, height)
 
-  const zoom = useGetCoordinatesZoom()
+  const zoom = useGetCoordinatePlaneZoom()
   const {
     width: calculatedWidth,
     height: calculatedHeight,
-  } = useGetCoordinatesCalculatedSize()
+  } = useGetCalculatedCoordinatePlaneSize()
 
   return (
-    <div ref={coordinatesRef} css={coordinatesStyle}>
+    <div ref={coordPlaneRef} css={coordPlaneStyle}>
       <div
-        css={coordinatesBackgroundStyle}
+        css={coordPlaneBackgroundStyle}
         style={{
           width: `${calculatedWidth}px`,
           height: `${calculatedHeight}px`,
         }}
       >
         <div
-          css={coordinatesContentStyle}
+          css={coordPlaneContentStyle}
           style={{
             width: `${width * 120}px`,
             height: `${height * 120}px`,
@@ -59,7 +59,7 @@ const Coordinates: FunctionComponent<CoordinatesProps> = function ({
   )
 }
 
-const coordinatesStyle = css`
+const coordPlaneStyle = css`
   flex: 1;
   display: flex;
   overflow: scroll;
@@ -72,16 +72,16 @@ const coordinatesStyle = css`
   }
 
   &::-webkit-scrollbar-track {
-    background: lightgrey;
+    background: rgba(255, 255, 255, 0.5);
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #ffffff;
+    background: rgba(0, 0, 0, 0.7);
     border-radius: 3px;
   }
 `
 
-const coordinatesBackgroundStyle = css`
+const coordPlaneBackgroundStyle = css`
   flex-shrink: 0;
   display: flex;
   margin: auto;
@@ -89,7 +89,7 @@ const coordinatesBackgroundStyle = css`
   box-sizing: initial;
 `
 
-const coordinatesContentStyle = css`
+const coordPlaneContentStyle = css`
   transform-origin: 0% 0%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 `
@@ -98,4 +98,4 @@ const rowStyle = css`
   display: flex;
 `
 
-export default Coordinates
+export default CoordinatePlane

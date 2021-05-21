@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { Global, css, jsx } from '@emotion/react'
-import Display from 'components/Display'
-import SideBar from 'components/SideBar'
+import Display from 'components/Layout/Display'
+import SideBar from 'components/Layout/SideBar'
 
 const App: FunctionComponent = function () {
   return (
