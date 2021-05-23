@@ -1,12 +1,12 @@
-import { FunctionComponent } from 'react'
+import { createElement, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { useStateSideBar } from 'state/sideBar/sideBarState'
 import { BiXCircle } from 'react-icons/bi'
 import AppendTrainForm from 'components/AppendTrain/AppendTrainForm'
 
 const SIDE_BAR_CONTENT = {
-  select_train: null,
-  select_line: null,
+  select_train: AppendTrainForm,
+  select_line: AppendTrainForm,
   append: AppendTrainForm,
 }
 
@@ -22,7 +22,9 @@ const SideBar: FunctionComponent = function () {
       style={{ width: `${isOpen ? 400 : 0}px`, opacity: isOpen ? 1 : 0 }}
     >
       <BiXCircle css={closeIconStyle} onClick={closeSideBar} />
-      <div css={sideBarContentStyle}>{menu && SIDE_BAR_CONTENT[menu]}</div>
+      <div css={sideBarContentStyle}>
+        {menu !== null && createElement(SIDE_BAR_CONTENT[menu])}
+      </div>
     </div>
   )
 }
@@ -37,14 +39,14 @@ const sideBarStyle = css`
 `
 
 const closeIconStyle = css`
-  margin: 0 0 20px 30px;
+  margin: 0 0 50px 40px;
   font-size: 2rem;
   cursor: pointer;
 `
 
 const sideBarContentStyle = css`
   flex: 1;
-  padding: 0 30px;
+  padding: 0 40px;
 `
 
 export default SideBar
