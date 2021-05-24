@@ -1,14 +1,17 @@
-import { useState, FunctionComponent } from 'react'
+import { FunctionComponent } from 'react'
+import { useStateTrainForm } from 'state/sideBar/trainFormState'
+import FormBox from 'components/AppendTrain/FormBox'
 import SelectTrainLine from 'components/AppendTrain/SelectTrainLine'
-import TrainLineItem from 'components/AppendTrain/TrainLineItem'
 
 const AppendTrainForm: FunctionComponent = function () {
-  const [{ line }, setTrain] = useState({ line: '2' })
-  console.log(setTrain)
+  const [{ line, name }, setTrainForm] = useStateTrainForm()
+  console.log(setTrainForm, name)
+
   return (
     <div>
-      <SelectTrainLine selectedTrainLineId={line} />
-      <TrainLineItem name="1호선" color="indigo" />
+      <FormBox title="호선 선택">
+        <SelectTrainLine selectedTrainLineId={line} />
+      </FormBox>
     </div>
   )
 }

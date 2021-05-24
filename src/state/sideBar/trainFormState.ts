@@ -3,6 +3,7 @@ import {
   useRecoilValue,
   useSetRecoilState,
   SetterOrUpdater,
+  useRecoilState,
 } from 'recoil'
 import { TrainLineType } from 'state/train/trainLineState'
 
@@ -24,3 +25,8 @@ export const useGetTrainForm = (): TrainFormType =>
 
 export const useSetTrainForm = (): SetterOrUpdater<TrainFormType> =>
   useSetRecoilState(trainFormAtom)
+
+export const useStateTrainForm = (): [
+  TrainFormType,
+  SetterOrUpdater<TrainFormType>,
+] => useRecoilState(trainFormAtom)

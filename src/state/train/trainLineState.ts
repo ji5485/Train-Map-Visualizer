@@ -68,4 +68,16 @@ export const useRemoveTrainLine = (removeId: string): void => {
   setTrainLine(trainLineAfterRemoved)
 }
 
-// TODO: Develop useGetTrainLineById Custom Hooks
+export const useGetTrainLineById = (selectedId: string): TrainLineType => {
+  const selectedTrainLine = useGetTrainLine().find(
+    ({ id }) => id === selectedId,
+  )
+
+  const defaultTrainLine: TrainLineType = {
+    id: '',
+    name: '',
+    color: 'indigo',
+  }
+
+  return selectedTrainLine ?? defaultTrainLine
+}
