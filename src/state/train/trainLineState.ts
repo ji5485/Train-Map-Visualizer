@@ -3,11 +3,9 @@ import {
   useRecoilValue,
   SetterOrUpdater,
   useSetRecoilState,
+  selectorFamily,
 } from 'recoil'
-import TRAIN_LINE_COLOR from 'utils/trainLineColor'
 import shortId from 'utils/shortId'
-
-type TrainLineColor = keyof typeof TRAIN_LINE_COLOR
 
 export type TrainLineType = {
   id: string
@@ -31,6 +29,16 @@ const trainLineDefaultValue: TrainLineType[] = [
     name: '3호선',
     color: 'orange',
   },
+  {
+    id: '4',
+    name: '4호선',
+    color: 'blue',
+  },
+  {
+    id: '5',
+    name: '5호선',
+    color: 'violet',
+  },
 ]
 
 const trainLineAtom = atom<TrainLineType[]>({
@@ -38,11 +46,26 @@ const trainLineAtom = atom<TrainLineType[]>({
   default: trainLineDefaultValue,
 })
 
+const filteredTrainLineSelector = selectorFamily<TrainLineType[], string>({
+  key: 'filteredTrainLine',
+  get: trainLineName => ({ get }) => {
+    const trainLine = get(trainLineAtom)
+
+    return trainLineName === ''
+      ? trainLine
+      : trainLine.filter(({ name }) => name.includes(trainLineName))
+  },
+})
+
 export const useGetTrainLine = (): TrainLineType[] =>
   useRecoilValue(trainLineAtom)
 
 export const useSetTrainLine = (): SetterOrUpdater<TrainLineType[]> =>
   useSetRecoilState(trainLineAtom)
+
+export const useGetFilteredTrainLine = (
+  trainLineName: string,
+): TrainLineType[] => useRecoilValue(filteredTrainLineSelector(trainLineName))
 
 export const useAppendTrainLine = (
   name: string,

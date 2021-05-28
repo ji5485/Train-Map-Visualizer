@@ -8,15 +8,15 @@ import {
 import { TrainLineType } from 'state/train/trainLineState'
 
 type TrainFormType = {
-  line: TrainLineType['id']
-  name: string
+  selectedLineId: TrainLineType['id']
+  trainLineName: string
 }
 
 const trainFormAtom = atom<TrainFormType>({
   key: 'trainForm',
   default: {
-    line: '',
-    name: '',
+    selectedLineId: '',
+    trainLineName: '',
   },
 })
 

@@ -1,6 +1,7 @@
 import { useEffect, useRef, MutableRefObject } from 'react'
 
 export default function useHandleClickOutSide(
+  selectorIsVisible: boolean,
   handleHideTrainLineList: () => void,
 ): MutableRefObject<HTMLDivElement | null> {
   const ref = useRef<HTMLDivElement | null>(null)
@@ -11,11 +12,12 @@ export default function useHandleClickOutSide(
   }
 
   useEffect(() => {
-    window.document.addEventListener('mousedown', handleClickOutside)
+    if (selectorIsVisible)
+      window.document.addEventListener('mousedown', handleClickOutside)
 
     return () =>
       window.document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
+  }, [selectorIsVisible])
 
   return ref
 }
