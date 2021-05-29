@@ -1,10 +1,4 @@
-import {
-  atom,
-  useRecoilValue,
-  SetterOrUpdater,
-  useSetRecoilState,
-  selectorFamily,
-} from 'recoil'
+import { atom, useRecoilValue, selectorFamily } from 'recoil'
 
 const TRAIN_LINE_COLOR = {
   indigo: '#4263eb',
@@ -18,7 +12,20 @@ const TRAIN_LINE_COLOR = {
   lime: '#5c940d',
 }
 
+export type TrainLineColor = keyof typeof TRAIN_LINE_COLOR
+
 const trainLineColorAtom = atom<TRAIN_LINE_COLOR>({
   key: 'trainLineColor',
   default: TRAIN_LINE_COLOR,
 })
+
+const trainLineColorHexSelector = selectorFamily<string, TrainLineColor>({
+  key: 'trainLineColorHex',
+  get: color => ({ get }) => get(trainLineColorAtom)[color]
+})
+
+export const useGetTrainLineColor = (): TRAIN_LINE_COLOR =>
+  useRecoilValue(trainLineColorAtom)
+
+export const useGetTrainLineColorHexByName = (color: TrainLineColor): string =>
+  useRecoilValue(trainLineColorHexSelector(color))
