@@ -4,9 +4,9 @@ import {
   SetterOrUpdater,
   useSetRecoilState,
   selectorFamily,
+  useRecoilState,
 } from 'recoil'
 import { TrainLineColorName } from 'state/train/trainLineColorState'
-import shortId from 'utils/shortId'
 
 export type TrainLineType = {
   id: string
@@ -14,37 +14,9 @@ export type TrainLineType = {
   color: TrainLineColorName
 }
 
-const trainLineDefaultValue: TrainLineType[] = [
-  {
-    id: '1',
-    name: '1호선',
-    color: 'indigo',
-  },
-  {
-    id: '2',
-    name: '2호선',
-    color: 'teal',
-  },
-  {
-    id: '3',
-    name: '3호선',
-    color: 'orange',
-  },
-  {
-    id: '4',
-    name: '4호선',
-    color: 'blue',
-  },
-  {
-    id: '5',
-    name: '5호선',
-    color: 'violet',
-  },
-]
-
 const trainLineAtom = atom<TrainLineType[]>({
   key: 'trainLine',
-  default: trainLineDefaultValue,
+  default: [],
 })
 
 const filteredTrainLineSelector = selectorFamily<TrainLineType[], string>({
@@ -64,38 +36,21 @@ export const useGetTrainLine = (): TrainLineType[] =>
 export const useSetTrainLine = (): SetterOrUpdater<TrainLineType[]> =>
   useSetRecoilState(trainLineAtom)
 
+export const useStateTrainLine = (): [
+  TrainLineType[],
+  SetterOrUpdater<TrainLineType[]>,
+] => useRecoilState(trainLineAtom)
+
 export const useGetFilteredTrainLine = (
   trainLineName: string,
 ): TrainLineType[] => useRecoilValue(filteredTrainLineSelector(trainLineName))
-
-export const useAppendTrainLine = (
-  name: string,
-  color: TrainLineColorName,
-): void => {
-  const setTrainLine = useSetTrainLine()
-
-  const newTrainLine = {
-    id: shortId(),
-    name,
-    color,
-  }
-
-  setTrainLine(prev => [...prev, newTrainLine])
-}
-
-export const useRemoveTrainLine = (removeId: string): void => {
-  const setTrainLine = useSetTrainLine()
-
-  const trainLineAfterRemoved = (prevState: TrainLineType[]) =>
-    prevState.filter(({ id }: TrainLineType) => id !== removeId)
-
-  setTrainLine(trainLineAfterRemoved)
-}
 
 export const useGetTrainLineById = (selectedId: string): TrainLineType => {
   const selectedTrainLine = useGetTrainLine().find(
     ({ id }) => id === selectedId,
   )
+
+  console.log(selectedTrainLine)
 
   const defaultTrainLine: TrainLineType = {
     id: '',

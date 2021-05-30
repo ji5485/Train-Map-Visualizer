@@ -1,14 +1,30 @@
-import { FunctionComponent } from 'react'
+import { createElement, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import TRAIN_LINE_COLOR from 'utils/trainLineColor'
-import { MdClose } from 'react-icons/md'
 import { AiOutlineCheck } from 'react-icons/ai'
+import { MdClose } from 'react-icons/md'
+import { GrAdd } from 'react-icons/gr'
 
 type TrainLineItemProps = {
   name: string
   color: keyof typeof TRAIN_LINE_COLOR
-  iconType: 'check' | 'cancel'
+  iconType: 'check' | 'cancel' | 'append'
   onClick: () => void
+}
+
+const TRAIN_LINE_ITEM_ICON = {
+  check: {
+    component: AiOutlineCheck,
+    color: '#40c057',
+  },
+  cancel: {
+    component: MdClose,
+    color: '#fa5252',
+  },
+  append: {
+    component: GrAdd,
+    color: '#000000',
+  },
 }
 
 const TrainLineItem: FunctionComponent<TrainLineItemProps> = function ({
@@ -17,15 +33,13 @@ const TrainLineItem: FunctionComponent<TrainLineItemProps> = function ({
   iconType,
   onClick,
 }) {
+  const { component, color: iconColor } = TRAIN_LINE_ITEM_ICON[iconType]
+
   return (
     <div css={trainLineItemStyle}>
       <div css={trainColorBoxStyle(TRAIN_LINE_COLOR[color])} />
       {name}
-      {iconType === 'check' ? (
-        <AiOutlineCheck css={checkButtonStyle} onClick={onClick} />
-      ) : (
-        <MdClose css={cancelButtonStyle} onClick={onClick} />
-      )}
+      {createElement(component, { style: buttonStyle(iconColor), onClick })}
     </div>
   )
 }
@@ -46,18 +60,11 @@ const trainColorBoxStyle = (background: string) => css`
   background: ${background};
 `
 
-const checkButtonStyle = css`
-  margin-left: auto;
-  font-size: 1.3rem;
-  color: #40c057;
-  cursor: pointer;
-`
-
-const cancelButtonStyle = css`
-  margin-left: auto;
-  font-size: 1.3rem;
-  color: #fa5252;
-  cursor: pointer;
-`
+const buttonStyle = (color: string) => ({
+  marginLeft: 'auto',
+  fontSize: '1.3rem',
+  cursor: 'pointer',
+  color,
+})
 
 export default TrainLineItem

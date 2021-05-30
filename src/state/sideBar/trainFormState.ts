@@ -8,15 +8,23 @@ import {
 import { TrainLineType } from 'state/train/trainLineState'
 
 type TrainFormType = {
-  selectedLineId: TrainLineType['id']
+  selectedTrainLine: TrainLineType
   trainLineName: string
+  trainPlatformName: string
+}
+
+export const defaultSelectedTrainLine: TrainLineType = {
+  id: '',
+  name: '',
+  color: 'indigo',
 }
 
 const trainFormAtom = atom<TrainFormType>({
   key: 'trainForm',
   default: {
-    selectedLineId: '',
+    selectedTrainLine: defaultSelectedTrainLine,
     trainLineName: '',
+    trainPlatformName: '',
   },
 })
 

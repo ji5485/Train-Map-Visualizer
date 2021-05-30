@@ -1,14 +1,11 @@
-import { useState, FunctionComponent, Dispatch, SetStateAction } from 'react'
+import { FunctionComponent, Dispatch, SetStateAction } from 'react'
 import { jsx, css } from '@emotion/react'
+import useVisibleNewTrainLineItem from 'hooks/useVisibleNewTrainLineItem'
+import useManageTrainLine from 'hooks/useManageTrainLine'
 import {
   TrainLineType,
   useGetFilteredTrainLine,
-  // useAppendTrainLine,
 } from 'state/train/trainLineState'
-import {
-  TrainLineColorName,
-  useGetRandomUnusedColor,
-} from 'state/train/trainLineColorState'
 import { useStateTrainForm } from 'state/sideBar/trainFormState'
 import TrainLineItem from 'components/AppendTrain/TrainLineItem'
 
@@ -21,17 +18,31 @@ const TrainLineList: FunctionComponent<TrainLineListProps> = function ({
 }) {
   const [{ trainLineName }, setTrainForm] = useStateTrainForm()
   const trainLine = useGetFilteredTrainLine(trainLineName)
-  const [newTrainLineColor] = useState<TrainLineColorName>(
-    useGetRandomUnusedColor(),
+  const { newTrainLineColor, newTrainLineVisible } = useVisibleNewTrainLineItem(
+    trainLine,
+    trainLineName,
   )
+  const { createTrainLine, getTrainLineById } = useManageTrainLine()
 
   const selectTrainLine = (selectedLineId: string) => () => {
-    setTrainForm({ selectedLineId, trainLineName: '' })
+    const selectedTrainLine = getTrainLineById(selectedLineId)
+    if (selectedTrainLine === undefined) return
+
+    setTrainForm(prev => ({ ...prev, selectedTrainLine, trainLineName: '' }))
     setSelectorIsVisible(false)
   }
-  // const appendTrainLine = () => {
-  //   useAppendTrainLine(trainLineName)
-  // }
+  const appendTrainLine = () => {
+    const newTrainLine = createTrainLine(trainLineName, newTrainLineColor)
+    setTrainForm(prev => ({
+      ...prev,
+      selectedTrainLine: newTrainLine,
+      trainLineName: '',
+    }))
+    setSelectorIsVisible(false)
+  }
+
+  if (trainLine.length === 0 && trainLineName === '')
+    return <div css={emptyTrainLine}>호선을 새로 추가해주세요.</div>
 
   return (
     <div css={trainLineListStyle}>
@@ -45,16 +56,16 @@ const TrainLineList: FunctionComponent<TrainLineListProps> = function ({
         />
       ))}
 
-      <div css={appendTrainLineStyle}>
-        <div>신규 생성</div>
-
-        <TrainLineItem
-          name={trainLineName}
-          color={newTrainLineColor}
-          iconType="check"
-          onClick={() => console.log('hello')}
-        />
-      </div>
+      {newTrainLineVisible && (
+        <div css={appendTrainLineStyle}>
+          <TrainLineItem
+            name={trainLineName}
+            color={newTrainLineColor}
+            iconType="append"
+            onClick={appendTrainLine}
+          />
+        </div>
+      )}
     </div>
   )
 }
@@ -84,6 +95,25 @@ const trainLineListStyle = css`
   }
 `
 
-const appendTrainLineStyle = css``
+const emptyTrainLine = css`
+  position: absolute;
+  top: 50px;
+  left: 0px;
+
+  display: grid;
+  place-items: center;
+
+  width: 100%;
+  height: 100px;
+  background: #f8f9fa;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  font-weight: 800;
+`
+
+const appendTrainLineStyle = css`
+  div + & {
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+  }
+`
 
 export default TrainLineList

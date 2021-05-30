@@ -20,6 +20,10 @@ const FormBox: FunctionComponent<FormBoxProps> = function ({
 
 const formBoxStyle = css`
   width: 100%;
+
+  & + & {
+    margin-top: 50px;
+  }
 `
 
 const formBoxTitleStyle = css`
