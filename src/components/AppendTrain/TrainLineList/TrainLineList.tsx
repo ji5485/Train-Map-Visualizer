@@ -1,10 +1,14 @@
-import { FunctionComponent, Dispatch, SetStateAction } from 'react'
+import { useState, FunctionComponent, Dispatch, SetStateAction } from 'react'
 import { jsx, css } from '@emotion/react'
 import {
   TrainLineType,
   useGetFilteredTrainLine,
-  useAppendTrainLine,
+  // useAppendTrainLine,
 } from 'state/train/trainLineState'
+import {
+  TrainLineColorName,
+  useGetRandomUnusedColor,
+} from 'state/train/trainLineColorState'
 import { useStateTrainForm } from 'state/sideBar/trainFormState'
 import TrainLineItem from 'components/AppendTrain/TrainLineItem'
 
@@ -16,19 +20,22 @@ const TrainLineList: FunctionComponent<TrainLineListProps> = function ({
   setSelectorIsVisible,
 }) {
   const [{ trainLineName }, setTrainForm] = useStateTrainForm()
-  const filteredTrainLine = useGetFilteredTrainLine(trainLineName)
+  const trainLine = useGetFilteredTrainLine(trainLineName)
+  const [newTrainLineColor] = useState<TrainLineColorName>(
+    useGetRandomUnusedColor(),
+  )
 
   const selectTrainLine = (selectedLineId: string) => () => {
     setTrainForm({ selectedLineId, trainLineName: '' })
     setSelectorIsVisible(false)
   }
-  const appendTrainLine = () => {
-    useAppendTrainLine(trainLineName)
-  }
+  // const appendTrainLine = () => {
+  //   useAppendTrainLine(trainLineName)
+  // }
 
   return (
     <div css={trainLineListStyle}>
-      {filteredTrainLine.map(({ id, name, color }: TrainLineType) => (
+      {trainLine.map(({ id, name, color }: TrainLineType) => (
         <TrainLineItem
           name={name}
           color={color}
@@ -43,9 +50,9 @@ const TrainLineList: FunctionComponent<TrainLineListProps> = function ({
 
         <TrainLineItem
           name={trainLineName}
-          color={color}
+          color={newTrainLineColor}
           iconType="check"
-          onClick={selectTrainLine(id)}
+          onClick={() => console.log('hello')}
         />
       </div>
     </div>

@@ -5,13 +5,13 @@ import {
   useSetRecoilState,
   selectorFamily,
 } from 'recoil'
-import { TrainLineColor, useGetTrainLineColor } from 'state/train/trainLineColorState'
+import { TrainLineColorName } from 'state/train/trainLineColorState'
 import shortId from 'utils/shortId'
 
 export type TrainLineType = {
   id: string
   name: string
-  color: string
+  color: TrainLineColorName
 }
 
 const trainLineDefaultValue: TrainLineType[] = [
@@ -58,12 +58,8 @@ const filteredTrainLineSelector = selectorFamily<TrainLineType[], string>({
   },
 })
 
-export const useGetTrainLine = (): TrainLineType[] => {
-  const trainLine = useRecoilValue(trainLineAtom)
-  const trainLineColor = useGetTrainLineColor()
-
-  return trainLine.map(({ id, name, color }: TrainLineType) => ({ id, name, color: trainLineColor[color] }))
-}
+export const useGetTrainLine = (): TrainLineType[] =>
+  useRecoilValue(trainLineAtom)
 
 export const useSetTrainLine = (): SetterOrUpdater<TrainLineType[]> =>
   useSetRecoilState(trainLineAtom)
@@ -74,7 +70,7 @@ export const useGetFilteredTrainLine = (
 
 export const useAppendTrainLine = (
   name: string,
-  color: TrainLineColor,
+  color: TrainLineColorName,
 ): void => {
   const setTrainLine = useSetTrainLine()
 

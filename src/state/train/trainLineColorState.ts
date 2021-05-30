@@ -1,4 +1,5 @@
 import { atom, useRecoilValue, selectorFamily } from 'recoil'
+import { useGetTrainLine } from 'state/train/trainLineState'
 
 const TRAIN_LINE_COLOR = {
   indigo: '#4263eb',
@@ -12,20 +13,31 @@ const TRAIN_LINE_COLOR = {
   lime: '#5c940d',
 }
 
-export type TrainLineColor = keyof typeof TRAIN_LINE_COLOR
+export type TrainLineColorType = typeof TRAIN_LINE_COLOR
+export type TrainLineColorName = keyof TrainLineColorType
 
-const trainLineColorAtom = atom<TRAIN_LINE_COLOR>({
+const trainLineColorAtom = atom<TrainLineColorType>({
   key: 'trainLineColor',
   default: TRAIN_LINE_COLOR,
 })
 
-const trainLineColorHexSelector = selectorFamily<string, TrainLineColor>({
+const trainLineColorHexSelector = selectorFamily<string, TrainLineColorName>({
   key: 'trainLineColorHex',
-  get: color => ({ get }) => get(trainLineColorAtom)[color]
+  get: color => ({ get }) => get(trainLineColorAtom)[color],
 })
 
-export const useGetTrainLineColor = (): TRAIN_LINE_COLOR =>
+export const useGetTrainLineColor = (): TrainLineColorType =>
   useRecoilValue(trainLineColorAtom)
 
-export const useGetTrainLineColorHexByName = (color: TrainLineColor): string =>
-  useRecoilValue(trainLineColorHexSelector(color))
+export const useGetTrainLineColorHexByName = (
+  color: TrainLineColorName,
+): string => useRecoilValue(trainLineColorHexSelector(color))
+
+export const useGetRandomUnusedColor = (): TrainLineColorName => {
+  const usedColor = useGetTrainLine().map(({ color }) => color)
+  const unusedColor = (Object.keys(
+    useGetTrainLineColor(),
+  ) as TrainLineColorName[]).filter(name => !usedColor.includes(name))
+
+  return unusedColor[Math.floor(Math.random() * unusedColor.length)]
+}
