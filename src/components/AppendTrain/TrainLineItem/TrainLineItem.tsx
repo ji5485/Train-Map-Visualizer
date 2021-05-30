@@ -1,6 +1,6 @@
 import { createElement, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import TRAIN_LINE_COLOR from 'utils/trainLineColor'
+import { useGetTrainLineColor } from 'state/train/trainLineColorState'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { MdClose } from 'react-icons/md'
 import { GrAdd } from 'react-icons/gr'
@@ -33,11 +33,12 @@ const TrainLineItem: FunctionComponent<TrainLineItemProps> = function ({
   iconType,
   onClick,
 }) {
+  const trainLineColor = useGetTrainLineColor()
   const { component, color: iconColor } = TRAIN_LINE_ITEM_ICON[iconType]
 
   return (
     <div css={trainLineItemStyle}>
-      <div css={trainColorBoxStyle(TRAIN_LINE_COLOR[color])} />
+      <div css={trainColorBoxStyle(trainLineColor[color])} />
       {name}
       {createElement(component, { style: buttonStyle(iconColor), onClick })}
     </div>
