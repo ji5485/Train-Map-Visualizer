@@ -9,24 +9,21 @@ import {
 type TrainPlatformType = {
   id: string
   name: string
+  line: string[]
 }
 
-type TrainPlatformDatabaseType = {
-  [key: string]: TrainPlatformType[]
-}
-
-const trainPlatformAtom = atom<TrainPlatformDatabaseType>({
+const trainPlatformAtom = atom<TrainPlatformType[]>({
   key: 'trainPlatform',
-  default: {},
+  default: [],
 })
 
-export const useGetTrainPlatform = (): TrainPlatformDatabaseType =>
+export const useGetTrainPlatform = (): TrainPlatformType[] =>
   useRecoilValue(trainPlatformAtom)
 
-export const useSetTrainPlatform = (): SetterOrUpdater<TrainPlatformDatabaseType> =>
+export const useSetTrainPlatform = (): SetterOrUpdater<TrainPlatformType[]> =>
   useSetRecoilState(trainPlatformAtom)
 
 export const useStateTrainPlatform = (): [
-  TrainPlatformDatabaseType,
-  SetterOrUpdater<TrainPlatformDatabaseType>,
+  TrainPlatformType[],
+  SetterOrUpdater<TrainPlatformType[]>,
 ] => useRecoilState(trainPlatformAtom)

@@ -10,7 +10,10 @@ import { TrainLineType } from 'state/train/trainLineState'
 type TrainFormType = {
   selectedTrainLine: TrainLineType
   trainLineName: string
-  trainPlatformName: string
+  trainPlatform: {
+    name: string
+    isValid: boolean
+  }
 }
 
 export const defaultSelectedTrainLine: TrainLineType = {
@@ -24,7 +27,10 @@ const trainFormAtom = atom<TrainFormType>({
   default: {
     selectedTrainLine: defaultSelectedTrainLine,
     trainLineName: '',
-    trainPlatformName: '',
+    trainPlatform: {
+      name: '',
+      isValid: false,
+    },
   },
 })
 

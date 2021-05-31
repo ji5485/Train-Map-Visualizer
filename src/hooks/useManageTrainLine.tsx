@@ -1,7 +1,6 @@
 import shortId from 'utils/shortId'
 import { TrainLineType, useStateTrainLine } from 'state/train/trainLineState'
 import { TrainLineColorName } from 'state/train/trainLineColorState'
-import { useSetTrainPlatform } from 'state/train/trainPlatformState'
 
 type useManageTrainLineType = {
   createTrainLine: (name: string, color: TrainLineColorName) => TrainLineType
@@ -11,7 +10,6 @@ type useManageTrainLineType = {
 
 export default function useManageTrainLine(): useManageTrainLineType {
   const [trainLine, setTrainLine] = useStateTrainLine()
-  const setTrainPlatform = useSetTrainPlatform()
 
   const createTrainLine = (
     name: string,
@@ -24,7 +22,6 @@ export default function useManageTrainLine(): useManageTrainLineType {
     }
 
     setTrainLine(prev => [...prev, newTrainLine])
-    setTrainPlatform(prev => ({ ...prev, [newTrainLine.id]: [] }))
 
     return newTrainLine
   }
