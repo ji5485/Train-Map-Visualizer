@@ -3,6 +3,8 @@ import { jsx, css } from '@emotion/react'
 import CoordinatePlane from 'components/CoordinateSystem/CoordinatePlane'
 import ToolBox from 'components/Layout/ToolBox'
 import ZoomWidget from 'components/Layout/ZoomWidget'
+import MessageWidget from 'components/Layout/MessageWidget'
+import ModifyOrCancelAppendingTrainWidget from 'components/Layout/ModifyOrCancelAppendingTrainWidget'
 
 const Display: FunctionComponent = function () {
   return (
@@ -10,6 +12,8 @@ const Display: FunctionComponent = function () {
       <CoordinatePlane width={9} height={6} />
       <ToolBox />
       <ZoomWidget />
+      <MessageWidget />
+      <ModifyOrCancelAppendingTrainWidget />
     </div>
   )
 }
