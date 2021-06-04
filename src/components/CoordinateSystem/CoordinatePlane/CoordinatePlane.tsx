@@ -90,6 +90,7 @@ const coordPlaneBackgroundStyle = css`
 `
 
 const coordPlaneContentStyle = css`
+  background: #ffffff;
   transform-origin: 0% 0%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 `

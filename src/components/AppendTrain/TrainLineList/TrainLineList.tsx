@@ -6,17 +6,21 @@ import {
   TrainLineType,
   useGetFilteredTrainLine,
 } from 'state/train/trainLineState'
-import { useStateTrainForm } from 'state/sideBar/trainFormState'
+import { useSetTrainForm } from 'state/sideBar/trainFormState'
 import TrainLineItem from 'components/AppendTrain/TrainLineItem'
 
 type TrainLineListProps = {
+  trainLineName: string
+  setTrainLineName: Dispatch<SetStateAction<string>>
   setSelectorIsVisible: Dispatch<SetStateAction<boolean>>
 }
 
 const TrainLineList: FunctionComponent<TrainLineListProps> = function ({
+  trainLineName,
+  setTrainLineName,
   setSelectorIsVisible,
 }) {
-  const [{ trainLineName }, setTrainForm] = useStateTrainForm()
+  const setTrainForm = useSetTrainForm()
   const trainLine = useGetFilteredTrainLine(trainLineName)
   const { newTrainLineColor, newTrainLineVisible } = useVisibleNewTrainLineItem(
     trainLine,
@@ -28,7 +32,8 @@ const TrainLineList: FunctionComponent<TrainLineListProps> = function ({
     const selectedTrainLine = getTrainLineById(selectedLineId)
     if (selectedTrainLine === undefined) return
 
-    setTrainForm(prev => ({ ...prev, selectedTrainLine, trainLineName: '' }))
+    setTrainForm(prev => ({ ...prev, selectedTrainLine }))
+    setTrainLineName('')
     setSelectorIsVisible(false)
   }
   const appendTrainLine = () => {
@@ -36,8 +41,8 @@ const TrainLineList: FunctionComponent<TrainLineListProps> = function ({
     setTrainForm(prev => ({
       ...prev,
       selectedTrainLine: newTrainLine,
-      trainLineName: '',
     }))
+    setTrainLineName('')
     setSelectorIsVisible(false)
   }
 

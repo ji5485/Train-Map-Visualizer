@@ -12,17 +12,17 @@ const SelectTrainLine: FunctionComponent = function () {
   const [
     {
       selectedTrainLine: { id, name, color },
-      trainLineName,
     },
     setTrainForm,
   ] = useStateTrainForm()
+  const [trainLineName, setTrainLineName] = useState<string>('')
   const [selectorIsVisible, setSelectorIsVisible] = useState<boolean>(false)
   const clickOutSideRef = useHandleClickOutSide(selectorIsVisible, () =>
     setSelectorIsVisible(false),
   )
 
   const handleTrainLineNameChange = (event: ChangeEvent<HTMLInputElement>) =>
-    setTrainForm(prev => ({ ...prev, trainLineName: event.target.value }))
+    setTrainLineName(event.target.value)
   const handleShowTrainLineList = () => setSelectorIsVisible(true)
   const handleResetSelectedTrainLine = () =>
     setTrainForm(prev => ({
@@ -52,7 +52,11 @@ const SelectTrainLine: FunctionComponent = function () {
       )}
 
       {selectorIsVisible && (
-        <TrainLineList setSelectorIsVisible={setSelectorIsVisible} />
+        <TrainLineList
+          trainLineName={trainLineName}
+          setTrainLineName={setTrainLineName}
+          setSelectorIsVisible={setSelectorIsVisible}
+        />
       )}
     </div>
   )
