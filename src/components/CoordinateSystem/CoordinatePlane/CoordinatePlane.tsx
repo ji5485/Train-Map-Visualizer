@@ -6,6 +6,7 @@ import {
   useSetCoordinatePlaneSize,
   useGetCalculatedCoordinatePlaneSize,
 } from 'state/coordinateSystem/coordinatePlaneSizeState'
+import { useGetTrainPlatform } from 'state/train/trainPlatformState'
 import useChangeCursor from 'hooks/useChangeCursor'
 import useScrollWithMouse from 'hooks/useScrollWithMouse'
 
@@ -28,6 +29,7 @@ const CoordinatePlane: FunctionComponent<CoordinatePlaneProps> = function ({
     width: calculatedWidth,
     height: calculatedHeight,
   } = useGetCalculatedCoordinatePlaneSize()
+  const trainPlatformMatrix = useGetTrainPlatform()
 
   return (
     <div ref={coordPlaneRef} css={coordPlaneStyle}>
@@ -49,7 +51,12 @@ const CoordinatePlane: FunctionComponent<CoordinatePlaneProps> = function ({
           {[...Array<number>(height).keys()].map((row: number) => (
             <div css={rowStyle} key={`row-${row}`}>
               {[...Array<number>(width).keys()].map((column: number) => (
-                <Node key={`${row}-${column}`} />
+                <Node
+                  key={`${row}-${column}`}
+                  row={row}
+                  column={column}
+                  trainPlatform={trainPlatformMatrix[row][column]}
+                />
               ))}
             </div>
           ))}

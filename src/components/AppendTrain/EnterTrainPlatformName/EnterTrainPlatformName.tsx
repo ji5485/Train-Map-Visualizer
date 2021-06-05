@@ -1,7 +1,10 @@
 import { useState, FunctionComponent, ChangeEvent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { useStateTrainForm } from 'state/sideBar/trainFormState'
-import { useGetTrainPlatform } from 'state/train/trainPlatformState'
+import {
+  TrainPlatformType,
+  useGetTrainPlatform,
+} from 'state/train/trainPlatformState'
 
 const EnterTrainPlatformName: FunctionComponent = function () {
   const [
@@ -11,7 +14,7 @@ const EnterTrainPlatformName: FunctionComponent = function () {
     },
     setTrainForm,
   ] = useStateTrainForm()
-  const trainPlatformList = useGetTrainPlatform()
+  const trainPlatformMatrix = useGetTrainPlatform()
   const [error, setError] = useState<string>('')
 
   const handleTrainPlatformNameChange = (
@@ -44,9 +47,14 @@ const EnterTrainPlatformName: FunctionComponent = function () {
     if (!/^[가-힣]{2,5}$/.test(trainPlatformName))
       setError('역 이름은 한글 2글자 ~ 5글자로 설정해주세요.')
     else if (
-      trainPlatformList.filter(
-        ({ name, line }) => name === trainPlatformName && line.includes(id),
-      ).length !== 0
+      trainPlatformMatrix.every(trainPlatformList => {
+        trainPlatformList.filter((trainPlatform: TrainPlatformType | null) => {
+          if (trainPlatform === null) return false
+
+          const { name, line } = trainPlatform
+          return name === trainPlatformName && line.includes(id)
+        }).length !== 0
+      })
     )
       setError('동일 호선에 같은 이름의 역이 존재합니다.')
     else {

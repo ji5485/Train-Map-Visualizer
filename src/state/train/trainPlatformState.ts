@@ -6,24 +6,34 @@ import {
   SetterOrUpdater,
 } from 'recoil'
 
-type TrainPlatformType = {
+const TRAIN_PLATFORM_MATRIX_MAX_LENGTH = 50
+
+export type TrainPlatformType = {
   id: string
   name: string
   line: string[]
 }
 
-const trainPlatformAtom = atom<TrainPlatformType[]>({
+type TrainPlatformMatrixType = (TrainPlatformType | null)[][]
+
+const trainPlatformAtom = atom<TrainPlatformMatrixType>({
   key: 'trainPlatform',
-  default: [],
+  default: new Array<(TrainPlatformType | null)[]>(
+    TRAIN_PLATFORM_MATRIX_MAX_LENGTH,
+  ).fill(
+    new Array<TrainPlatformType | null>(TRAIN_PLATFORM_MATRIX_MAX_LENGTH).fill(
+      null,
+    ),
+  ),
 })
 
-export const useGetTrainPlatform = (): TrainPlatformType[] =>
+export const useGetTrainPlatform = (): TrainPlatformMatrixType =>
   useRecoilValue(trainPlatformAtom)
 
-export const useSetTrainPlatform = (): SetterOrUpdater<TrainPlatformType[]> =>
+export const useSetTrainPlatform = (): SetterOrUpdater<TrainPlatformMatrixType> =>
   useSetRecoilState(trainPlatformAtom)
 
 export const useStateTrainPlatform = (): [
-  TrainPlatformType[],
-  SetterOrUpdater<TrainPlatformType[]>,
+  TrainPlatformMatrixType,
+  SetterOrUpdater<TrainPlatformMatrixType>,
 ] => useRecoilState(trainPlatformAtom)

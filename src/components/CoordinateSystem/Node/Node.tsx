@@ -1,33 +1,59 @@
-import { useEffect, useRef, FunctionComponent } from 'react'
+import { useState, useEffect, useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { useGetCoordinateSystemCurrentMode } from 'state/coordinateSystem/coordinateSystemCurrentModeState'
-// import { useGetTrainForm } from 'state/sideBar/trainFormState'
+import { TrainPlatformType } from 'state/train/trainPlatformState'
+import { useGetTrainForm } from 'state/sideBar/trainFormState'
+import TrainPlatform from 'components/CoordinateSystem/TrainPlatform'
 
-const Node: FunctionComponent = function () {
+type NodeProps = {
+  row: number
+  column: number
+  trainPlatform: TrainPlatformType | null
+}
+
+const Node: FunctionComponent<NodeProps> = function ({
+  row,
+  column,
+  trainPlatform,
+}) {
   const nodeRef = useRef<HTMLDivElement>(null)
   const mode = useGetCoordinateSystemCurrentMode()
-  // const {
-  //   selectedTrainLine: { id, name, color },
-  //   trainPlatform: { name },
-  // } = useGetTrainForm()
+  const {
+    selectedTrainLine: { color },
+    trainPlatform: { name },
+  } = useGetTrainForm()
+  const [visibleTrainPreview, setVisibleTrainPreview] = useState<boolean>(false)
 
-  // const showTrainPreview = () => {}
+  console.log(row, column, trainPlatform)
+
+  const showTrainPreview = () => setVisibleTrainPreview(true)
+  const hideTrainPreview = () => setVisibleTrainPreview(false)
 
   useEffect(() => {
-    if (mode !== 'append' || nodeRef.current === null) return
+    if (mode !== 'append' || nodeRef.current === null || trainPlatform !== null)
+      return
 
-    const print = () => console.log('abc')
+    nodeRef.current.addEventListener('mouseover', showTrainPreview)
+    nodeRef.current.addEventListener('mouseleave', hideTrainPreview)
 
-    nodeRef.current.addEventListener('mouseover', print)
-
-    return () => nodeRef.current?.removeEventListener('mouseover', print)
+    return () => {
+      nodeRef.current?.removeEventListener('mouseover', showTrainPreview)
+      nodeRef.current?.removeEventListener('mouseleave', hideTrainPreview)
+    }
   }, [mode])
 
-  return <div ref={nodeRef} css={nodeStyle} />
+  return (
+    <div ref={nodeRef} css={nodeStyle}>
+      {visibleTrainPreview && <TrainPlatform name={name} color={color} />}
+    </div>
+  )
 }
 
 const nodeStyle = css`
   flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  position: relative;
   width: 120px;
   height: 120px;
 
