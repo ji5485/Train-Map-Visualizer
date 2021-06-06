@@ -1,20 +1,24 @@
 import { createElement, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { useStateSideBar } from 'state/sideBar/sideBarState'
+import { useResetTrainForm } from 'state/sideBar/trainFormState'
 import { BiXCircle } from 'react-icons/bi'
-import AppendTrainForm from 'components/AppendTrain/AppendTrainForm'
+import TrainPlatformForm from 'components/AppendTrainPlatform/TrainPlatformForm'
 
 const SIDE_BAR_CONTENT = {
-  select_train: AppendTrainForm,
-  select_line: AppendTrainForm,
-  append: AppendTrainForm,
+  select_train: TrainPlatformForm,
+  select_line: TrainPlatformForm,
+  append: TrainPlatformForm,
 }
 
 const SideBar: FunctionComponent = function () {
   const [{ isOpen, menu }, setSideBar] = useStateSideBar()
-  console.log(menu)
+  const resetTrainForm = useResetTrainForm()
 
-  const closeSideBar = () => setSideBar(prev => ({ ...prev, isOpen: false }))
+  const closeSideBar = () => {
+    setSideBar(prev => ({ ...prev, isOpen: false }))
+    if (menu === 'append') resetTrainForm()
+  }
 
   return (
     <div

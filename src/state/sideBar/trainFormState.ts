@@ -14,6 +14,7 @@ type TrainFormType = {
   trainPlatform: {
     name: string
     isValid: boolean
+    error: string
   }
 }
 
@@ -30,6 +31,7 @@ const trainFormAtom = atom<TrainFormType>({
     trainPlatform: {
       name: '',
       isValid: false,
+      error: '',
     },
   },
 })

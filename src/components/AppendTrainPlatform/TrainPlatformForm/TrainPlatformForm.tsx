@@ -3,11 +3,11 @@ import { jsx, css } from '@emotion/react'
 import { useGetTrainForm } from 'state/sideBar/trainFormState'
 import { useSetSideBar } from 'state/sideBar/sideBarState'
 import { useSetCoordinateSystemCurrentMode } from 'state/coordinateSystem/coordinateSystemCurrentModeState'
-import FormBox from 'components/AppendTrain/FormBox'
-import SelectTrainLine from 'components/AppendTrain/SelectTrainLine'
-import EnterTrainPlatformName from 'components/AppendTrain/EnterTrainPlatformName'
+import FormFieldUnit from 'components/AppendTrainPlatform/FormFieldUnit'
+import SelectTrainLine from 'components/AppendTrainPlatform/SelectTrainLine'
+import EnterTrainPlatformName from 'components/AppendTrainPlatform/EnterTrainPlatformName'
 
-const AppendTrainForm: FunctionComponent = function () {
+const TrainPlatformForm: FunctionComponent = function () {
   const {
     selectedTrainLine: { id },
     trainPlatform: { isValid },
@@ -24,13 +24,13 @@ const AppendTrainForm: FunctionComponent = function () {
   }
 
   return (
-    <div css={appendTrainFormStyle}>
-      <FormBox title="호선 선택">
+    <div css={trainPlatformFormStyle}>
+      <FormFieldUnit title="호선 선택">
         <SelectTrainLine />
-      </FormBox>
-      <FormBox title="역 이름 입력">
+      </FormFieldUnit>
+      <FormFieldUnit title="역 이름 입력">
         <EnterTrainPlatformName />
-      </FormBox>
+      </FormFieldUnit>
 
       <div
         css={createButtonStyle(formIsValid)}
@@ -42,7 +42,7 @@ const AppendTrainForm: FunctionComponent = function () {
   )
 }
 
-const appendTrainFormStyle = css`
+const trainPlatformFormStyle = css`
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -65,4 +65,4 @@ const createButtonStyle = (formIsValid: boolean) => css`
   ${formIsValid && '&:hover { background: #1864ab }'}
 `
 
-export default AppendTrainForm
+export default TrainPlatformForm

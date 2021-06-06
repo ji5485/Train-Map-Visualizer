@@ -7,7 +7,7 @@ import {
   useGetFilteredTrainLine,
 } from 'state/train/trainLineState'
 import { useSetTrainForm } from 'state/sideBar/trainFormState'
-import TrainLineItem from 'components/AppendTrain/TrainLineItem'
+import TrainLineItem from 'components/AppendTrainPlatform/TrainLineItem'
 
 type TrainLineListProps = {
   trainLineName: string

@@ -5,8 +5,8 @@ import {
   useStateTrainForm,
 } from 'state/sideBar/trainFormState'
 import useHandleClickOutSide from 'hooks/useHandleClickOutSide'
-import TrainLineList from 'components/AppendTrain/TrainLineList'
-import TrainLineItem from 'components/AppendTrain/TrainLineItem'
+import TrainLineList from 'components/AppendTrainPlatform/TrainLineList'
+import TrainLineItem from 'components/AppendTrainPlatform/TrainLineItem'
 
 const SelectTrainLine: FunctionComponent = function () {
   const [

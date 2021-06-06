@@ -1,4 +1,4 @@
-import { useState, FunctionComponent, ChangeEvent } from 'react'
+import { FunctionComponent, ChangeEvent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { useStateTrainForm } from 'state/sideBar/trainFormState'
 import {
@@ -10,12 +10,11 @@ const EnterTrainPlatformName: FunctionComponent = function () {
   const [
     {
       selectedTrainLine: { id },
-      trainPlatform: { name: trainPlatformName },
+      trainPlatform: { name: trainPlatformName, error },
     },
     setTrainForm,
   ] = useStateTrainForm()
   const trainPlatformMatrix = useGetTrainPlatform()
-  const [error, setError] = useState<string>('')
 
   const handleTrainPlatformNameChange = (
     event: ChangeEvent<HTMLInputElement>,
@@ -28,39 +27,49 @@ const EnterTrainPlatformName: FunctionComponent = function () {
       },
     }))
   const checkTrainPlatformIsValid = () => {
-    const setValidationOfTrainPlatformName = (isValid: boolean) =>
+    const setValidationOfTrainPlatformName = (
+      isValid: boolean,
+      error: string,
+    ) =>
       setTrainForm(prev => ({
         ...prev,
         trainPlatform: {
-          ...prev.trainPlatform,
+          name: trainPlatformName,
           isValid,
+          error,
         },
       }))
 
-    setValidationOfTrainPlatformName(false)
+    setValidationOfTrainPlatformName(false, '')
 
     if (trainPlatformName === '') {
-      setError('')
+      setValidationOfTrainPlatformName(false, '')
       return
     }
 
     if (!/^[가-힣]{2,5}$/.test(trainPlatformName))
-      setError('역 이름은 한글 2글자 ~ 5글자로 설정해주세요.')
+      setValidationOfTrainPlatformName(
+        false,
+        '역 이름은 한글 2글자 ~ 5글자로 설정해주세요.',
+      )
     else if (
       trainPlatformMatrix.every(trainPlatformList => {
         trainPlatformList.filter((trainPlatform: TrainPlatformType | null) => {
           if (trainPlatform === null) return false
 
           const { name, line } = trainPlatform
-          return name === trainPlatformName && line.includes(id)
+          return (
+            name === trainPlatformName &&
+            line.find(trainLine => trainLine.id === id)
+          )
         }).length !== 0
       })
     )
-      setError('동일 호선에 같은 이름의 역이 존재합니다.')
-    else {
-      setError('')
-      setValidationOfTrainPlatformName(true)
-    }
+      setValidationOfTrainPlatformName(
+        false,
+        '동일 호선에 같은 이름의 역이 존재합니다.',
+      )
+    else setValidationOfTrainPlatformName(true, '')
   }
 
   return (

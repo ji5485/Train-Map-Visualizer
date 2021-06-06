@@ -3,6 +3,7 @@ import {
   useRecoilValue,
   SetterOrUpdater,
   useSetRecoilState,
+  useRecoilState,
 } from 'recoil'
 
 export type CurrentModeType = 'hand' | 'select' | 'append' | 'line'
@@ -17,3 +18,8 @@ export const useGetCoordinateSystemCurrentMode = (): CurrentModeType =>
 
 export const useSetCoordinateSystemCurrentMode = (): SetterOrUpdater<CurrentModeType> =>
   useSetRecoilState(coordinateSystemCurrentModeAtom)
+
+export const useStateCoordinateSystemCurrentMode = (): [
+  CurrentModeType,
+  SetterOrUpdater<CurrentModeType>,
+] => useRecoilState(coordinateSystemCurrentModeAtom)

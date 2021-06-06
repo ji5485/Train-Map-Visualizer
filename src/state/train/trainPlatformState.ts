@@ -5,13 +5,15 @@ import {
   useRecoilState,
   SetterOrUpdater,
 } from 'recoil'
+import { TrainLineType } from './trainLineState'
 
 const TRAIN_PLATFORM_MATRIX_MAX_LENGTH = 50
 
 export type TrainPlatformType = {
   id: string
   name: string
-  line: string[]
+  isTransferPlatform: boolean
+  line: TrainLineType[]
 }
 
 type TrainPlatformMatrixType = (TrainPlatformType | null)[][]

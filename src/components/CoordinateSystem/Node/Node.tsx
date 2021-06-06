@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef, FunctionComponent } from 'react'
+import { useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { useGetCoordinateSystemCurrentMode } from 'state/coordinateSystem/coordinateSystemCurrentModeState'
 import { TrainPlatformType } from 'state/train/trainPlatformState'
-import { useGetTrainForm } from 'state/sideBar/trainFormState'
 import TrainPlatform from 'components/CoordinateSystem/TrainPlatform'
+import useManageTrainPlatform from 'hooks/useManageTrainPlatform'
 
 type NodeProps = {
   row: number
@@ -16,35 +15,41 @@ const Node: FunctionComponent<NodeProps> = function ({
   column,
   trainPlatform,
 }) {
-  const nodeRef = useRef<HTMLDivElement>(null)
-  const mode = useGetCoordinateSystemCurrentMode()
+  const nodeRef = useRef<HTMLDivElement | null>(null)
   const {
-    selectedTrainLine: { color },
-    trainPlatform: { name },
-  } = useGetTrainForm()
-  const [visibleTrainPreview, setVisibleTrainPreview] = useState<boolean>(false)
-
-  console.log(row, column, trainPlatform)
-
-  const showTrainPreview = () => setVisibleTrainPreview(true)
-  const hideTrainPreview = () => setVisibleTrainPreview(false)
-
-  useEffect(() => {
-    if (mode !== 'append' || nodeRef.current === null || trainPlatform !== null)
-      return
-
-    nodeRef.current.addEventListener('mouseover', showTrainPreview)
-    nodeRef.current.addEventListener('mouseleave', hideTrainPreview)
-
-    return () => {
-      nodeRef.current?.removeEventListener('mouseover', showTrainPreview)
-      nodeRef.current?.removeEventListener('mouseleave', hideTrainPreview)
-    }
-  }, [mode])
+    visibleTrainPreview,
+    previewTrainPlatform: { platformName, lineName, lineColor },
+  } = useManageTrainPlatform(row, column, nodeRef, trainPlatform)
 
   return (
     <div ref={nodeRef} css={nodeStyle}>
-      {visibleTrainPreview && <TrainPlatform name={name} color={color} />}
+      {visibleTrainPreview && (
+        <TrainPlatform
+          platformName={platformName}
+          lineName={lineName}
+          lineColor={lineColor}
+          isPreview
+          isTransferPlatform={false}
+        />
+      )}
+
+      {trainPlatform !== null && (
+        <TrainPlatform
+          platformName={trainPlatform.name}
+          lineName={
+            trainPlatform.isTransferPlatform
+              ? 'teal'
+              : trainPlatform.line[0].name
+          }
+          lineColor={
+            trainPlatform.isTransferPlatform
+              ? 'teal'
+              : trainPlatform.line[0].color
+          }
+          isPreview={false}
+          isTransferPlatform={trainPlatform.isTransferPlatform}
+        />
+      )}
     </div>
   )
 }

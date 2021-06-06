@@ -1,24 +1,24 @@
 import { FunctionComponent, ReactNode } from 'react'
 import { jsx, css } from '@emotion/react'
 
-type FormBoxProps = {
+type FormFieldUnitProps = {
   title: string
   children: ReactNode
 }
 
-const FormBox: FunctionComponent<FormBoxProps> = function ({
+const FormFieldUnit: FunctionComponent<FormFieldUnitProps> = function ({
   title,
   children,
 }) {
   return (
-    <div css={formBoxStyle}>
-      <div css={formBoxTitleStyle}>{title}</div>
+    <div css={formFieldUnitStyle}>
+      <div css={formFieldUnitTitleStyle}>{title}</div>
       {children}
     </div>
   )
 }
 
-const formBoxStyle = css`
+const formFieldUnitStyle = css`
   width: 100%;
 
   & + & {
@@ -26,11 +26,11 @@ const formBoxStyle = css`
   }
 `
 
-const formBoxTitleStyle = css`
+const formFieldUnitTitleStyle = css`
   margin-bottom: 15px;
   font-size: 0.85rem;
   font-weight: 700;
   color: rgba(0, 0, 0, 0.7);
 `
 
-export default FormBox
+export default FormFieldUnit
