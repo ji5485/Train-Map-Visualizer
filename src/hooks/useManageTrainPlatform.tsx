@@ -9,15 +9,14 @@ import {
   useGetTrainForm,
   useResetTrainForm,
 } from 'state/sideBar/trainFormState'
-import { TrainLineColorName } from 'state/train/trainLineColorState'
 import { useStateCoordinateSystemCurrentMode } from 'state/coordinateSystem/coordinateSystemCurrentModeState'
+import { TrainLineType } from 'state/train/trainLineState'
 
 type useManageTrainPlatformType = {
   visibleTrainPreview: boolean
   previewTrainPlatform: {
     platformName: string
-    lineName: string
-    lineColor: TrainLineColorName
+    selectedTrainLine: TrainLineType
   }
   showTrainPreview: () => void
   hideTrainPreview: () => void
@@ -85,8 +84,7 @@ export default function useManageTrainPlatform(
     visibleTrainPreview,
     previewTrainPlatform: {
       platformName: name,
-      lineName: selectedTrainLine.name,
-      lineColor: selectedTrainLine.color,
+      selectedTrainLine,
     },
     showTrainPreview,
     hideTrainPreview,

@@ -1,22 +1,18 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import {
-  TrainLineColorName,
-  useGetTrainLineColorHexByName,
-} from 'state/train/trainLineColorState'
+import { useGetTrainLineColorHexByName } from 'state/train/trainLineColorState'
+import { TrainLineType } from 'state/train/trainLineState'
 
 type TrainPlatformProps = {
   platformName: string
-  lineName: string
-  lineColor: TrainLineColorName
+  trainLine: TrainLineType
   isPreview: boolean
   isTransferPlatform: boolean
 }
 
 const TrainPlatform: FunctionComponent<TrainPlatformProps> = function ({
   platformName,
-  lineName,
-  lineColor,
+  trainLine: { name: lineName, color: lineColor },
   isPreview,
   isTransferPlatform,
 }) {
@@ -40,6 +36,9 @@ const trainPlatformStyle = (colorHexValue: string, isPreview: boolean) => css`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  position: relative;
+  z-index: 10;
 
   width: 100px;
   height: 100px;

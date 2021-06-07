@@ -1,8 +1,10 @@
 import { useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { TrainPlatformType } from 'state/train/trainPlatformState'
-import TrainPlatform from 'components/CoordinateSystem/TrainPlatform'
 import useManageTrainPlatform from 'hooks/useManageTrainPlatform'
+import useDrawTrainLine from 'hooks/useDrawTrainLine'
+import TrainPlatform from 'components/CoordinateSystem/TrainPlatform'
+import TrainLine from 'components/CoordinateSystem/TrainLine'
 
 type NodeProps = {
   row: number
@@ -18,16 +20,16 @@ const Node: FunctionComponent<NodeProps> = function ({
   const nodeRef = useRef<HTMLDivElement | null>(null)
   const {
     visibleTrainPreview,
-    previewTrainPlatform: { platformName, lineName, lineColor },
+    previewTrainPlatform: { platformName, selectedTrainLine },
   } = useManageTrainPlatform(row, column, nodeRef, trainPlatform)
+  useDrawTrainLine(nodeRef, trainPlatform)
 
   return (
     <div ref={nodeRef} css={nodeStyle}>
       {visibleTrainPreview && (
         <TrainPlatform
           platformName={platformName}
-          lineName={lineName}
-          lineColor={lineColor}
+          trainLine={selectedTrainLine}
           isPreview
           isTransferPlatform={false}
         />
@@ -36,20 +38,13 @@ const Node: FunctionComponent<NodeProps> = function ({
       {trainPlatform !== null && (
         <TrainPlatform
           platformName={trainPlatform.name}
-          lineName={
-            trainPlatform.isTransferPlatform
-              ? 'teal'
-              : trainPlatform.line[0].name
-          }
-          lineColor={
-            trainPlatform.isTransferPlatform
-              ? 'teal'
-              : trainPlatform.line[0].color
-          }
+          trainLine={trainPlatform.line[0]}
           isPreview={false}
           isTransferPlatform={trainPlatform.isTransferPlatform}
         />
       )}
+
+      <TrainLine direction="left" />
     </div>
   )
 }
