@@ -19,14 +19,17 @@ const Node: FunctionComponent<NodeProps> = function ({
 }) {
   const nodeRef = useRef<HTMLDivElement | null>(null)
   const {
-    visibleTrainPreview,
+    visibleTrainPlatformPreview,
     previewTrainPlatform: { platformName, selectedTrainLine },
   } = useManageTrainPlatform(row, column, nodeRef, trainPlatform)
-  useDrawTrainLine(nodeRef, trainPlatform)
+  const {
+    visibleTrainLinePreview,
+    previewTrainLine: { color, direction },
+  } = useDrawTrainLine(row, column, nodeRef, trainPlatform)
 
   return (
     <div ref={nodeRef} css={nodeStyle}>
-      {visibleTrainPreview && (
+      {visibleTrainPlatformPreview && (
         <TrainPlatform
           platformName={platformName}
           trainLine={selectedTrainLine}
@@ -44,7 +47,9 @@ const Node: FunctionComponent<NodeProps> = function ({
         />
       )}
 
-      <TrainLine direction="left" />
+      {visibleTrainLinePreview && (
+        <TrainLine color={color} direction={direction} />
+      )}
     </div>
   )
 }

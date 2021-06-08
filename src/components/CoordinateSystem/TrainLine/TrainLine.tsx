@@ -1,15 +1,23 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-
-// type LineDirectionType = 'vertical' | 'horizontal'
-type LineDirectionType = 'top' | 'right' | 'bottom' | 'left'
+import {
+  TrainLineColorName,
+  useGetTrainLineColorHexByName,
+} from 'state/train/trainLineColorState'
+import { TrainLineDirection } from 'state/coordinateSystem/coordinateSystemDrawingLineState'
 
 type TrainLineProps = {
-  direction: LineDirectionType
+  color: TrainLineColorName
+  direction: TrainLineDirection
 }
 
-const TrainLine: FunctionComponent<TrainLineProps> = function ({ direction }) {
-  return <div css={trainLineStyle(direction)} />
+const TrainLine: FunctionComponent<TrainLineProps> = function ({
+  color,
+  direction,
+}) {
+  const colorHex = useGetTrainLineColorHexByName(color)
+
+  return <div css={trainLineStyle(colorHex, direction)} />
 }
 
 const RORATE_DEG_BY_DIRECTION = {
@@ -19,35 +27,18 @@ const RORATE_DEG_BY_DIRECTION = {
   left: '270',
 }
 
-const trainLineStyle = (direction: LineDirectionType) => css`
+const trainLineStyle = (color: string, direction: TrainLineDirection) => css`
   position: absolute;
-  bottom: calc(50% - 10px);
-  left: calc(50% - 10px);
+  bottom: calc(50% - 5px);
+  left: calc(50% - 5px);
   z-index: 5;
 
-  width: 20px;
-  height: 140px;
-  background: lightgrey;
-  border-radius: 10px;
-  transform-origin: 50% 130px;
+  width: 10px;
+  height: 130px;
+  background: ${color};
+  border-radius: 5px;
+  transform-origin: 50% 125px;
   transform: rotate(${RORATE_DEG_BY_DIRECTION[direction]}deg);
 `
-
-// const lineStyle = (
-//   direction: LineDirectionType,
-//   position: LinePositionType,
-// ) => css`
-//   position: absolute;
-//   ${direction === 'vertical' ? 'left' : 'top'}: 50%;
-//   ${position}: calc(50% - 10px);
-//   transform: ${direction === 'vertical'
-//     ? 'translateX(-50%)'
-//     : 'translateY(-50%)'};
-
-//   width: ${direction === 'vertical' ? '20' : '140'}px;
-//   height: ${direction === 'vertical' ? '140' : '20'}px;
-//   border-radius: 10px;
-//   background: lightgrey;
-// `
 
 export default TrainLine

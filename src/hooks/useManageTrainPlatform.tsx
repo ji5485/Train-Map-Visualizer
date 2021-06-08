@@ -13,7 +13,7 @@ import { useStateCoordinateSystemCurrentMode } from 'state/coordinateSystem/coor
 import { TrainLineType } from 'state/train/trainLineState'
 
 type useManageTrainPlatformType = {
-  visibleTrainPreview: boolean
+  visibleTrainPlatformPreview: boolean
   previewTrainPlatform: {
     platformName: string
     selectedTrainLine: TrainLineType
@@ -35,12 +35,15 @@ export default function useManageTrainPlatform(
     trainPlatform: { name },
   } = useGetTrainForm()
   const resetTrainForm = useResetTrainForm()
-  const [visibleTrainPreview, setVisibleTrainPreview] = useState<boolean>(false)
+  const [
+    visibleTrainPlatformPreview,
+    setVisibleTrainPlatformPreview,
+  ] = useState<boolean>(false)
   const setTrainPlatform = useSetTrainPlatform()
 
-  const showTrainPreview = () => setVisibleTrainPreview(true)
+  const showTrainPreview = () => setVisibleTrainPlatformPreview(true)
 
-  const hideTrainPreview = () => setVisibleTrainPreview(false)
+  const hideTrainPreview = () => setVisibleTrainPlatformPreview(false)
 
   const createTrainPlatform = () => {
     const newTrainPlatform: TrainPlatformType = {
@@ -81,7 +84,7 @@ export default function useManageTrainPlatform(
   }, [currentMode])
 
   return {
-    visibleTrainPreview,
+    visibleTrainPlatformPreview,
     previewTrainPlatform: {
       platformName: name,
       selectedTrainLine,
