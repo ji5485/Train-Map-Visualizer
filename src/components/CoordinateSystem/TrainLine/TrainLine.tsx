@@ -8,13 +8,15 @@ import { TrainLineDirection } from 'state/coordinateSystem/coordinateSystemDrawi
 
 type TrainLineProps = {
   color: TrainLineColorName
-  direction: TrainLineDirection
+  direction: TrainLineDirection | null
 }
 
 const TrainLine: FunctionComponent<TrainLineProps> = function ({
   color,
   direction,
 }) {
+  if (direction === null) return null
+
   const colorHex = useGetTrainLineColorHexByName(color)
 
   return <div css={trainLineStyle(colorHex, direction)} />

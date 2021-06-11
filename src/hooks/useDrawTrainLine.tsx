@@ -13,7 +13,7 @@ type useDrawTrainLineType = {
   visibleTrainLinePreview: boolean
   previewTrainLine: {
     color: TrainLineColorName
-    direction: TrainLineDirection
+    direction: TrainLineDirection | null
   }
 }
 
@@ -33,7 +33,31 @@ export default function useDrawTrainLine(
     visibleTrainLinePreview,
     setVisibleTrainLinePreview,
   ] = useState<boolean>(false)
-  const [direction, setDirection] = useState<TrainLineDirection>('top')
+  const [isDrawingCurrentNode, setIsDrawingCurrentNode] = useState<boolean>(
+    false,
+  )
+  const [direction, setDirection] = useState<TrainLineDirection | null>(null)
+
+  const startDrawing = () => {
+    setCoordinateSystemDrawingLine(prev =>
+      isFirst
+        ? {
+            isFirst: false,
+            isDrawing: true,
+            previewTrainLineColor:
+              trainPlatform !== null ? trainPlatform.line[0].color : 'blue',
+            currentPosition: { row, column },
+          }
+        : {
+            ...prev,
+            currentPosition: { row, column },
+          },
+    )
+    setVisibleTrainLinePreview(true)
+    setIsDrawingCurrentNode(true)
+
+    window.document.addEventListener('mousemove', drawing)
+  }
 
   const drawing = (event: MouseEvent) => {
     if (nodeRef.current === null) return
@@ -48,23 +72,18 @@ export default function useDrawTrainLine(
     else if (135 <= angle || angle < -135) setDirection('left')
     else if (-135 <= angle && angle < -45) setDirection('bottom')
 
-    window.document.addEventListener('click', finishDrawing)
-  }
-
-  const startDrawing = () => {
-    setCoordinateSystemDrawingLine({
-      isFirst: true,
-      isDrawing: true,
-      previewTrainLineColor:
-        trainPlatform !== null ? trainPlatform.line[0].color : 'blue',
-      currentPosition: { row, column },
-    })
-    setVisibleTrainLinePreview(true)
-
-    window.document.addEventListener('mousemove', drawing)
+    window.document.addEventListener('click', finishDrawing, { once: true })
   }
 
   const finishDrawing = () => {
+    setIsDrawingCurrentNode(false)
+    window.document.removeEventListener('mousemove', drawing)
+  }
+
+  useEffect(() => {
+    if (!isDrawing && !isDrawingCurrentNode) return
+    if (direction === null) return
+
     const previewTrainLine: CoordinateSystemPreviewTrainLineType = {
       row,
       column,
@@ -88,28 +107,28 @@ export default function useDrawTrainLine(
     }))
 
     setPreviewTrainLine(prev => [...prev, previewTrainLine])
-
-    window.document.removeEventListener('mousemove', drawing)
-    window.document.removeEventListener('click', finishDrawing)
-  }
+  }, [isDrawingCurrentNode])
 
   useEffect(() => {
     if (currentMode !== 'line') return
 
+    if (currentPosition.row === row && currentPosition.column === column)
+      console.log(isDrawing, row, column)
+
     if (!isDrawing && isFirst && trainPlatform !== null)
-      nodeRef.current?.addEventListener('click', startDrawing)
-    else if (
+      nodeRef.current?.addEventListener('click', startDrawing, { once: true })
+    if (
       isDrawing &&
       currentPosition.row === row &&
       currentPosition.column === column
     )
-      window.document.addEventListener('mousemove', drawing)
+      startDrawing()
 
     return () => {
       nodeRef.current?.removeEventListener('click', startDrawing)
       window.document.removeEventListener('mousemove', drawing)
     }
-  }, [currentMode])
+  }, [currentMode, currentPosition.row, currentPosition.column])
 
   return {
     visibleTrainLinePreview,
