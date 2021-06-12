@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { TrainLineType } from 'state/train/trainLineState'
+import { TrainLineItemType } from 'state/train/trainLineListState'
 import {
   TrainLineColorName,
   useGetRandomUnusedColor,
@@ -11,7 +11,7 @@ type useVisibleNewTrainLineItemType = {
 }
 
 export default function useVisibleNewTrainLineItem(
-  trainLine: TrainLineType[],
+  trainLine: TrainLineItemType[],
   trainLineName: string,
 ): useVisibleNewTrainLineItemType {
   const [newTrainLineColor] = useState<TrainLineColorName>(

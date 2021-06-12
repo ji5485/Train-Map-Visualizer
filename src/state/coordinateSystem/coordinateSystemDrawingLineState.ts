@@ -1,12 +1,5 @@
-import {
-  atom,
-  SetterOrUpdater,
-  useSetRecoilState,
-  useRecoilState,
-} from 'recoil'
+import { atom, SetterOrUpdater, useRecoilState } from 'recoil'
 import { TrainLineColorName } from 'state/train/trainLineColorState'
-
-export type TrainLineDirection = 'top' | 'right' | 'bottom' | 'left'
 
 type CoordinateSystemDrawingLineType = {
   isFirst: boolean
@@ -16,13 +9,6 @@ type CoordinateSystemDrawingLineType = {
     row: number
     column: number
   }
-}
-
-export type CoordinateSystemPreviewTrainLineType = {
-  row: number
-  column: number
-  color: TrainLineColorName
-  direction: TrainLineDirection
 }
 
 const coordinateSystemDrawingLineAtom = atom<CoordinateSystemDrawingLineType>({
@@ -38,18 +24,7 @@ const coordinateSystemDrawingLineAtom = atom<CoordinateSystemDrawingLineType>({
   },
 })
 
-const coordinateSystemPreviewTrainLineAtom = atom<
-  CoordinateSystemPreviewTrainLineType[]
->({
-  key: 'coordinateSystemPreviewTrainLine',
-  default: [],
-})
-
 export const useStateCoordinateSystemDrawingLine = (): [
   CoordinateSystemDrawingLineType,
   SetterOrUpdater<CoordinateSystemDrawingLineType>,
 ] => useRecoilState(coordinateSystemDrawingLineAtom)
-
-export const useSetCoordinateSystemPreviewTrainLine = (): SetterOrUpdater<
-  CoordinateSystemPreviewTrainLineType[]
-> => useSetRecoilState(coordinateSystemPreviewTrainLineAtom)

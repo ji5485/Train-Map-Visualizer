@@ -56,6 +56,7 @@ const CoordinatePlane: FunctionComponent<CoordinatePlaneProps> = function ({
                   row={row}
                   column={column}
                   trainPlatform={trainPlatformMatrix[row][column]}
+                  // trainLine={trainLineMatrix[row][column]}
                 />
               ))}
             </div>

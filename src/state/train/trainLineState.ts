@@ -1,62 +1,37 @@
 import {
   atom,
   useRecoilValue,
-  SetterOrUpdater,
   useSetRecoilState,
-  selectorFamily,
   useRecoilState,
+  SetterOrUpdater,
 } from 'recoil'
 import { TrainLineColorName } from 'state/train/trainLineColorState'
 
+const TRAIN_LINE_MATRIX_MAX_LENGTH = 50
+
+export type TrainLineDirection = 'top' | 'right' | 'bottom' | 'left'
+
 export type TrainLineType = {
-  id: string
-  name: string
   color: TrainLineColorName
+  direction: TrainLineDirection
 }
 
-const trainLineAtom = atom<TrainLineType[]>({
+export type TrainLineMatrixType = TrainLineType[][][]
+
+const trainLineAtom = atom<TrainLineMatrixType>({
   key: 'trainLine',
-  default: [],
+  default: new Array<TrainLineType[][]>(TRAIN_LINE_MATRIX_MAX_LENGTH).fill(
+    new Array<TrainLineType[]>(TRAIN_LINE_MATRIX_MAX_LENGTH).fill([]),
+  ),
 })
 
-const filteredTrainLineSelector = selectorFamily<TrainLineType[], string>({
-  key: 'filteredTrainLine',
-  get: trainLineName => ({ get }) => {
-    const trainLine = get(trainLineAtom)
-
-    return trainLineName === ''
-      ? trainLine
-      : trainLine.filter(({ name }) => name.includes(trainLineName))
-  },
-})
-
-export const useGetTrainLine = (): TrainLineType[] =>
+export const useGetTrainLine = (): TrainLineMatrixType =>
   useRecoilValue(trainLineAtom)
 
-export const useSetTrainLine = (): SetterOrUpdater<TrainLineType[]> =>
+export const useSetTrainLine = (): SetterOrUpdater<TrainLineMatrixType> =>
   useSetRecoilState(trainLineAtom)
 
 export const useStateTrainLine = (): [
-  TrainLineType[],
-  SetterOrUpdater<TrainLineType[]>,
+  TrainLineMatrixType,
+  SetterOrUpdater<TrainLineMatrixType>,
 ] => useRecoilState(trainLineAtom)
-
-export const useGetFilteredTrainLine = (
-  trainLineName: string,
-): TrainLineType[] => useRecoilValue(filteredTrainLineSelector(trainLineName))
-
-export const useGetTrainLineById = (selectedId: string): TrainLineType => {
-  const selectedTrainLine = useGetTrainLine().find(
-    ({ id }) => id === selectedId,
-  )
-
-  console.log(selectedTrainLine)
-
-  const defaultTrainLine: TrainLineType = {
-    id: '',
-    name: '',
-    color: 'indigo',
-  }
-
-  return selectedTrainLine ?? defaultTrainLine
-}

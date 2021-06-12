@@ -7,10 +7,10 @@ import {
   useResetRecoilState,
   Resetter,
 } from 'recoil'
-import { TrainLineType } from 'state/train/trainLineState'
+import { TrainLineItemType } from 'state/train/trainLineListState'
 
 type TrainFormType = {
-  selectedTrainLine: TrainLineType
+  selectedTrainLine: TrainLineItemType
   trainPlatform: {
     name: string
     isValid: boolean
@@ -18,7 +18,7 @@ type TrainFormType = {
   }
 }
 
-export const defaultSelectedTrainLine: TrainLineType = {
+export const defaultSelectedTrainLine: TrainLineItemType = {
   id: '',
   name: '',
   color: 'indigo',

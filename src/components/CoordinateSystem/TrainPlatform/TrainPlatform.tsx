@@ -1,11 +1,11 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { useGetTrainLineColorHexByName } from 'state/train/trainLineColorState'
-import { TrainLineType } from 'state/train/trainLineState'
+import { TrainLineItemType } from 'state/train/trainLineListState'
 
 type TrainPlatformProps = {
   platformName: string
-  trainLine: TrainLineType
+  trainLine: TrainLineItemType
   isPreview: boolean
   isTransferPlatform: boolean
 }

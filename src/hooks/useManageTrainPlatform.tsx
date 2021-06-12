@@ -10,13 +10,13 @@ import {
   useResetTrainForm,
 } from 'state/sideBar/trainFormState'
 import { useStateCoordinateSystemCurrentMode } from 'state/coordinateSystem/coordinateSystemCurrentModeState'
-import { TrainLineType } from 'state/train/trainLineState'
+import { TrainLineItemType } from 'state/train/trainLineListState'
 
 type useManageTrainPlatformType = {
   visibleTrainPlatformPreview: boolean
   previewTrainPlatform: {
     platformName: string
-    selectedTrainLine: TrainLineType
+    selectedTrainLine: TrainLineItemType
   }
   showTrainPreview: () => void
   hideTrainPreview: () => void

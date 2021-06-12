@@ -24,7 +24,7 @@ const Node: FunctionComponent<NodeProps> = function ({
   } = useManageTrainPlatform(row, column, nodeRef, trainPlatform)
   const {
     visibleTrainLinePreview,
-    previewTrainLine: { color, direction },
+    currentDrawingLine: { color, direction },
   } = useDrawTrainLine(row, column, nodeRef, trainPlatform)
 
   return (

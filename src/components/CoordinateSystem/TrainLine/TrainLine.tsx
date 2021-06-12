@@ -4,7 +4,7 @@ import {
   TrainLineColorName,
   useGetTrainLineColorHexByName,
 } from 'state/train/trainLineColorState'
-import { TrainLineDirection } from 'state/coordinateSystem/coordinateSystemDrawingLineState'
+import { TrainLineDirection } from 'state/train/trainLineState'
 
 type TrainLineProps = {
   color: TrainLineColorName

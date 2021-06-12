@@ -1,17 +1,18 @@
 import { useState, useEffect, MutableRefObject } from 'react'
 import { TrainPlatformType } from 'state/train/trainPlatformState'
-import { TrainLineColorName } from 'state/train/trainLineColorState'
 import { useStateCoordinateSystemCurrentMode } from 'state/coordinateSystem/coordinateSystemCurrentModeState'
+import { useStateCoordinateSystemDrawingLine } from 'state/coordinateSystem/coordinateSystemDrawingLineState'
 import {
   TrainLineDirection,
-  CoordinateSystemPreviewTrainLineType,
-  useStateCoordinateSystemDrawingLine,
-  useSetCoordinateSystemPreviewTrainLine,
-} from 'state/coordinateSystem/coordinateSystemDrawingLineState'
+  TrainLineType,
+  // useSetTrainLine,
+} from 'state/train/trainLineState'
+import { TrainLineColorName } from 'state/train/trainLineColorState'
 
 type useDrawTrainLineType = {
   visibleTrainLinePreview: boolean
-  previewTrainLine: {
+  previewTrainLine: TrainLineType[]
+  currentDrawingLine: {
     color: TrainLineColorName
     direction: TrainLineDirection | null
   }
@@ -28,7 +29,7 @@ export default function useDrawTrainLine(
     { isFirst, isDrawing, previewTrainLineColor, currentPosition },
     setCoordinateSystemDrawingLine,
   ] = useStateCoordinateSystemDrawingLine()
-  const setPreviewTrainLine = useSetCoordinateSystemPreviewTrainLine()
+
   const [
     visibleTrainLinePreview,
     setVisibleTrainLinePreview,
@@ -37,6 +38,7 @@ export default function useDrawTrainLine(
     false,
   )
   const [direction, setDirection] = useState<TrainLineDirection | null>(null)
+  const [previewTrainLine, setPreviewTrainLine] = useState<TrainLineType[]>([])
 
   const startDrawing = () => {
     setCoordinateSystemDrawingLine(prev =>
@@ -84,9 +86,7 @@ export default function useDrawTrainLine(
     if (!isDrawing && !isDrawingCurrentNode) return
     if (direction === null) return
 
-    const previewTrainLine: CoordinateSystemPreviewTrainLineType = {
-      row,
-      column,
+    const newPreviewTrainLine: TrainLineType = {
       color: previewTrainLineColor,
       direction,
     }
@@ -106,7 +106,7 @@ export default function useDrawTrainLine(
       },
     }))
 
-    setPreviewTrainLine(prev => [...prev, previewTrainLine])
+    setPreviewTrainLine(prev => [...prev, newPreviewTrainLine])
   }, [isDrawingCurrentNode])
 
   useEffect(() => {
@@ -132,7 +132,8 @@ export default function useDrawTrainLine(
 
   return {
     visibleTrainLinePreview,
-    previewTrainLine: {
+    previewTrainLine,
+    currentDrawingLine: {
       color: previewTrainLineColor,
       direction,
     },

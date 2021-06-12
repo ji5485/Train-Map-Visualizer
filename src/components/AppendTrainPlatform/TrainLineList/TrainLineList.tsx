@@ -1,11 +1,11 @@
 import { FunctionComponent, Dispatch, SetStateAction } from 'react'
 import { jsx, css } from '@emotion/react'
 import useVisibleNewTrainLineItem from 'hooks/useVisibleNewTrainLineItem'
-import useManageTrainLine from 'hooks/useManageTrainLine'
+import useManageTrainLine from 'hooks/useManageTrainLineList'
 import {
-  TrainLineType,
-  useGetFilteredTrainLine,
-} from 'state/train/trainLineState'
+  TrainLineItemType,
+  useGetFilteredTrainLineList,
+} from 'state/train/trainLineListState'
 import { useSetTrainForm } from 'state/sideBar/trainFormState'
 import TrainLineItem from 'components/AppendTrainPlatform/TrainLineItem'
 
@@ -21,15 +21,15 @@ const TrainLineList: FunctionComponent<TrainLineListProps> = function ({
   setSelectorIsVisible,
 }) {
   const setTrainForm = useSetTrainForm()
-  const trainLine = useGetFilteredTrainLine(trainLineName)
+  const trainLine = useGetFilteredTrainLineList(trainLineName)
   const { newTrainLineColor, newTrainLineVisible } = useVisibleNewTrainLineItem(
     trainLine,
     trainLineName,
   )
-  const { createTrainLine, getTrainLineById } = useManageTrainLine()
+  const { createTrainLine, getTrainLineItemById } = useManageTrainLine()
 
   const selectTrainLine = (selectedLineId: string) => () => {
-    const selectedTrainLine = getTrainLineById(selectedLineId)
+    const selectedTrainLine = getTrainLineItemById(selectedLineId)
     if (selectedTrainLine === undefined) return
 
     setTrainForm(prev => ({ ...prev, selectedTrainLine }))
@@ -51,7 +51,7 @@ const TrainLineList: FunctionComponent<TrainLineListProps> = function ({
 
   return (
     <div css={trainLineListStyle}>
-      {trainLine.map(({ id, name, color }: TrainLineType) => (
+      {trainLine.map(({ id, name, color }: TrainLineItemType) => (
         <TrainLineItem
           name={name}
           color={color}
