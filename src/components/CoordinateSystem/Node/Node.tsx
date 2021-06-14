@@ -1,6 +1,7 @@
 import { useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { TrainPlatformType } from 'state/train/trainPlatformState'
+import { TrainLineType } from 'state/train/trainLineState'
 import useManageTrainPlatform from 'hooks/useManageTrainPlatform'
 import useDrawTrainLine from 'hooks/useDrawTrainLine'
 import TrainPlatform from 'components/CoordinateSystem/TrainPlatform'
@@ -10,12 +11,14 @@ type NodeProps = {
   row: number
   column: number
   trainPlatform: TrainPlatformType | null
+  trainLine: TrainLineType[]
 }
 
 const Node: FunctionComponent<NodeProps> = function ({
   row,
   column,
   trainPlatform,
+  trainLine,
 }) {
   const nodeRef = useRef<HTMLDivElement | null>(null)
   const {
@@ -23,8 +26,9 @@ const Node: FunctionComponent<NodeProps> = function ({
     previewTrainPlatform: { platformName, selectedTrainLine },
   } = useManageTrainPlatform(row, column, nodeRef, trainPlatform)
   const {
-    visibleTrainLinePreview,
-    currentDrawingLine: { color, direction },
+    trainLinePreviewMode,
+    previewTrainLine,
+    currentDrawingLine,
   } = useDrawTrainLine(row, column, nodeRef, trainPlatform)
 
   return (
@@ -37,7 +41,6 @@ const Node: FunctionComponent<NodeProps> = function ({
           isTransferPlatform={false}
         />
       )}
-
       {trainPlatform !== null && (
         <TrainPlatform
           platformName={trainPlatform.name}
@@ -47,9 +50,23 @@ const Node: FunctionComponent<NodeProps> = function ({
         />
       )}
 
-      {visibleTrainLinePreview && (
-        <TrainLine color={color} direction={direction} />
+      {trainLinePreviewMode === 'drawing' && (
+        <TrainLine
+          color={currentDrawingLine.color}
+          direction={currentDrawingLine.direction}
+        />
       )}
+      {trainLinePreviewMode === 'preview' && previewTrainLine !== null && (
+        <TrainLine
+          color={previewTrainLine.color}
+          direction={previewTrainLine.direction}
+        />
+      )}
+      {trainLinePreviewMode === null &&
+        trainLine.length !== 0 &&
+        trainLine.map(({ color, direction }, index) => (
+          <TrainLine color={color} direction={direction} key={index} />
+        ))}
     </div>
   )
 }
