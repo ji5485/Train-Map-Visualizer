@@ -29,7 +29,7 @@ const Node: FunctionComponent<NodeProps> = function ({
     trainLinePreviewMode,
     previewTrainLine,
     currentDrawingLine,
-  } = useDrawTrainLine(row, column, nodeRef, trainPlatform)
+  } = useDrawTrainLine(row, column, nodeRef, trainPlatform, trainLine)
 
   return (
     <div ref={nodeRef} css={nodeStyle}>
@@ -62,8 +62,7 @@ const Node: FunctionComponent<NodeProps> = function ({
           direction={previewTrainLine.direction}
         />
       )}
-      {trainLinePreviewMode === null &&
-        trainLine.length !== 0 &&
+      {trainLine.length !== 0 &&
         trainLine.map(({ color, direction }, index) => (
           <TrainLine color={color} direction={direction} key={index} />
         ))}

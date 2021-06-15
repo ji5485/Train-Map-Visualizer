@@ -37,6 +37,7 @@ export default function useDrawTrainLine(
   column: number,
   nodeRef: MutableRefObject<HTMLDivElement | null>,
   trainPlatform: TrainPlatformType | null,
+  trainLine: TrainLineType[],
 ): useDrawTrainLineType {
   // Information About Coordinate System
   const [currentMode, setCurrentMode] = useStateCoordinateSystemCurrentMode()
@@ -69,6 +70,8 @@ export default function useDrawTrainLine(
 
   // Function for starting draw train line
   const startDrawing = () => {
+    // TODO: 각 선로 개수가 1개 이하인지 확인
+
     setDrawingLineStatus(prev =>
       isFirst
         ? {
@@ -198,13 +201,15 @@ export default function useDrawTrainLine(
 
   // Start to draw train line with "startDrawing" Function
   useEffect(() => {
-    if (currentMode === 'hand') {
+    if (currentMode !== 'line') {
       setTrainLinePreviewMode(null)
-      resetDrawingLineStatus()
-      resetPreviewTrainLine()
-    }
 
-    if (currentMode !== 'line') return
+      return () => {
+        resetDrawingLineStatus()
+        resetPreviewTrainLine()
+        nodeRef.current?.removeEventListener('click', startDrawing)
+      }
+    }
 
     if (!isDrawing && isFirst && trainPlatform !== null)
       nodeRef.current?.addEventListener('click', startDrawing, { once: true })
