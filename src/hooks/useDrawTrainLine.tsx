@@ -70,7 +70,12 @@ export default function useDrawTrainLine(
 
   // Function for starting draw train line
   const startDrawing = () => {
-    // TODO: 각 선로 개수가 1개 이하인지 확인
+    // if (trainPlatform !== null && isFirst) {
+    //   const maxTrainLine = trainPlatform.line.length * 2
+
+    //   if (maxTrainLine < trainLine.length + 1) return
+    // }
+    console.log(trainLine)
 
     setDrawingLineStatus(prev =>
       isFirst
