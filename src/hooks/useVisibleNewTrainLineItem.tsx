@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react'
-import { TrainLineItemType } from 'state/train/trainLineListState'
-import {
-  TrainLineColorName,
-  useGetRandomUnusedColor,
-} from 'state/train/trainLineColorState'
+import { useGetRandomUnusedColor } from 'state/Train/trainLineColorState'
+import { TrainLineItemType, TrainLineColorName } from 'types/Train.types'
 
 type useVisibleNewTrainLineItemType = {
   newTrainLineColor: TrainLineColorName

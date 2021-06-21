@@ -1,5 +1,5 @@
-import { useResetTrainForm } from 'state/sideBar/trainFormState'
-import { useSetSideBar } from 'state/sideBar/sideBarState'
+import { useResetTrainForm } from 'state/SideBar/trainFormState'
+import { useSetSideBar } from 'state/SideBar/sideBarState'
 
 type useModifyOrCancelAppendingTrainType = {
   modify: () => void

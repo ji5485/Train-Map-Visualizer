@@ -3,7 +3,7 @@ import { jsx, css } from '@emotion/react'
 import {
   defaultSelectedTrainLine,
   useStateTrainForm,
-} from 'state/sideBar/trainFormState'
+} from 'state/SideBar/trainFormState'
 import useHandleClickOutSide from 'hooks/useHandleClickOutSide'
 import TrainLineList from 'components/AppendTrainPlatform/TrainLineList'
 import TrainLineItem from 'components/AppendTrainPlatform/TrainLineItem'

@@ -1,7 +1,7 @@
 import { createElement, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { useStateSideBar } from 'state/sideBar/sideBarState'
-import { useResetTrainForm } from 'state/sideBar/trainFormState'
+import { useStateSideBar } from 'state/SideBar/sideBarState'
+import { useResetTrainForm } from 'state/SideBar/trainFormState'
 import { BiXCircle } from 'react-icons/bi'
 import TrainPlatformForm from 'components/AppendTrainPlatform/TrainPlatformForm'
 

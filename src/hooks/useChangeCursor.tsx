@@ -1,5 +1,5 @@
 import { useEffect, MutableRefObject } from 'react'
-import { useGetCoordinateSystemCurrentMode } from 'state/coordinateSystem/coordinateSystemCurrentModeState'
+import { useGetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 
 const CURSOR_BY_CURRENT_MODE = {
   hand: 'grab',

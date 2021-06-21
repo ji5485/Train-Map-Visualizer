@@ -1,11 +1,10 @@
 import { useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { TrainPlatformType } from 'state/train/trainPlatformState'
-import { TrainLineType } from 'state/train/trainLineState'
 import useManageTrainPlatform from 'hooks/useManageTrainPlatform'
 import useDrawTrainLine from 'hooks/useDrawTrainLine'
 import TrainPlatform from 'components/CoordinateSystem/TrainPlatform'
 import TrainLine from 'components/CoordinateSystem/TrainLine'
+import { TrainPlatformType, TrainLineType } from 'types/Train.types'
 
 type NodeProps = {
   row: number

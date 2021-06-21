@@ -1,10 +1,7 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import {
-  TrainLineColorName,
-  useGetTrainLineColorHexByName,
-} from 'state/train/trainLineColorState'
-import { TrainLineDirection } from 'state/train/trainLineState'
+import { useGetTrainLineColorHexByName } from 'state/Train/trainLineColorState'
+import { TrainLineDirection, TrainLineColorName } from 'types/Train.types'
 
 type TrainLineProps = {
   color: TrainLineColorName

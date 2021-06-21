@@ -2,21 +2,13 @@ import {
   atom,
   useRecoilValue,
   useSetRecoilState,
-  SetterOrUpdater,
   useRecoilState,
   useResetRecoilState,
   Resetter,
 } from 'recoil'
-import { TrainLineItemType } from 'state/train/trainLineListState'
-
-type TrainFormType = {
-  selectedTrainLine: TrainLineItemType
-  trainPlatform: {
-    name: string
-    isValid: boolean
-    error: string
-  }
-}
+import { TrainFormType } from 'types/SideBar.types'
+import { TrainLineItemType } from 'types/Train.types'
+import { Getter, Setter, GetterAndSetter } from 'types/RecoilMethods.types'
 
 export const defaultSelectedTrainLine: TrainLineItemType = {
   id: '',
@@ -36,16 +28,14 @@ const trainFormAtom = atom<TrainFormType>({
   },
 })
 
-export const useGetTrainForm = (): TrainFormType =>
+export const useGetTrainForm = (): Getter<TrainFormType> =>
   useRecoilValue(trainFormAtom)
 
-export const useSetTrainForm = (): SetterOrUpdater<TrainFormType> =>
+export const useSetTrainForm = (): Setter<TrainFormType> =>
   useSetRecoilState(trainFormAtom)
 
-export const useStateTrainForm = (): [
-  TrainFormType,
-  SetterOrUpdater<TrainFormType>,
-] => useRecoilState(trainFormAtom)
+export const useStateTrainForm = (): GetterAndSetter<TrainFormType> =>
+  useRecoilState(trainFormAtom)
 
 export const useResetTrainForm = (): Resetter =>
   useResetRecoilState(trainFormAtom)

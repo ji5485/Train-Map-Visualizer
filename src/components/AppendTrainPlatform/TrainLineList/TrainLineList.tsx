@@ -2,12 +2,10 @@ import { FunctionComponent, Dispatch, SetStateAction } from 'react'
 import { jsx, css } from '@emotion/react'
 import useVisibleNewTrainLineItem from 'hooks/useVisibleNewTrainLineItem'
 import useManageTrainLine from 'hooks/useManageTrainLineList'
-import {
-  TrainLineItemType,
-  useGetFilteredTrainLineList,
-} from 'state/train/trainLineListState'
-import { useSetTrainForm } from 'state/sideBar/trainFormState'
+import { useGetFilteredTrainLineList } from 'state/Train/trainLineListState'
+import { useSetTrainForm } from 'state/SideBar/trainFormState'
 import TrainLineItem from 'components/AppendTrainPlatform/TrainLineItem'
+import { TrainLineItemType } from 'types/Train.types'
 
 type TrainLineListProps = {
   trainLineName: string

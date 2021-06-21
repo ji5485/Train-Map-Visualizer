@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import useModifyOrCancelAppendingTrain from 'hooks/useModifyOrCancelAppendingTrain'
-import { useStateCoordinateSystemCurrentMode } from 'state/coordinateSystem/coordinateSystemCurrentModeState'
+import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 import { RiQuillPenFill } from 'react-icons/ri'
 import { IoTrashBin } from 'react-icons/io5'
 import { ImCancelCircle } from 'react-icons/im'

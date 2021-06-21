@@ -1,13 +1,13 @@
 import { useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import Node from 'components/CoordinateSystem/Node'
-import { useGetCoordinatePlaneZoom } from 'state/coordinateSystem/coordinatePlaneZoomState'
+import { useGetCoordinatePlaneZoom } from 'state/CoordinateSystem/coordinatePlaneZoomState'
 import {
   useSetCoordinatePlaneSize,
   useGetCalculatedCoordinatePlaneSize,
-} from 'state/coordinateSystem/coordinatePlaneSizeState'
-import { useGetTrainPlatform } from 'state/train/trainPlatformState'
-import { useGetTrainLine } from 'state/train/trainLineState'
+} from 'state/CoordinateSystem/coordinatePlaneSizeState'
+import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
+import { useGetTrainLine } from 'state/Train/trainLineState'
 import useChangeCursor from 'hooks/useChangeCursor'
 import useScrollWithMouse from 'hooks/useScrollWithMouse'
 

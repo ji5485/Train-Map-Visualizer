@@ -1,17 +1,8 @@
 import { atom, useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil'
-import { TrainLineItemType } from './trainLineListState'
-import { Getter, Setter, GetterAndSetter } from 'types/RecoilMethod.types'
+import { TrainPlatformType, TrainPlatformMatrixType } from 'types/Train.types'
+import { Getter, Setter, GetterAndSetter } from 'types/RecoilMethods.types'
 
 const TRAIN_PLATFORM_MATRIX_MAX_LENGTH = 50
-
-export type TrainPlatformType = {
-  id: string
-  name: string
-  isTransferPlatform: boolean
-  line: TrainLineItemType[]
-}
-
-type TrainPlatformMatrixType = (TrainPlatformType | null)[][]
 
 const trainPlatformAtom = atom<TrainPlatformMatrixType>({
   key: 'trainPlatform',

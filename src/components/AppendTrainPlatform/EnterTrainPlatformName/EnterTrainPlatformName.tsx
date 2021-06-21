@@ -1,10 +1,8 @@
 import { FunctionComponent, ChangeEvent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { useStateTrainForm } from 'state/sideBar/trainFormState'
-import {
-  TrainPlatformType,
-  useGetTrainPlatform,
-} from 'state/train/trainPlatformState'
+import { useStateTrainForm } from 'state/SideBar/trainFormState'
+import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
+import { TrainPlatformType } from 'types/Train.types'
 
 const EnterTrainPlatformName: FunctionComponent = function () {
   const [

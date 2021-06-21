@@ -1,18 +1,18 @@
 import { useState, useEffect, MutableRefObject } from 'react'
 import produce from 'immer'
-import { TrainPlatformType } from 'state/train/trainPlatformState'
-import { useStateCoordinateSystemCurrentMode } from 'state/coordinateSystem/coordinateSystemCurrentModeState'
+import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 import {
   useManageCoordinateSystemDrawingLineStatus,
   useManageCoordinateSystemPreviewTrainLine,
-} from 'state/coordinateSystem/coordinateSystemDrawingLineState'
-import { useGetCoordinatePlaneSize } from 'state/coordinateSystem/coordinatePlaneSizeState'
+} from 'state/CoordinateSystem/coordinateSystemDrawingLineState'
+import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
+import { useSetTrainLine } from 'state/Train/trainLineState'
 import {
+  TrainLineColorName,
+  TrainPlatformType,
   TrainLineDirection,
   TrainLineType,
-  useSetTrainLine,
-} from 'state/train/trainLineState'
-import { TrainLineColorName } from 'state/train/trainLineColorState'
+} from 'types/Train.types'
 
 type TrainLinePreviewMode = 'drawing' | 'preview' | null
 

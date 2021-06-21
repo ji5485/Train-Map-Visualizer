@@ -1,12 +1,10 @@
 import { createElement, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import {
-  TrainLineColorName,
-  useGetTrainLineColor,
-} from 'state/train/trainLineColorState'
+import { useGetTrainLineColor } from 'state/Train/trainLineColorState'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { MdClose } from 'react-icons/md'
 import { GrAdd } from 'react-icons/gr'
+import { TrainLineColorName } from 'types/Train.types'
 
 type TrainLineItemProps = {
   name: string

@@ -1,9 +1,6 @@
 import shortId from 'utils/shortId'
-import {
-  TrainLineItemType,
-  useStateTrainLineList,
-} from 'state/train/trainLineListState'
-import { TrainLineColorName } from 'state/train/trainLineColorState'
+import { useStateTrainLineList } from 'state/Train/trainLineListState'
+import { TrainLineItemType, TrainLineColorName } from 'types/Train.types'
 
 type useManageTrainLineListType = {
   createTrainLine: (

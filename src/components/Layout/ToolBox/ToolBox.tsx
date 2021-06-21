@@ -1,15 +1,10 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import {
-  CurrentModeType,
-  useSetCoordinateSystemCurrentMode,
-} from 'state/coordinateSystem/coordinateSystemCurrentModeState'
-import {
-  SideBarContentType,
-  SideBarType,
-  useStateSideBar,
-} from 'state/sideBar/sideBarState'
+import { useSetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
+import { useStateSideBar } from 'state/SideBar/sideBarState'
 import ToolIcon from 'components/Layout/ToolMenu'
+import { CoordinateSystemCurrentModeType } from 'types/CoordinateSystem.types'
+import { SideBarContentType, SideBarType } from 'types/SideBar.types'
 
 const ToolBox: FunctionComponent = function () {
   const [{ isOpen }, setSideBar] = useStateSideBar()
@@ -17,7 +12,7 @@ const ToolBox: FunctionComponent = function () {
 
   const handleClickToolMenu = (
     openOrNot: boolean,
-    mode: CurrentModeType,
+    mode: CoordinateSystemCurrentModeType,
     sideBarMenu: SideBarContentType | null = null,
   ) => () => {
     const nextSideBarState = (prevState: SideBarType) => ({

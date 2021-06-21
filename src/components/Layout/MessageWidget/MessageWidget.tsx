@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { useGetCoordinateSystemCurrentMode } from 'state/coordinateSystem/coordinateSystemCurrentModeState'
+import { useGetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 
 const MESSAGE_TYPE = {
   append: '적절한 위치에 지하철 역을 추가해주세요.',

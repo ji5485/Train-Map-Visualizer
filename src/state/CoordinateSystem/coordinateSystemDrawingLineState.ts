@@ -1,26 +1,12 @@
+import { atom, useRecoilState, Resetter, useResetRecoilState } from 'recoil'
 import {
-  atom,
-  SetterOrUpdater,
-  useRecoilState,
-  Resetter,
-  useResetRecoilState,
-} from 'recoil'
-import { TrainLineColorName } from 'state/train/trainLineColorState'
-import { TrainLineType } from 'state/train/trainLineState'
+  CoordinateSystemDrawingLineStatusType,
+  PreviewTrainLineType,
+} from 'types/CoordinateSystem.types'
+import { TrainLineType } from 'types/Train.types'
+import { Getter, Setter } from 'types/RecoilMethods.types'
 
 const PREVIEW_TRAIN_LINE_MAX_LENGTH = 50
-
-type CoordinateSystemDrawingLineStatusType = {
-  isFirst: boolean
-  isDrawing: boolean
-  previewTrainLineColor: TrainLineColorName
-  currentPosition: {
-    row: number
-    column: number
-  }
-}
-
-type PreviewTrainLineType = (TrainLineType | null)[][]
 
 const coordinateSystemDrawingLineStatusAtom = atom<CoordinateSystemDrawingLineStatusType>(
   {
@@ -47,8 +33,8 @@ const coordinateSystemPreviewTrainLineAtom = atom<PreviewTrainLineType>({
 })
 
 export const useManageCoordinateSystemDrawingLineStatus = (): [
-  CoordinateSystemDrawingLineStatusType,
-  SetterOrUpdater<CoordinateSystemDrawingLineStatusType>,
+  Getter<CoordinateSystemDrawingLineStatusType>,
+  Setter<CoordinateSystemDrawingLineStatusType>,
   Resetter,
 ] => {
   const [drawingLineStatus, setDrawingLineStatus] = useRecoilState(
@@ -62,8 +48,8 @@ export const useManageCoordinateSystemDrawingLineStatus = (): [
 }
 
 export const useManageCoordinateSystemPreviewTrainLine = (): [
-  PreviewTrainLineType,
-  SetterOrUpdater<PreviewTrainLineType>,
+  Getter<PreviewTrainLineType>,
+  Setter<PreviewTrainLineType>,
   Resetter,
 ] => {
   const [previewTrainLine, setPreviewTrainLine] = useRecoilState(
