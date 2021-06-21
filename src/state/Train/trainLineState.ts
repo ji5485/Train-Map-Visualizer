@@ -1,13 +1,12 @@
 import { atom, useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil'
 import { TrainLineType, TrainLineMatrixType } from 'types/Train.types'
 import { Getter, Setter, GetterAndSetter } from 'types/RecoilMethods.types'
-
-const TRAIN_LINE_MATRIX_MAX_LENGTH = 50
+import { TRAIN_MATRIX_MAX_LENGTH } from 'utils/constants'
 
 const trainLineAtom = atom<TrainLineMatrixType>({
   key: 'trainLine',
-  default: new Array<TrainLineType[][]>(TRAIN_LINE_MATRIX_MAX_LENGTH).fill(
-    new Array<TrainLineType[]>(TRAIN_LINE_MATRIX_MAX_LENGTH).fill([]),
+  default: new Array<TrainLineType[][]>(TRAIN_MATRIX_MAX_LENGTH).fill(
+    new Array<TrainLineType[]>(TRAIN_MATRIX_MAX_LENGTH).fill([]),
   ),
 })
 

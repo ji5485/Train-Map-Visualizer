@@ -1,9 +1,7 @@
 import { createElement, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
+import { TRAIN_LINE_ITEM_ICON } from 'utils/constants'
 import { useGetTrainLineColor } from 'state/Train/trainLineColorState'
-import { AiOutlineCheck } from 'react-icons/ai'
-import { MdClose } from 'react-icons/md'
-import { GrAdd } from 'react-icons/gr'
 import { TrainLineColorName } from 'types/Train.types'
 
 type TrainLineItemProps = {
@@ -11,21 +9,6 @@ type TrainLineItemProps = {
   color: TrainLineColorName
   iconType: 'check' | 'cancel' | 'append'
   onClick: () => void
-}
-
-const TRAIN_LINE_ITEM_ICON = {
-  check: {
-    component: AiOutlineCheck,
-    color: '#40c057',
-  },
-  cancel: {
-    component: MdClose,
-    color: '#fa5252',
-  },
-  append: {
-    component: GrAdd,
-    color: '#000000',
-  },
 }
 
 const TrainLineItem: FunctionComponent<TrainLineItemProps> = function ({

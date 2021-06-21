@@ -3,13 +3,7 @@ import { jsx, css } from '@emotion/react'
 import { useStateSideBar } from 'state/SideBar/sideBarState'
 import { useResetTrainForm } from 'state/SideBar/trainFormState'
 import { BiXCircle } from 'react-icons/bi'
-import TrainPlatformForm from 'components/AppendTrainPlatform/TrainPlatformForm'
-
-const SIDE_BAR_CONTENT = {
-  select_train: TrainPlatformForm,
-  select_line: TrainPlatformForm,
-  append: TrainPlatformForm,
-}
+import { SIDE_BAR_CONTENT } from 'utils/constants'
 
 const SideBar: FunctionComponent = function () {
   const [{ isOpen, menu }, setSideBar] = useStateSideBar()

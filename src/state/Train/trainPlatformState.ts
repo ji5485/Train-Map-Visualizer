@@ -1,17 +1,14 @@
 import { atom, useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil'
 import { TrainPlatformType, TrainPlatformMatrixType } from 'types/Train.types'
 import { Getter, Setter, GetterAndSetter } from 'types/RecoilMethods.types'
-
-const TRAIN_PLATFORM_MATRIX_MAX_LENGTH = 50
+import { TRAIN_MATRIX_MAX_LENGTH } from 'utils/constants'
 
 const trainPlatformAtom = atom<TrainPlatformMatrixType>({
   key: 'trainPlatform',
   default: new Array<(TrainPlatformType | null)[]>(
-    TRAIN_PLATFORM_MATRIX_MAX_LENGTH,
+    TRAIN_MATRIX_MAX_LENGTH,
   ).fill(
-    new Array<TrainPlatformType | null>(TRAIN_PLATFORM_MATRIX_MAX_LENGTH).fill(
-      null,
-    ),
+    new Array<TrainPlatformType | null>(TRAIN_MATRIX_MAX_LENGTH).fill(null),
   ),
 })
 

@@ -5,8 +5,7 @@ import {
 } from 'types/CoordinateSystem.types'
 import { TrainLineType } from 'types/Train.types'
 import { Getter, Setter } from 'types/RecoilMethods.types'
-
-const PREVIEW_TRAIN_LINE_MAX_LENGTH = 50
+import { TRAIN_MATRIX_MAX_LENGTH } from 'utils/constants'
 
 const coordinateSystemDrawingLineStatusAtom = atom<CoordinateSystemDrawingLineStatusType>(
   {
@@ -25,10 +24,8 @@ const coordinateSystemDrawingLineStatusAtom = atom<CoordinateSystemDrawingLineSt
 
 const coordinateSystemPreviewTrainLineAtom = atom<PreviewTrainLineType>({
   key: 'coordinateSystemPreviewTrainLine',
-  default: new Array<(TrainLineType | null)[]>(
-    PREVIEW_TRAIN_LINE_MAX_LENGTH,
-  ).fill(
-    new Array<TrainLineType | null>(PREVIEW_TRAIN_LINE_MAX_LENGTH).fill(null),
+  default: new Array<(TrainLineType | null)[]>(TRAIN_MATRIX_MAX_LENGTH).fill(
+    new Array<TrainLineType | null>(TRAIN_MATRIX_MAX_LENGTH).fill(null),
   ),
 })
 
