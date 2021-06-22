@@ -51,19 +51,47 @@ const CoordinatePlane: FunctionComponent<CoordinatePlaneProps> = function ({
             transform: `scale(${zoom})`,
           }}
         >
-          {[...Array<number>(height).keys()].map((row: number) => (
-            <div css={rowStyle} key={`row-${row}`}>
-              {[...Array<number>(width).keys()].map((column: number) => (
-                <Node
-                  key={`${row}-${column}`}
-                  row={row}
-                  column={column}
-                  trainPlatform={trainPlatformMatrix[row][column]}
-                  trainLine={trainLineMatrix[row][column]}
-                />
-              ))}
-            </div>
-          ))}
+          {[...Array<number>(height).keys()].map(
+            (row: number, rowIndex: number) => (
+              <div css={rowStyle} key={`row-${row}`}>
+                {[...Array<number>(width).keys()].map(
+                  (column: number, columnIndex: number) => {
+                    const nodeNumber = width * rowIndex + columnIndex + 1
+
+                    const trainLine = {
+                      top:
+                        rowIndex !== 0
+                          ? trainLineMatrix[nodeNumber][nodeNumber - width]
+                          : null,
+                      right:
+                        columnIndex !== width - 1
+                          ? trainLineMatrix[nodeNumber][nodeNumber + 1]
+                          : null,
+                      bottom:
+                        rowIndex !== height - 1
+                          ? trainLineMatrix[nodeNumber][nodeNumber + width]
+                          : null,
+                      left:
+                        columnIndex !== 0
+                          ? trainLineMatrix[nodeNumber][nodeNumber - 1]
+                          : null,
+                    }
+
+                    return (
+                      <Node
+                        key={`${row}-${column}`}
+                        row={row}
+                        column={column}
+                        nodeNumber={nodeNumber}
+                        trainPlatform={trainPlatformMatrix[row][column]}
+                        trainLine={trainLine}
+                      />
+                    )
+                  },
+                )}
+              </div>
+            ),
+          )}
         </div>
       </div>
     </div>

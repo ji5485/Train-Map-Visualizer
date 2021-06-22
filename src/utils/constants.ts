@@ -47,3 +47,11 @@ export const TOOL_MENU_ICON = {
 
 // Used in Train Line & Platform State
 export const TRAIN_MATRIX_MAX_LENGTH = 30
+
+// Used in useDrawTrainLine.tsx
+export const TRAIN_LINE_NEXT_POSITION = {
+  top: [-1, 0],
+  right: [0, 1],
+  bottom: [1, 0],
+  left: [0, -1],
+}

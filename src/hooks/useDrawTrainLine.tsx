@@ -12,7 +12,9 @@ import {
   TrainPlatformType,
   TrainLineDirection,
   TrainLineType,
+  TrainLineByDirection,
 } from 'types/Train.types'
+import { TRAIN_LINE_NEXT_POSITION } from 'utils/constants'
 
 type TrainLinePreviewMode = 'drawing' | 'preview' | null
 
@@ -25,19 +27,13 @@ type useDrawTrainLineType = {
   }
 }
 
-const NEXT_POSITION = {
-  top: [-1, 0],
-  right: [0, 1],
-  bottom: [1, 0],
-  left: [0, -1],
-}
-
 export default function useDrawTrainLine(
   row: number,
   column: number,
+  nodeNumber: number,
   nodeRef: MutableRefObject<HTMLDivElement | null>,
   trainPlatform: TrainPlatformType | null,
-  trainLine: TrainLineType[],
+  trainLine: TrainLineByDirection,
 ): useDrawTrainLineType {
   // Information About Coordinate System
   const [currentMode, setCurrentMode] = useStateCoordinateSystemCurrentMode()
@@ -110,13 +106,35 @@ export default function useDrawTrainLine(
   const createTrainLine = () => {
     for (let r = 0; r < coordinatePlaneHeight; r++) {
       for (let c = 0; c < coordinatePlaneWidth; c++) {
-        const previewTrainLineItem = previewTrainLine[r][c]
+        if (previewTrainLine[r][c] === null) continue
 
-        if (previewTrainLineItem === null) continue
+        const previewTrainLineItem: TrainLineType = previewTrainLine[r][c]
 
         setTrainLine(prev =>
           produce(prev, draft => {
-            draft[r][c].push(previewTrainLineItem)
+            switch (previewTrainLineItem.direction) {
+              case 'top':
+                draft[nodeNumber][nodeNumber - coordinatePlaneWidth] = draft[
+                  nodeNumber - coordiantePlaneWidth
+                ][nodeNumber] = previewTrainLineItem
+                break
+              case 'right':
+                draft[nodeNumber][nodeNumber + 1] = draft[nodeNumber + 1][
+                  nodeNumber
+                ] = previewTrainLineItem
+                break
+              case 'bottom':
+                draft[nodeNumber][nodeNumber + coordinatePlaneWidth] = draft[
+                  nodeNumber + coordinatePlaneWidth
+                ][nodeNumber] = previewTrainLineItem
+                break
+              case 'left':
+                draft[nodeNumber][nodeNumber - 1] = draft[nodeNumber - 1][
+                  nodeNumber
+                ] = previewTrainLineItem
+                break
+            }
+
             return draft
           }),
         )
@@ -148,13 +166,13 @@ export default function useDrawTrainLine(
         direction: TrainLineDirection,
       ) =>
         isInRange &&
-        previewTrainLine[row + NEXT_POSITION[direction][0]][
-          column + NEXT_POSITION[direction][1]
+        previewTrainLine[row + TRAIN_LINE_NEXT_POSITION[direction][0]][
+          column + TRAIN_LINE_NEXT_POSITION[direction][1]
         ] === null &&
-        0 <= row + NEXT_POSITION[direction][0] &&
-        row + NEXT_POSITION[direction][0] < coordinatePlaneHeight &&
-        0 <= column + NEXT_POSITION[direction][1] &&
-        column + NEXT_POSITION[direction][1] < coordinatePlaneWidth
+        0 <= row + TRAIN_LINE_NEXT_POSITION[direction][0] &&
+        row + TRAIN_LINE_NEXT_POSITION[direction][0] < coordinatePlaneHeight &&
+        0 <= column + TRAIN_LINE_NEXT_POSITION[direction][1] &&
+        column + TRAIN_LINE_NEXT_POSITION[direction][1] < coordinatePlaneWidth
 
       if (checkPreviewTrainLineDirection(-45 <= angle && angle < 45, 'right'))
         setDirection('right')
@@ -192,8 +210,8 @@ export default function useDrawTrainLine(
     setDrawingLineStatus(prev => ({
       ...prev,
       currentPosition: {
-        row: row + NEXT_POSITION[direction][0],
-        column: column + NEXT_POSITION[direction][1],
+        row: row + TRAIN_LINE_NEXT_POSITION[direction][0],
+        column: column + TRAIN_LINE_NEXT_POSITION[direction][1],
       },
     }))
     setPreviewTrainLine(prev =>

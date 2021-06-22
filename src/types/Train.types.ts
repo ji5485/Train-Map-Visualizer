@@ -26,4 +26,7 @@ export type TrainLineType = {
   color: TrainLineColorName
   direction: TrainLineDirection
 }
-export type TrainLineMatrixType = TrainLineType[][][]
+export type TrainLineMatrixType = (TrainLineType | null)[][]
+export type TrainLineByDirection = {
+  [Direction in TrainLineDirection]: TrainLineType | null
+}

@@ -5,8 +5,12 @@ import { TRAIN_MATRIX_MAX_LENGTH } from 'utils/constants'
 
 const trainLineAtom = atom<TrainLineMatrixType>({
   key: 'trainLine',
-  default: new Array<TrainLineType[][]>(TRAIN_MATRIX_MAX_LENGTH).fill(
-    new Array<TrainLineType[]>(TRAIN_MATRIX_MAX_LENGTH).fill([]),
+  default: new Array<(TrainLineType | null)[]>(
+    TRAIN_MATRIX_MAX_LENGTH * TRAIN_MATRIX_MAX_LENGTH,
+  ).fill(
+    new Array<TrainLineType | null>(
+      TRAIN_MATRIX_MAX_LENGTH * TRAIN_MATRIX_MAX_LENGTH,
+    ).fill(null),
   ),
 })
 
