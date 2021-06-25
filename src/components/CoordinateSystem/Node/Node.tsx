@@ -6,9 +6,8 @@ import TrainPlatform from 'components/CoordinateSystem/TrainPlatform'
 import TrainLine from 'components/CoordinateSystem/TrainLine'
 import {
   TrainPlatformType,
-  TrainLineDirection,
-  TrainLineType,
-  TrainLineByDirection,
+  TrainLineInNodeType,
+  TrainLineDirectionInNodeType,
 } from 'types/Train.types'
 
 type NodeProps = {
@@ -16,7 +15,8 @@ type NodeProps = {
   column: number
   nodeNumber: number
   trainPlatform: TrainPlatformType | null
-  trainLine: TrainLineByDirection
+  trainLine: TrainLineInNodeType
+  previewTrainLine: TrainLineInNodeType
 }
 
 const Node: FunctionComponent<NodeProps> = function ({
@@ -69,21 +69,25 @@ const Node: FunctionComponent<NodeProps> = function ({
           direction={currentDrawingLine.direction}
         />
       )}
-      {trainLinePreviewMode === 'preview' && previewTrainLine !== null && (
+      {/* {trainLinePreviewMode === 'preview' && previewTrainLine !== null && (
+        // TODO: Preview Train Line 구현하기
         <TrainLine
           color={previewTrainLine.color}
           direction={previewTrainLine.direction}
         />
-      )}
+      )} */}
 
-      {Object.values(trainLine).every(value => value !== null) &&
-        // Object.entries(trainLine).map(
-        //   ([direction, line]: [TrainLineDirection, TrainLineType | null]) => {
-        //     if (line === null) return
-        //     else return <TrainLine color={line.color} direction={direction} />
-        //   },
-        // )}
-        // TODO: Object.keys로 바꿔보기
+      {Object.keys(trainLine).map((direction, index) => {
+        const line = trainLine[direction as TrainLineDirectionInNodeType]
+
+        return line === null ? null : (
+          <TrainLine
+            color={line.color}
+            direction={line.direction}
+            key={index}
+          />
+        )
+      })}
     </div>
   )
 }

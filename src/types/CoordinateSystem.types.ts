@@ -1,4 +1,4 @@
-import { TrainLineColorName, TrainLineType } from 'types/Train.types'
+import { TrainLineColorName } from 'types/Train.types'
 
 // Coordinate Plane Size Type
 export type CoordinatePlaneSizeType = {
@@ -23,4 +23,3 @@ export type CoordinateSystemDrawingLineStatusType = {
     column: number
   }
 }
-export type PreviewTrainLineType = (TrainLineType | null)[][]

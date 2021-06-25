@@ -21,12 +21,15 @@ export type TrainPlatformType = {
 export type TrainPlatformMatrixType = (TrainPlatformType | null)[][]
 
 // Train Line Type
+export type TrainLinePreviewMode = 'drawing' | 'preview' | null
 export type TrainLineDirection = 'top' | 'right' | 'bottom' | 'left'
 export type TrainLineType = {
   color: TrainLineColorName
   direction: TrainLineDirection
 }
 export type TrainLineMatrixType = (TrainLineType | null)[][]
-export type TrainLineByDirection = {
-  [Direction in TrainLineDirection]: TrainLineType | null
+export type TrainLineInNodeType = {
+  right: TrainLineType | null
+  bottom: TrainLineType | null
 }
+export type TrainLineDirectionInNodeType = keyof TrainLineInNodeType

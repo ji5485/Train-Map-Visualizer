@@ -8,15 +8,16 @@ import {
 import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
 import { useSetTrainLine } from 'state/Train/trainLineState'
 import {
+  TrainLinePreviewMode,
   TrainLineColorName,
   TrainPlatformType,
   TrainLineDirection,
   TrainLineType,
-  TrainLineByDirection,
+  TrainLineInNodeType,
+  TrainLineMatrixType,
 } from 'types/Train.types'
+import { Setter } from 'types/RecoilMethods.types'
 import { TRAIN_LINE_NEXT_POSITION } from 'utils/constants'
-
-type TrainLinePreviewMode = 'drawing' | 'preview' | null
 
 type useDrawTrainLineType = {
   trainLinePreviewMode: TrainLinePreviewMode
@@ -33,7 +34,7 @@ export default function useDrawTrainLine(
   nodeNumber: number,
   nodeRef: MutableRefObject<HTMLDivElement | null>,
   trainPlatform: TrainPlatformType | null,
-  trainLine: TrainLineByDirection,
+  trainLine: TrainLineInNodeType,
 ): useDrawTrainLineType {
   // Information About Coordinate System
   const [currentMode, setCurrentMode] = useStateCoordinateSystemCurrentMode()
@@ -64,13 +65,43 @@ export default function useDrawTrainLine(
   // Train Line Setter
   const setTrainLine = useSetTrainLine()
 
+  const setTrainLineMatrix = (
+    trainLineSetter: Setter<TrainLineMatrixType>,
+    trainLineItem: TrainLineType,
+  ) => {
+    trainLineSetter(prev =>
+      produce(prev, draft => {
+        switch (trainLineItem.direction) {
+          case 'top':
+            draft[nodeNumber][nodeNumber - coordinatePlaneWidth] = draft[
+              nodeNumber - coordinatePlaneWidth
+            ][nodeNumber] = trainLineItem
+            break
+          case 'right':
+            draft[nodeNumber][nodeNumber + 1] = draft[nodeNumber + 1][
+              nodeNumber
+            ] = trainLineItem
+            break
+          case 'bottom':
+            draft[nodeNumber][nodeNumber + coordinatePlaneWidth] = draft[
+              nodeNumber + coordinatePlaneWidth
+            ][nodeNumber] = trainLineItem
+            break
+          case 'left':
+            draft[nodeNumber][nodeNumber - 1] = draft[nodeNumber - 1][
+              nodeNumber
+            ] = trainLineItem
+            break
+        }
+
+        return draft
+      }),
+    )
+  }
+
   // Function for starting draw train line
   const startDrawing = () => {
-    // if (trainPlatform !== null && isFirst) {
-    //   const maxTrainLine = trainPlatform.line.length * 2
-
-    //   if (maxTrainLine < trainLine.length + 1) return
-    // }
+    // TODO: 하나의 호선에 대한 선로의 개수 체크
     console.log(trainLine)
 
     setDrawingLineStatus(prev =>
@@ -90,54 +121,13 @@ export default function useDrawTrainLine(
     setTrainLinePreviewMode('drawing')
   }
 
-  // Function for finishing draw train line
-  const finishDrawing = () => {
-    setTrainLinePreviewMode('preview')
-
-    if (isFirst)
-      setDrawingLineStatus(prev =>
-        produce(prev, draft => {
-          draft.isFirst = false
-          return draft
-        }),
-      )
-  }
-
   const createTrainLine = () => {
     for (let r = 0; r < coordinatePlaneHeight; r++) {
       for (let c = 0; c < coordinatePlaneWidth; c++) {
-        if (previewTrainLine[r][c] === null) continue
+        const previewTrainLineItem = previewTrainLine[r][c]
+        if (previewTrainLineItem === null) continue
 
-        const previewTrainLineItem: TrainLineType = previewTrainLine[r][c]
-
-        setTrainLine(prev =>
-          produce(prev, draft => {
-            switch (previewTrainLineItem.direction) {
-              case 'top':
-                draft[nodeNumber][nodeNumber - coordinatePlaneWidth] = draft[
-                  nodeNumber - coordiantePlaneWidth
-                ][nodeNumber] = previewTrainLineItem
-                break
-              case 'right':
-                draft[nodeNumber][nodeNumber + 1] = draft[nodeNumber + 1][
-                  nodeNumber
-                ] = previewTrainLineItem
-                break
-              case 'bottom':
-                draft[nodeNumber][nodeNumber + coordinatePlaneWidth] = draft[
-                  nodeNumber + coordinatePlaneWidth
-                ][nodeNumber] = previewTrainLineItem
-                break
-              case 'left':
-                draft[nodeNumber][nodeNumber - 1] = draft[nodeNumber - 1][
-                  nodeNumber
-                ] = previewTrainLineItem
-                break
-            }
-
-            return draft
-          }),
-        )
+        setTrainLineMatrix(setTrainLine, previewTrainLineItem)
       }
     }
 
@@ -146,7 +136,18 @@ export default function useDrawTrainLine(
 
   // Drawing Train Line
   useEffect(() => {
-    if (!isDrawing || trainLinePreviewMode !== 'drawing') return
+    // Function for finishing draw train line
+    const finishDrawing = () => {
+      setTrainLinePreviewMode('preview')
+
+      if (isFirst)
+        setDrawingLineStatus(prev =>
+          produce(prev, draft => {
+            draft.isFirst = false
+            return draft
+          }),
+        )
+    }
 
     const drawing = (event: MouseEvent) => {
       if (nodeRef.current === null) return
@@ -161,46 +162,57 @@ export default function useDrawTrainLine(
       const relativeX = event.clientX - (left + width / 2)
       const angle = 180 * (Math.atan2(relativeY, relativeX) / Math.PI)
 
-      const checkPreviewTrainLineDirection = (
-        isInRange: boolean,
-        direction: TrainLineDirection,
-      ) =>
-        isInRange &&
-        previewTrainLine[row + TRAIN_LINE_NEXT_POSITION[direction][0]][
-          column + TRAIN_LINE_NEXT_POSITION[direction][1]
-        ] === null &&
-        0 <= row + TRAIN_LINE_NEXT_POSITION[direction][0] &&
-        row + TRAIN_LINE_NEXT_POSITION[direction][0] < coordinatePlaneHeight &&
-        0 <= column + TRAIN_LINE_NEXT_POSITION[direction][1] &&
-        column + TRAIN_LINE_NEXT_POSITION[direction][1] < coordinatePlaneWidth
+      const getDirectionByAngle = (): TrainLineDirection => {
+        if (45 <= angle && angle < 135) return 'top'
+        else if (-45 <= angle && angle < 45) return 'right'
+        else if (-135 <= angle && angle < -45) return 'bottom'
+        else return 'left'
+      }
 
-      if (checkPreviewTrainLineDirection(-45 <= angle && angle < 45, 'right'))
-        setDirection('right')
-      else if (
-        checkPreviewTrainLineDirection(45 <= angle && angle < 135, 'top')
-      )
-        setDirection('top')
-      else if (
-        checkPreviewTrainLineDirection(135 <= angle || angle < -135, 'left')
-      )
-        setDirection('left')
-      else if (
-        checkPreviewTrainLineDirection(-135 <= angle && angle < -45, 'bottom')
-      )
-        setDirection('bottom')
+      const checkPreviewTrainLineDirection = () => {
+        const direction = getDirectionByAngle()
 
+        const isNotExistNextNodeInCoord = {
+          top: nodeNumber <= coordinatePlaneWidth,
+          right: nodeNumber / coordinatePlaneWidth === 0,
+          bottom:
+            coordinatePlaneWidth * (coordinatePlaneHeight - 1) + 1 <=
+            nodeNumber,
+          left: nodeNumber % coordinatePlaneWidth === 1,
+        }
+
+        if (isNotExistNextNodeInCoord[direction]) return null
+
+        const nextNodeNumber = {
+          top: nodeNumber - coordinatePlaneWidth,
+          right: nodeNumber + 1,
+          bottom: nodeNumber + coordinatePlaneWidth,
+          left: nodeNumber - 1,
+        }
+
+        if (
+          previewTrainLine[nodeNumber][nextNodeNumber[direction]] !== null ||
+          previewTrainLine[nextNodeNumber[direction]][nodeNumber] !== null
+        )
+          return null
+
+        return direction
+      }
+
+      setDirection(checkPreviewTrainLineDirection())
       window.document.addEventListener('click', finishDrawing, { once: true })
     }
 
-    window.document.addEventListener('mousemove', drawing)
+    if (isDrawing && trainLinePreviewMode === 'drawing')
+      window.document.addEventListener('mousemove', drawing)
 
     return () => window.document.removeEventListener('mousemove', drawing)
-  }, [trainLinePreviewMode])
+  }, [trainLinePreviewMode, direction])
 
   // Append Preview Train Line After Drawing Train Line
   useEffect(() => {
-    if (isDrawing && trainLinePreviewMode === 'drawing') return
     if (direction === null) return
+    if (isDrawing && trainLinePreviewMode === 'drawing') return
 
     const newPreviewTrainLine: TrainLineType = {
       color: previewTrainLineColor,
@@ -214,12 +226,7 @@ export default function useDrawTrainLine(
         column: column + TRAIN_LINE_NEXT_POSITION[direction][1],
       },
     }))
-    setPreviewTrainLine(prev =>
-      produce(prev, draft => {
-        draft[row][column] = newPreviewTrainLine
-        return draft
-      }),
-    )
+    setTrainLineMatrix(setPreviewTrainLine, newPreviewTrainLine)
   }, [trainLinePreviewMode])
 
   // Start to draw train line with "startDrawing" Function
