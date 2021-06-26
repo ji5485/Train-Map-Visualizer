@@ -6,12 +6,10 @@ import {
   useSetCoordinatePlaneSize,
   useGetCalculatedCoordinatePlaneSize,
 } from 'state/CoordinateSystem/coordinatePlaneSizeState'
-import { useGetCoordinateSystemPreviewTrainLine } from 'state/CoordinateSystem/coordinateSystemDrawingLineState'
 import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
 import { useGetTrainLine } from 'state/Train/trainLineState'
 import useChangeCursor from 'hooks/useChangeCursor'
 import useScrollWithMouse from 'hooks/useScrollWithMouse'
-import { TrainLineInNodeType, TrainLineMatrixType } from 'types/Train.types'
 
 type CoordinatePlaneProps = {
   width: number
@@ -35,7 +33,6 @@ const CoordinatePlane: FunctionComponent<CoordinatePlaneProps> = function ({
 
   const trainPlatformMatrix = useGetTrainPlatform()
   const trainLineMatrix = useGetTrainLine()
-  const previewTrainLineMatrix = useGetCoordinateSystemPreviewTrainLine()
 
   return (
     <div ref={coordPlaneRef} css={coordPlaneStyle}>
@@ -61,18 +58,16 @@ const CoordinatePlane: FunctionComponent<CoordinatePlaneProps> = function ({
                   (column: number, columnIndex: number) => {
                     const nodeNumber = width * rowIndex + columnIndex + 1
 
-                    const getTrainLineForNode = (
-                      matrix: TrainLineMatrixType,
-                    ): TrainLineInNodeType => ({
+                    const trainLine = {
                       right:
                         columnIndex !== width - 1
-                          ? matrix[nodeNumber][nodeNumber + 1]
+                          ? trainLineMatrix[nodeNumber][nodeNumber + 1]
                           : null,
                       bottom:
                         rowIndex !== height - 1
-                          ? matrix[nodeNumber][nodeNumber + width]
+                          ? trainLineMatrix[nodeNumber][nodeNumber + width]
                           : null,
-                    })
+                    }
 
                     return (
                       <Node
@@ -81,10 +76,7 @@ const CoordinatePlane: FunctionComponent<CoordinatePlaneProps> = function ({
                         column={column}
                         nodeNumber={nodeNumber}
                         trainPlatform={trainPlatformMatrix[row][column]}
-                        trainLine={getTrainLineForNode(trainLineMatrix)}
-                        previewTrainLine={getTrainLineForNode(
-                          previewTrainLineMatrix,
-                        )}
+                        trainLine={trainLine}
                       />
                     )
                   },

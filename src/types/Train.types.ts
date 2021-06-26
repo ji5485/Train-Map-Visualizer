@@ -28,8 +28,18 @@ export type TrainLineType = {
   direction: TrainLineDirection
 }
 export type TrainLineMatrixType = (TrainLineType | null)[][]
-export type TrainLineInNodeType = {
+export type TrainLineForNodeType = {
   right: TrainLineType | null
   bottom: TrainLineType | null
 }
-export type TrainLineDirectionInNodeType = keyof TrainLineInNodeType
+export type TrainLineDirectionForNodeType = keyof TrainLineForNodeType
+
+// Preview Train Line Type
+export type PreviewTrainLineTraceType = boolean[][]
+export type PreviewTrainLineStackItemType = {
+  start: number
+  destination: number
+  row: number
+  column: number
+}
+export type PreviewTrainLineStackType = PreviewTrainLineStackItemType[]
