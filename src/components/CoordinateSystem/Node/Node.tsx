@@ -31,8 +31,6 @@ const Node: FunctionComponent<NodeProps> = function ({
     previewTrainPlatform: { platformName, selectedTrainLine },
   } = useManageTrainPlatform(row, column, nodeRef, trainPlatform)
   const { isDrawingCurrentNode, currentDrawingLine } = useDrawTrainLine(
-    row,
-    column,
     nodeNumber,
     nodeRef,
     trainPlatform,
