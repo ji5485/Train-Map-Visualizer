@@ -6,13 +6,9 @@ const coordinateSystemDrawingLineStatusAtom = atom<CoordinateSystemDrawingLineSt
   {
     key: 'coordinateSystemDrawingLineStatus',
     default: {
-      isFirst: true,
       isDrawing: false,
       previewTrainLineColor: 'blue',
-      currentPosition: {
-        row: 0,
-        column: 0,
-      },
+      currentNode: 0,
     },
   },
 )

@@ -15,11 +15,7 @@ export type CoordinateSystemCurrentModeType =
 
 // Coordinate System Drawing Line Type
 export type CoordinateSystemDrawingLineStatusType = {
-  isFirst: boolean
   isDrawing: boolean
   previewTrainLineColor: TrainLineColorName
-  currentPosition: {
-    row: number
-    column: number
-  }
+  currentNode: number
 }
