@@ -27,11 +27,11 @@ const previewTrainLineStackAtom = atom<PreviewTrainLineStackType>({
 export const useGetPreviewTrainLineTrace = (): Getter<PreviewTrainLineTraceType> =>
   useRecoilValue(previewTrainLineTraceAtom)
 
-export const useManagePreviewTrainLineTrace = (): [
-  Getter<PreviewTrainLineTraceType>,
-  Setter<PreviewTrainLineTraceType>,
-  Resetter,
-] => {
+export const useManagePreviewTrainLineTrace = (): {
+  previewTrainLineTrace: Getter<PreviewTrainLineTraceType>
+  setPreviewTrainLineTrace: Setter<PreviewTrainLineTraceType>
+  resetPreviewTrainLineTrace: Resetter
+} => {
   const [previewTrainLineTrace, setPreviewTrainLineTrace] = useRecoilState(
     previewTrainLineTraceAtom,
   )
@@ -39,18 +39,18 @@ export const useManagePreviewTrainLineTrace = (): [
     previewTrainLineTraceAtom,
   )
 
-  return [
+  return {
     previewTrainLineTrace,
     setPreviewTrainLineTrace,
     resetPreviewTrainLineTrace,
-  ]
+  }
 }
 
-export const useManagePreviewTrainLineStack = (): [
-  Getter<PreviewTrainLineStackType>,
-  Setter<PreviewTrainLineStackType>,
-  Resetter,
-] => {
+export const useManagePreviewTrainLineStack = (): {
+  previewTrainLineStack: Getter<PreviewTrainLineStackType>
+  setPreviewTrainLineStack: Setter<PreviewTrainLineStackType>
+  resetPreviewTrainLineStack: Resetter
+} => {
   const [previewTrainLineStack, setPreviewTrainLineStack] = useRecoilState(
     previewTrainLineStackAtom,
   )
@@ -58,9 +58,9 @@ export const useManagePreviewTrainLineStack = (): [
     previewTrainLineStackAtom,
   )
 
-  return [
+  return {
     previewTrainLineStack,
     setPreviewTrainLineStack,
     resetPreviewTrainLineStack,
-  ]
+  }
 }

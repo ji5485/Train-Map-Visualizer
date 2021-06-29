@@ -8,6 +8,7 @@ import {
   TrainPlatformType,
   TrainLineForNodeType,
   TrainLineDirectionForNodeType,
+  TrainLineDirection,
 } from 'types/Train.types'
 
 type NodeProps = {
@@ -68,7 +69,7 @@ const Node: FunctionComponent<NodeProps> = function ({
         return line === null ? null : (
           <TrainLine
             color={line.color}
-            direction={line.direction}
+            direction={direction as TrainLineDirection}
             key={index}
           />
         )

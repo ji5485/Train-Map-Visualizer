@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect, MutableRefObject } from 'react'
 import produce from 'immer'
 import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
@@ -47,25 +46,17 @@ export default function useDrawTrainLine(
 
   // Train Line Setter
   const [trainLine, setTrainLine] = useStateTrainLine()
-  const [
+  const {
     previewTrainLineTrace,
     setPreviewTrainLineTrace,
     resetPreviewTrainLineTrace,
-  ] = useManagePreviewTrainLineTrace()
-  const [
-    previewTrainLineStack,
+  } = useManagePreviewTrainLineTrace()
+  const {
     setPreviewTrainLineStack,
     resetPreviewTrainLineStack,
-  ] = useManagePreviewTrainLineStack()
+  } = useManagePreviewTrainLineStack()
 
   // Node Position Information
-  const [{ nodeRow, nodeColumn }, setPosition] = useState<{
-    nodeRow: number
-    nodeColumn: number
-  }>({
-    nodeRow: 0,
-    nodeColumn: 0,
-  })
   const [nextNodeNumber, setNextNodeNumber] = useState<{
     top: number
     right: number
@@ -78,14 +69,16 @@ export default function useDrawTrainLine(
     left: 0,
   })
 
+  // 노드 넘버를 통해 현재 위치를 구하는 함수
+  const getPositionByNodeNumber = (number: number) => ({
+    row: Math.floor((number - 1) / width),
+    column: (number - 1) % width,
+  })
+
   // Set Position of Current Node and Next Node Number
   useEffect(() => {
     if (width === 0) return
 
-    setPosition({
-      nodeRow: Math.floor((nodeNumber - 1) / width),
-      nodeColumn: (nodeNumber - 1) % width,
-    })
     setNextNodeNumber({
       top: nodeNumber - width,
       right: nodeNumber + 1,
@@ -143,6 +136,34 @@ export default function useDrawTrainLine(
         else return 'left'
       }
 
+      const getNextPositionByDirection = (direction: TrainLineDirection) => {
+        const nextPosByDirection = [
+          { direction: 'top', value: -1 },
+          { direction: 'right', value: 1 },
+          { direction: 'bottom', value: 1 },
+          { direction: 'left', value: -1 },
+        ]
+
+        const nextPosValue = nextPosByDirection.find(
+          nextPos => nextPos.direction === direction,
+        )
+        const { row, column } = getPositionByNodeNumber(nodeNumber)
+
+        const nextRow =
+          ['top', 'bottom'].includes(direction) && nextPosValue
+            ? row + nextPosValue.value
+            : row
+        const nextColumn =
+          ['right', 'left'].includes(direction) && nextPosValue
+            ? column + nextPosValue.value
+            : column
+
+        return {
+          nextRow,
+          nextColumn,
+        }
+      }
+
       const checkPreviewTrainLineDirection = () => {
         const direction = getDirectionByAngle()
 
@@ -152,13 +173,15 @@ export default function useDrawTrainLine(
           bottom: width * (height - 1) + 1 <= nodeNumber,
           left: nodeNumber % width === 1,
         }
-
         if (
           isNotExistNextNodeInCoord[direction] ||
           trainLine[nodeNumber][nextNodeNumber[direction]] !== null ||
           trainLine[nextNodeNumber[direction]][nodeNumber] !== null
         )
           return null
+
+        const { nextRow, nextColumn } = getNextPositionByDirection(direction)
+        if (previewTrainLineTrace[nextRow][nextColumn]) return null
 
         return direction
       }
@@ -171,13 +194,11 @@ export default function useDrawTrainLine(
     if (isDrawing && isDrawingCurrentNode) {
       window.document.addEventListener('mousemove', drawing)
       window.document.addEventListener('click', completeDrawing, { once: true })
-      console.log('Add Event Listener')
     }
 
     return () => {
       window.document.removeEventListener('mousemove', drawing)
       window.document.removeEventListener('click', completeDrawing)
-      console.log('Remove Event Listener')
     }
   }, [isDrawing, isDrawingCurrentNode])
 
@@ -189,22 +210,21 @@ export default function useDrawTrainLine(
       return
     }
 
-    console.log(nodeNumber, nextNodeNumber[direction])
-
+    const { row, column } = getPositionByNodeNumber(nodeNumber)
     const newPreviewTrainLineStackItem: PreviewTrainLineStackItemType = {
       start: nodeNumber,
       destination: nextNodeNumber[direction],
-      row: nodeRow,
-      column: nodeColumn,
+      row,
+      column,
     }
+
+    const { start, destination } = newPreviewTrainLineStackItem
 
     setTrainLine(prev =>
       produce(prev, draft => {
         const newPreviewTrainLine: TrainLineType = {
           color: previewTrainLineColor,
-          direction,
         }
-        const { start, destination } = newPreviewTrainLineStackItem
 
         draft[start][destination] = draft[destination][
           start
@@ -212,17 +232,16 @@ export default function useDrawTrainLine(
         return draft
       }),
     )
-
     setPreviewTrainLineTrace(prev =>
       produce(prev, draft => {
-        draft[nodeRow][nodeColumn] = true
+        draft[row][column] = true
         return draft
       }),
     )
     setPreviewTrainLineStack(prev => [...prev, newPreviewTrainLineStackItem])
     setDrawingLineStatus(prev => ({
       ...prev,
-      currentNode: nextNodeNumber[direction],
+      currentNode: destination,
     }))
   }, [isDrawingCurrentNode])
 
@@ -232,10 +251,8 @@ export default function useDrawTrainLine(
       return
 
     if (isDrawing) startDrawing()
-    else {
+    else
       nodeRef.current?.addEventListener('click', startDrawing, { once: true })
-      console.log('abc')
-    }
 
     return () => nodeRef.current?.removeEventListener('click', startDrawing)
   }, [currentMode, isDrawing, currentNode])
