@@ -4,7 +4,7 @@ import CoordinatePlane from 'components/CoordinateSystem/CoordinatePlane'
 import ToolBox from 'components/Layout/ToolBox'
 import ZoomWidget from 'components/Layout/ZoomWidget'
 import MessageWidget from 'components/Layout/MessageWidget'
-import ManageTrainInfoWidget from 'components/Layout/ManageTrainInfoWidget'
+import HelperWidget from 'components/Layout/HelperWidget'
 
 const Display: FunctionComponent = function () {
   return (
@@ -13,7 +13,7 @@ const Display: FunctionComponent = function () {
       <ToolBox />
       <ZoomWidget />
       <MessageWidget />
-      <ManageTrainInfoWidget />
+      <HelperWidget />
     </div>
   )
 }

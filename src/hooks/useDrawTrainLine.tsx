@@ -32,11 +32,11 @@ export default function useDrawTrainLine(
   // Information About Coordinate System
   const [currentMode, setCurrentMode] = useStateCoordinateSystemCurrentMode()
   const { width, height } = useGetCoordinatePlaneSize()
-  const [
-    { isDrawing, previewTrainLineColor, currentNode },
+  const {
+    drawingLineStatus: { isDrawing, previewTrainLineColor, currentNode },
     setDrawingLineStatus,
     resetDrawingLineStatus,
-  ] = useManageCoordinateSystemDrawingLineStatus()
+  } = useManageCoordinateSystemDrawingLineStatus()
 
   // Drawing Mode of Current Node
   const [isDrawingCurrentNode, setIsDrawingCurrentNode] = useState<boolean>(
@@ -52,6 +52,7 @@ export default function useDrawTrainLine(
     resetPreviewTrainLineTrace,
   } = useManagePreviewTrainLineTrace()
   const {
+    previewTrainLineStack,
     setPreviewTrainLineStack,
     resetPreviewTrainLineStack,
   } = useManagePreviewTrainLineStack()
@@ -89,9 +90,6 @@ export default function useDrawTrainLine(
 
   // 선로 그리기 시작 함수
   const startDrawing = () => {
-    // console.log(isDrawing, trainPlatform)
-    // if (isDrawing && trainPlatform !== null) finishDrawing()
-
     // TODO: 하나의 호선에 대한 선로의 개수 체크
     const previewTrainLineColor =
       trainPlatform !== null ? trainPlatform.line[0].color : 'blue'
@@ -107,6 +105,7 @@ export default function useDrawTrainLine(
     }
   }
 
+  // 선로 그리기를 끝내는 함수
   const finishDrawing = () => {
     setCurrentMode('hand')
     resetDrawingLineStatus()
@@ -245,17 +244,23 @@ export default function useDrawTrainLine(
     }))
   }, [isDrawingCurrentNode])
 
-  // StartDrawing을 실행시키기 위한 부분
+  // startDrawing 함수와 finishDrawing 함수를 실행시키기 위한 부분
   useEffect(() => {
     if (currentMode !== 'line' || (isDrawing && currentNode !== nodeNumber))
       return
 
-    if (isDrawing) startDrawing()
-    else
+    if (isDrawing) {
+      if (trainPlatform !== null && previewTrainLineStack.length !== 0)
+        finishDrawing()
+      else startDrawing()
+    } else
       nodeRef.current?.addEventListener('click', startDrawing, { once: true })
 
-    return () => nodeRef.current?.removeEventListener('click', startDrawing)
-  }, [currentMode, isDrawing, currentNode])
+    return () => {
+      setIsDrawingCurrentNode(false)
+      nodeRef.current?.removeEventListener('click', startDrawing)
+    }
+  }, [currentMode, isDrawing, currentNode, previewTrainLineStack.length])
 
   return {
     isDrawingCurrentNode,

@@ -13,11 +13,11 @@ const coordinateSystemDrawingLineStatusAtom = atom<CoordinateSystemDrawingLineSt
   },
 )
 
-export const useManageCoordinateSystemDrawingLineStatus = (): [
-  Getter<CoordinateSystemDrawingLineStatusType>,
-  Setter<CoordinateSystemDrawingLineStatusType>,
-  Resetter,
-] => {
+export const useManageCoordinateSystemDrawingLineStatus = (): {
+  drawingLineStatus: Getter<CoordinateSystemDrawingLineStatusType>
+  setDrawingLineStatus: Setter<CoordinateSystemDrawingLineStatusType>
+  resetDrawingLineStatus: Resetter
+} => {
   const [drawingLineStatus, setDrawingLineStatus] = useRecoilState(
     coordinateSystemDrawingLineStatusAtom,
   )
@@ -25,5 +25,5 @@ export const useManageCoordinateSystemDrawingLineStatus = (): [
     coordinateSystemDrawingLineStatusAtom,
   )
 
-  return [drawingLineStatus, setDrawingLineStatus, resetDrawingLineStatus]
+  return { drawingLineStatus, setDrawingLineStatus, resetDrawingLineStatus }
 }
