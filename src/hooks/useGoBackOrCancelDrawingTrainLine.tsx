@@ -1,3 +1,4 @@
+import { MouseEventHandler, MouseEvent } from 'react'
 import produce from 'immer'
 import {
   useManagePreviewTrainLineTrace,
@@ -9,8 +10,8 @@ import { useSetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordi
 import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
 
 type useGoBackOrCancelDrawingTrainLine = {
-  goBack: (event: Event) => void
-  cancel: (event: Event) => void
+  goBack: MouseEventHandler<HTMLDivElement>
+  cancel: MouseEventHandler<HTMLDivElement>
 }
 
 export default function useGoBackOrCancelDrawingTrainLine(): useGoBackOrCancelDrawingTrainLine {
@@ -36,6 +37,8 @@ export default function useGoBackOrCancelDrawingTrainLine(): useGoBackOrCancelDr
     row * width + column
 
   const removePrevTrainLine = () => {
+    if (previewTrainLineStack.length === 0) return
+
     const { start, destination, row, column } = previewTrainLineStack[
       previewTrainLineStack.length - 1
     ]
@@ -43,6 +46,7 @@ export default function useGoBackOrCancelDrawingTrainLine(): useGoBackOrCancelDr
     setTrainLine(prev =>
       produce(prev, draft => {
         draft[start][destination] = draft[destination][start] = null
+        console.log('Remove Train Line', start, destination)
         return draft
       }),
     )
@@ -60,8 +64,10 @@ export default function useGoBackOrCancelDrawingTrainLine(): useGoBackOrCancelDr
     )
   }
 
-  const goBack = (event: Event) => {
-    event.preventDefault()
+  const goBack = (event: MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation()
+
+    if (previewTrainLineStack.length === 0) return
 
     const { row, column } = previewTrainLineStack[
       previewTrainLineStack.length - 1
@@ -70,14 +76,14 @@ export default function useGoBackOrCancelDrawingTrainLine(): useGoBackOrCancelDr
     setDrawingLineStatus(prev =>
       produce(prev, draft => {
         draft.currentNode = getNodeNumberByPosition(row, column)
+        console.log('Reload Node Number : ', draft.currentNode)
+        return draft
       }),
     )
     removePrevTrainLine()
   }
 
-  const cancel = (event: Event) => {
-    event.preventDefault()
-
+  const cancel = () => {
     setCurrentMode('hand')
     resetDrawingLineStatus()
     resetPreviewTrainLineTrace()

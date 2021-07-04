@@ -72,8 +72,8 @@ export default function useDrawTrainLine(
 
   // 노드 넘버를 통해 현재 위치를 구하는 함수
   const getPositionByNodeNumber = (number: number) => ({
-    row: Math.floor((number - 1) / width),
-    column: (number - 1) % width,
+    row: Math.floor(number / width),
+    column: number % width,
   })
 
   // Set Position of Current Node and Next Node Number
@@ -167,10 +167,10 @@ export default function useDrawTrainLine(
         const direction = getDirectionByAngle()
 
         const isNotExistNextNodeInCoord = {
-          top: nodeNumber <= width,
-          right: nodeNumber / width === 0,
-          bottom: width * (height - 1) + 1 <= nodeNumber,
-          left: nodeNumber % width === 1,
+          top: nodeNumber < width,
+          right: (nodeNumber + 1) / width === 0,
+          bottom: width * (height - 1) <= nodeNumber,
+          left: (nodeNumber + 1) % width === 1,
         }
         if (
           isNotExistNextNodeInCoord[direction] ||
@@ -190,24 +190,36 @@ export default function useDrawTrainLine(
 
     const completeDrawing = () => setIsDrawingCurrentNode(false)
 
+    if (nodeNumber !== currentNode) {
+      setDirection(null)
+      return
+    }
+
     if (isDrawing && isDrawingCurrentNode) {
       window.document.addEventListener('mousemove', drawing)
-      window.document.addEventListener('click', completeDrawing, { once: true })
+      window.document.addEventListener('click', completeDrawing)
+      console.log('Add Event Listener', nodeNumber)
     }
 
     return () => {
       window.document.removeEventListener('mousemove', drawing)
       window.document.removeEventListener('click', completeDrawing)
+      if (currentNode === nodeNumber)
+        console.log('Remove Event Listener', nodeNumber)
     }
-  }, [isDrawing, isDrawingCurrentNode])
+  }, [isDrawing, isDrawingCurrentNode, currentNode])
 
   // 현재 노드 그리기 모드 종료 부분
   useEffect(() => {
-    if (!isDrawing || isDrawingCurrentNode) return
-    if (direction === null) {
-      setIsDrawingCurrentNode(true)
+    if (
+      !isDrawing ||
+      isDrawingCurrentNode ||
+      nodeNumber !== currentNode ||
+      direction === null
+    )
       return
-    }
+
+    console.log('Created!', nodeNumber, currentNode)
 
     const { row, column } = getPositionByNodeNumber(nodeNumber)
     const newPreviewTrainLineStackItem: PreviewTrainLineStackItemType = {
@@ -242,6 +254,7 @@ export default function useDrawTrainLine(
       ...prev,
       currentNode: destination,
     }))
+    console.log('Change Node Number: ', destination)
   }, [isDrawingCurrentNode])
 
   // startDrawing 함수와 finishDrawing 함수를 실행시키기 위한 부분
@@ -256,10 +269,7 @@ export default function useDrawTrainLine(
     } else
       nodeRef.current?.addEventListener('click', startDrawing, { once: true })
 
-    return () => {
-      setIsDrawingCurrentNode(false)
-      nodeRef.current?.removeEventListener('click', startDrawing)
-    }
+    return () => nodeRef.current?.removeEventListener('click', startDrawing)
   }, [currentMode, isDrawing, currentNode, previewTrainLineStack.length])
 
   return {

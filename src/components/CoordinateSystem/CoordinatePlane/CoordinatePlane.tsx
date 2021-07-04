@@ -56,7 +56,7 @@ const CoordinatePlane: FunctionComponent<CoordinatePlaneProps> = function ({
               <div css={rowStyle} key={`row-${row}`}>
                 {[...Array<number>(width).keys()].map(
                   (column: number, columnIndex: number) => {
-                    const nodeNumber = width * rowIndex + columnIndex + 1
+                    const nodeNumber = width * rowIndex + columnIndex
 
                     const trainLine = {
                       right:
