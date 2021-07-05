@@ -33,23 +33,30 @@ export default function useGoBackOrCancelDrawingTrainLine(): useGoBackOrCancelDr
     resetPreviewTrainLineStack,
   } = useManagePreviewTrainLineStack()
 
-  const getNodeNumberByPosition = (row: number, column: number) =>
-    row * width + column
+  const removeTrainLine = ({
+    start,
+    destination,
+  }: {
+    start: number
+    destination: number
+  }) =>
+    setTrainLine(prev =>
+      produce(prev, draft => {
+        draft[start][destination] = draft[destination][start] = null
+        return draft
+      }),
+    )
 
-  const removePrevTrainLine = () => {
+  const goBack = (event: MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation()
+
     if (previewTrainLineStack.length === 0) return
 
     const { start, destination, row, column } = previewTrainLineStack[
       previewTrainLineStack.length - 1
     ]
 
-    setTrainLine(prev =>
-      produce(prev, draft => {
-        draft[start][destination] = draft[destination][start] = null
-        console.log('Remove Train Line', start, destination)
-        return draft
-      }),
-    )
+    removeTrainLine({ start, destination })
     setPreviewTrainLineTrace(prev =>
       produce(prev, draft => {
         draft[row][column] = false
@@ -62,28 +69,17 @@ export default function useGoBackOrCancelDrawingTrainLine(): useGoBackOrCancelDr
         return draft
       }),
     )
-  }
-
-  const goBack = (event: MouseEvent<HTMLDivElement>) => {
-    event.stopPropagation()
-
-    if (previewTrainLineStack.length === 0) return
-
-    const { row, column } = previewTrainLineStack[
-      previewTrainLineStack.length - 1
-    ]
-
     setDrawingLineStatus(prev =>
       produce(prev, draft => {
-        draft.currentNode = getNodeNumberByPosition(row, column)
-        console.log('Reload Node Number : ', draft.currentNode)
+        draft.currentNode = row * width + column
         return draft
       }),
     )
-    removePrevTrainLine()
   }
 
   const cancel = () => {
+    previewTrainLineStack.forEach(removeTrainLine)
+
     setCurrentMode('hand')
     resetDrawingLineStatus()
     resetPreviewTrainLineTrace()

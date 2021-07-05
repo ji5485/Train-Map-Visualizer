@@ -1,4 +1,4 @@
-import { TrainLineColorName } from 'types/Train.types'
+import { TrainPlatformType, TrainLineItemType } from 'types/Train.types'
 
 // Coordinate Plane Size Type
 export type CoordinatePlaneSizeType = {
@@ -16,6 +16,7 @@ export type CoordinateSystemCurrentModeType =
 // Coordinate System Drawing Line Type
 export type CoordinateSystemDrawingLineStatusType = {
   isDrawing: boolean
-  previewTrainLineColor: TrainLineColorName
   currentNode: number
+  startTrainPlatform: TrainPlatformType | null
+  drawingLine: TrainLineItemType | null
 }

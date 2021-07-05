@@ -24,6 +24,26 @@ type useDrawTrainLineType = {
   }
 }
 
+// 노드 넘버를 통해 현재 위치를 구하는 함수
+const getPositionByNodeNumber = (number: number, width: number) => ({
+  row: Math.floor(number / width),
+  column: number % width,
+})
+
+// 노드 넘버가 좌표계 내에 있는지 체크하는 함수
+const checkNotExistNextNodeInCoord = (
+  nodeNumber: number,
+  direction: TrainLineDirection,
+  width: number,
+  height: number,
+) =>
+  ({
+    top: nodeNumber < width,
+    right: (nodeNumber + 1) / width === 0,
+    bottom: width * (height - 1) <= nodeNumber,
+    left: (nodeNumber + 1) % width === 1,
+  }[direction])
+
 export default function useDrawTrainLine(
   nodeNumber: number,
   nodeRef: MutableRefObject<HTMLDivElement | null>,
@@ -33,7 +53,7 @@ export default function useDrawTrainLine(
   const [currentMode, setCurrentMode] = useStateCoordinateSystemCurrentMode()
   const { width, height } = useGetCoordinatePlaneSize()
   const {
-    drawingLineStatus: { isDrawing, previewTrainLineColor, currentNode },
+    drawingLineStatus: { isDrawing, currentNode, drawingLine },
     setDrawingLineStatus,
     resetDrawingLineStatus,
   } = useManageCoordinateSystemDrawingLineStatus()
@@ -70,12 +90,6 @@ export default function useDrawTrainLine(
     left: 0,
   })
 
-  // 노드 넘버를 통해 현재 위치를 구하는 함수
-  const getPositionByNodeNumber = (number: number) => ({
-    row: Math.floor(number / width),
-    column: number % width,
-  })
-
   // Set Position of Current Node and Next Node Number
   useEffect(() => {
     if (width === 0) return
@@ -91,16 +105,34 @@ export default function useDrawTrainLine(
   // 선로 그리기 시작 함수
   const startDrawing = () => {
     // TODO: 하나의 호선에 대한 선로의 개수 체크
-    const previewTrainLineColor =
-      trainPlatform !== null ? trainPlatform.line[0].color : 'blue'
+    // const trainLineMap = Object.keys(nextNodeNumber).reduce<string[]>(
+    //   (map, direction) => {
+    //     const next = nextNodeNumber[direction as TrainLineDirection]
+    //     const nextTrainLine = trainLine[nodeNumber][next]
+
+    //     if (
+    //       !checkNotExistNextNodeInCoord(
+    //         nodeNumber,
+    //         direction as TrainLineDirection,
+    //         width,
+    //         height,
+    //       ) &&
+    //       nextTrainLine !== null
+    //     )
+    //       map.push(nextTrainLine.lineId)
+    //     return map
+    //   },
+    //   [],
+    // )
 
     setIsDrawingCurrentNode(true)
 
-    if (!isDrawing) {
+    if (!isDrawing && trainPlatform !== null) {
       setDrawingLineStatus({
         isDrawing: true,
-        previewTrainLineColor,
         currentNode: nodeNumber,
+        startTrainPlatform: trainPlatform,
+        drawingLine: trainPlatform.line[0],
       })
     }
   }
@@ -146,7 +178,7 @@ export default function useDrawTrainLine(
         const nextPosValue = nextPosByDirection.find(
           nextPos => nextPos.direction === direction,
         )
-        const { row, column } = getPositionByNodeNumber(nodeNumber)
+        const { row, column } = getPositionByNodeNumber(nodeNumber, width)
 
         const nextRow =
           ['top', 'bottom'].includes(direction) && nextPosValue
@@ -166,14 +198,8 @@ export default function useDrawTrainLine(
       const checkPreviewTrainLineDirection = () => {
         const direction = getDirectionByAngle()
 
-        const isNotExistNextNodeInCoord = {
-          top: nodeNumber < width,
-          right: (nodeNumber + 1) / width === 0,
-          bottom: width * (height - 1) <= nodeNumber,
-          left: (nodeNumber + 1) % width === 1,
-        }
         if (
-          isNotExistNextNodeInCoord[direction] ||
+          checkNotExistNextNodeInCoord(nodeNumber, direction, width, height) ||
           trainLine[nodeNumber][nextNodeNumber[direction]] !== null ||
           trainLine[nextNodeNumber[direction]][nodeNumber] !== null
         )
@@ -198,14 +224,11 @@ export default function useDrawTrainLine(
     if (isDrawing && isDrawingCurrentNode) {
       window.document.addEventListener('mousemove', drawing)
       window.document.addEventListener('click', completeDrawing)
-      console.log('Add Event Listener', nodeNumber)
     }
 
     return () => {
       window.document.removeEventListener('mousemove', drawing)
       window.document.removeEventListener('click', completeDrawing)
-      if (currentNode === nodeNumber)
-        console.log('Remove Event Listener', nodeNumber)
     }
   }, [isDrawing, isDrawingCurrentNode, currentNode])
 
@@ -215,13 +238,12 @@ export default function useDrawTrainLine(
       !isDrawing ||
       isDrawingCurrentNode ||
       nodeNumber !== currentNode ||
-      direction === null
+      direction === null ||
+      drawingLine === null
     )
       return
 
-    console.log('Created!', nodeNumber, currentNode)
-
-    const { row, column } = getPositionByNodeNumber(nodeNumber)
+    const { row, column } = getPositionByNodeNumber(nodeNumber, width)
     const newPreviewTrainLineStackItem: PreviewTrainLineStackItemType = {
       start: nodeNumber,
       destination: nextNodeNumber[direction],
@@ -234,7 +256,8 @@ export default function useDrawTrainLine(
     setTrainLine(prev =>
       produce(prev, draft => {
         const newPreviewTrainLine: TrainLineType = {
-          color: previewTrainLineColor,
+          lineId: drawingLine.id,
+          color: drawingLine.color,
         }
 
         draft[start][destination] = draft[destination][
@@ -254,7 +277,6 @@ export default function useDrawTrainLine(
       ...prev,
       currentNode: destination,
     }))
-    console.log('Change Node Number: ', destination)
   }, [isDrawingCurrentNode])
 
   // startDrawing 함수와 finishDrawing 함수를 실행시키기 위한 부분
@@ -275,7 +297,7 @@ export default function useDrawTrainLine(
   return {
     isDrawingCurrentNode,
     currentDrawingLine: {
-      color: previewTrainLineColor,
+      color: drawingLine !== null ? drawingLine.color : 'blue',
       direction,
     },
   }
