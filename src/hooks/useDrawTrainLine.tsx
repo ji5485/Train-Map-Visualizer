@@ -3,6 +3,7 @@ import produce from 'immer'
 import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
 import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 import { useManageCoordinateSystemDrawingLineStatus } from 'state/CoordinateSystem/coordinateSystemDrawingLineState'
+import { useSetTrainPlatform } from 'state/Train/trainPlatformState'
 import { useStateTrainLine } from 'state/Train/trainLineState'
 import {
   useManagePreviewTrainLineTrace,
@@ -53,7 +54,12 @@ export default function useDrawTrainLine(
   const [currentMode, setCurrentMode] = useStateCoordinateSystemCurrentMode()
   const { width, height } = useGetCoordinatePlaneSize()
   const {
-    drawingLineStatus: { isDrawing, currentNode, drawingLine },
+    drawingLineStatus: {
+      isDrawing,
+      currentNode,
+      // startTrainPlatform,
+      drawingLine,
+    },
     setDrawingLineStatus,
     resetDrawingLineStatus,
   } = useManageCoordinateSystemDrawingLineStatus()
@@ -64,8 +70,9 @@ export default function useDrawTrainLine(
   )
   const [direction, setDirection] = useState<TrainLineDirection | null>(null)
 
-  // Train Line Setter
+  // Train Info Setter
   const [trainLine, setTrainLine] = useStateTrainLine()
+  const setTrainPlatform = useSetTrainPlatform()
   const {
     previewTrainLineTrace,
     setPreviewTrainLineTrace,
@@ -104,26 +111,7 @@ export default function useDrawTrainLine(
 
   // 선로 그리기 시작 함수
   const startDrawing = () => {
-    // TODO: 하나의 호선에 대한 선로의 개수 체크
-    // const trainLineMap = Object.keys(nextNodeNumber).reduce<string[]>(
-    //   (map, direction) => {
-    //     const next = nextNodeNumber[direction as TrainLineDirection]
-    //     const nextTrainLine = trainLine[nodeNumber][next]
-
-    //     if (
-    //       !checkNotExistNextNodeInCoord(
-    //         nodeNumber,
-    //         direction as TrainLineDirection,
-    //         width,
-    //         height,
-    //       ) &&
-    //       nextTrainLine !== null
-    //     )
-    //       map.push(nextTrainLine.lineId)
-    //     return map
-    //   },
-    //   [],
-    // )
+    // TODO: 그릴 선로의 호선 선택 부분 구현
 
     setIsDrawingCurrentNode(true)
 
@@ -139,6 +127,23 @@ export default function useDrawTrainLine(
 
   // 선로 그리기를 끝내는 함수
   const finishDrawing = () => {
+    if (trainPlatform === null || drawingLine === null) return
+
+    console.log(trainPlatform.line, drawingLine)
+    if (!trainPlatform.line.find(({ id }) => id === drawingLine.id)) {
+      setTrainPlatform(prev =>
+        produce(prev, draft => {
+          const { row, column } = getPositionByNodeNumber(
+            trainPlatform.nodeNumber,
+            width,
+          )
+
+          draft[row][column]?.line.push(drawingLine)
+          return draft
+        }),
+      )
+    }
+
     setCurrentMode('hand')
     resetDrawingLineStatus()
     resetPreviewTrainLineTrace()

@@ -15,8 +15,8 @@ export type TrainLineItemType = {
 export type TrainPlatformType = {
   id: string
   name: string
-  isTransferPlatform: boolean
   line: TrainLineItemType[]
+  nodeNumber: number
 }
 export type TrainPlatformMatrixType = (TrainPlatformType | null)[][]
 

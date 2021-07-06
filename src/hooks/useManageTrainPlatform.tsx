@@ -13,7 +13,7 @@ type useManageTrainPlatformType = {
   visibleTrainPlatformPreview: boolean
   previewTrainPlatform: {
     platformName: string
-    selectedTrainLine: TrainLineItemType
+    selectedTrainLine: TrainLineItemType[]
   }
   showTrainPreview: () => void
   hideTrainPreview: () => void
@@ -23,6 +23,7 @@ type useManageTrainPlatformType = {
 export default function useManageTrainPlatform(
   row: number,
   column: number,
+  nodeNumber: number,
   nodeRef: MutableRefObject<HTMLDivElement | null>,
   trainPlatform: TrainPlatformType | null,
 ): useManageTrainPlatformType {
@@ -46,8 +47,8 @@ export default function useManageTrainPlatform(
     const newTrainPlatform: TrainPlatformType = {
       id: shortId(),
       name,
-      isTransferPlatform: false,
       line: [selectedTrainLine],
+      nodeNumber,
     }
 
     hideTrainPreview()
@@ -84,7 +85,7 @@ export default function useManageTrainPlatform(
     visibleTrainPlatformPreview,
     previewTrainPlatform: {
       platformName: name,
-      selectedTrainLine,
+      selectedTrainLine: [selectedTrainLine],
     },
     showTrainPreview,
     hideTrainPreview,

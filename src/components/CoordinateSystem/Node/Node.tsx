@@ -30,7 +30,7 @@ const Node: FunctionComponent<NodeProps> = function ({
   const {
     visibleTrainPlatformPreview,
     previewTrainPlatform: { platformName, selectedTrainLine },
-  } = useManageTrainPlatform(row, column, nodeRef, trainPlatform)
+  } = useManageTrainPlatform(row, column, nodeNumber, nodeRef, trainPlatform)
   const { isDrawingCurrentNode, currentDrawingLine } = useDrawTrainLine(
     nodeNumber,
     nodeRef,
@@ -44,15 +44,14 @@ const Node: FunctionComponent<NodeProps> = function ({
           platformName={platformName}
           trainLine={selectedTrainLine}
           isPreview
-          isTransferPlatform={false}
         />
       )}
+
       {trainPlatform !== null && (
         <TrainPlatform
           platformName={trainPlatform.name}
-          trainLine={trainPlatform.line[0]}
+          trainLine={trainPlatform.line}
           isPreview={false}
-          isTransferPlatform={trainPlatform.isTransferPlatform}
         />
       )}
 

@@ -5,47 +5,66 @@ import { TrainLineItemType } from 'types/Train.types'
 
 type TrainPlatformProps = {
   platformName: string
-  trainLine: TrainLineItemType
+  trainLine: TrainLineItemType[]
   isPreview: boolean
-  isTransferPlatform: boolean
 }
 
 const TrainPlatform: FunctionComponent<TrainPlatformProps> = function ({
   platformName,
-  trainLine: { name: lineName, color: lineColor },
+  trainLine,
   isPreview,
-  isTransferPlatform,
 }) {
-  if (isTransferPlatform)
+  const trainLineColor =
+    trainLine.length > 1
+      ? `
+        radial-gradient(circle at 50% 0, #e03131, rgba(0, 0, 0, 0) 70%),
+        radial-gradient(circle at 6.7% 75%, #3b5bdb, rgba(0, 0, 0, 0) 70%),
+        radial-gradient(circle at 93.3% 75%, #ffd43b, rgba(0, 0, 0, 0) 70%)
+        beige
+      `
+      : useGetTrainLineColorHexByName(trainLine[0].color)
+
+  if (trainLine.length > 1)
     return (
-      <div css={trainPlatformStyle(lineColor, isPreview)}>{platformName}</div>
+      <div css={trainPlatformStyle(trainLineColor, isPreview)}>
+        <div css={trainPlatformContentStyle}>
+          <div css={trainLineTextStyle}>환승역</div>
+          <div css={trainPlatformTextStyle}>{platformName}</div>
+        </div>
+      </div>
     )
 
-  const colorHexValue = useGetTrainLineColorHexByName(lineColor)
-
   return (
-    <div css={trainPlatformStyle(colorHexValue, isPreview)}>
-      <div css={trainLineTextStyle}>{lineName}</div>
-      <div css={trainPlatformTextStyle}>{platformName}</div>
+    <div css={trainPlatformStyle(trainLineColor, isPreview)}>
+      <div css={trainPlatformContentStyle}>
+        <div css={trainLineTextStyle}>{trainLine[0].name}</div>
+        <div css={trainPlatformTextStyle}>{platformName}</div>
+      </div>
     </div>
   )
 }
 
-const trainPlatformStyle = (colorHexValue: string, isPreview: boolean) => css`
+const trainPlatformStyle = (trainLineColor: string, isPreview: boolean) => css`
+  display: grid;
+  place-items: center;
+  position: relative;
+  z-index: 10;
+  width: 100px;
+  height: 100px;
+  background: ${trainLineColor};
+  border-radius: 50%;
+  opacity: ${isPreview ? '0.3' : '1'};
+`
+
+const trainPlatformContentStyle = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  position: relative;
-  z-index: 10;
-
-  width: 100px;
-  height: 100px;
-  border: 15px solid ${colorHexValue};
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   background: #ffffff;
-  opacity: ${isPreview ? '0.3' : '1'};
 `
 
 const trainLineTextStyle = css`
