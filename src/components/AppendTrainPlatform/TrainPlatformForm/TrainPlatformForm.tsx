@@ -1,7 +1,7 @@
 import { useState, useEffect, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { useGetTrainForm } from 'state/SideBar/trainFormState'
-import { useSetSideBar } from 'state/SideBar/sideBarState'
+import { useGetTrainForm } from 'state/FloatingForm/trainFormState'
+import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
 import { useSetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 import FormFieldUnit from 'components/AppendTrainPlatform/FormFieldUnit'
 import SelectTrainLine from 'components/AppendTrainPlatform/SelectTrainLine'
@@ -12,14 +12,14 @@ const TrainPlatformForm: FunctionComponent = function () {
     selectedTrainLine: { id },
     trainPlatform: { isValid },
   } = useGetTrainForm()
-  const setSideBar = useSetSideBar()
+  const setFloatingForm = useSetFloatingForm()
   const setCoordinateSystemCurrentMode = useSetCoordinateSystemCurrentMode()
   const [formIsValid, setFormIsValid] = useState<boolean>(id !== '' && isValid)
 
   useEffect(() => setFormIsValid(id !== '' && isValid), [id, isValid])
 
   const appendTrainPlatform = () => {
-    setSideBar(prev => ({ ...prev, isOpen: false }))
+    setFloatingForm(prev => ({ ...prev, isOpen: false }))
     setCoordinateSystemCurrentMode('append')
   }
 
@@ -53,7 +53,7 @@ const createButtonStyle = (formIsValid: boolean) => css`
   place-items: center;
   width: 100%;
   height: 45px;
-  margin-top: auto;
+  margin-top: 30px;
   background: ${formIsValid ? '#1971c2' : 'rgba(0, 0, 0, 0.2)'};
   border-radius: 10px;
   font-weight: 800;

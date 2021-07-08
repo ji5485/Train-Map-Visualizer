@@ -3,7 +3,7 @@ import { jsx, css } from '@emotion/react'
 import useVisibleNewTrainLineItem from 'hooks/useVisibleNewTrainLineItem'
 import useManageTrainLine from 'hooks/useManageTrainLineList'
 import { useGetFilteredTrainLineList } from 'state/Train/trainLineListState'
-import { useSetTrainForm } from 'state/SideBar/trainFormState'
+import { useSetTrainForm } from 'state/FloatingForm/trainFormState'
 import TrainLineItem from 'components/AppendTrainPlatform/TrainLineItem'
 import { TrainLineItemType } from 'types/Train.types'
 

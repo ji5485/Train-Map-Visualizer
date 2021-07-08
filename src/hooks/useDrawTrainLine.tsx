@@ -129,7 +129,6 @@ export default function useDrawTrainLine(
   const finishDrawing = () => {
     if (trainPlatform === null || drawingLine === null) return
 
-    console.log(trainPlatform.line, drawingLine)
     if (!trainPlatform.line.find(({ id }) => id === drawingLine.id)) {
       setTrainPlatform(prev =>
         produce(prev, draft => {

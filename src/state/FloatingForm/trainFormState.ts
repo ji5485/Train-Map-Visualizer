@@ -6,7 +6,7 @@ import {
   useResetRecoilState,
   Resetter,
 } from 'recoil'
-import { TrainFormType } from 'types/SideBar.types'
+import { TrainFormType } from 'types/FloatingForm.types'
 import { TrainLineItemType } from 'types/Train.types'
 import { Getter, Setter, GetterAndSetter } from 'types/RecoilMethods.types'
 

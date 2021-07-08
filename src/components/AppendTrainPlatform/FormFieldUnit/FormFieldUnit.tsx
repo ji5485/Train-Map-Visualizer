@@ -22,12 +22,12 @@ const formFieldUnitStyle = css`
   width: 100%;
 
   & + & {
-    margin-top: 50px;
+    margin-top: 30px;
   }
 `
 
 const formFieldUnitTitleStyle = css`
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   font-size: 0.85rem;
   font-weight: 700;
   color: rgba(0, 0, 0, 0.7);

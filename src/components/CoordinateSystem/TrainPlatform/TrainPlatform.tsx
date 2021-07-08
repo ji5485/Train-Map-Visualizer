@@ -17,9 +17,9 @@ const TrainPlatform: FunctionComponent<TrainPlatformProps> = function ({
   const trainLineColor =
     trainLine.length > 1
       ? `
-        radial-gradient(circle at 50% 0, #e03131, rgba(0, 0, 0, 0) 70%),
-        radial-gradient(circle at 6.7% 75%, #3b5bdb, rgba(0, 0, 0, 0) 70%),
-        radial-gradient(circle at 93.3% 75%, #ffd43b, rgba(0, 0, 0, 0) 70%)
+        radial-gradient(circle at 50% 0, rgb(224, 49, 49), rgba(224, 49, 49, 0.1) 80%),
+        radial-gradient(circle at 6.7% 75%, rgb(59, 91, 219), rgba(59, 91, 219, 0.1) 60%),
+        radial-gradient(circle at 93.3% 75%, rgb(255, 212, 59), rgba(255, 212, 59, 0.1) 80%)
         beige
       `
       : useGetTrainLineColorHexByName(trainLine[0].color)

@@ -3,7 +3,7 @@ import { jsx, css } from '@emotion/react'
 import {
   defaultSelectedTrainLine,
   useStateTrainForm,
-} from 'state/SideBar/trainFormState'
+} from 'state/FloatingForm/trainFormState'
 import useHandleClickOutSide from 'hooks/useHandleClickOutSide'
 import TrainLineList from 'components/AppendTrainPlatform/TrainLineList'
 import TrainLineItem from 'components/AppendTrainPlatform/TrainLineItem'
@@ -70,10 +70,10 @@ const selectTrainLineStyle = css`
 
 const inputTrainLineStyle = css`
   width: 100%;
-  height: 50px;
+  height: 40px;
   border: 0;
   border-bottom: 2px solid rgba(0, 0, 0, 0.5);
-  font-size: 1.1rem;
+  font-size: 1rem;
   outline: none;
   transition: border-bottom 0.3s;
 

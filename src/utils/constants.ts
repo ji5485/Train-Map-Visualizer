@@ -6,6 +6,7 @@ import { BiAddToQueue } from 'react-icons/bi'
 import { HiCursorClick } from 'react-icons/hi'
 import { IoHandRightSharp } from 'react-icons/io5'
 import TrainPlatformForm from 'components/AppendTrainPlatform/TrainPlatformForm'
+import TrainLineForm from 'components/SelectDrawingLine/TrainLineForm/TrainLineForm'
 
 // Used in TrainLineItem.tsx
 export const TRAIN_LINE_ITEM_ICON = {
@@ -30,15 +31,24 @@ export const MESSAGE_TYPE = {
   line: '지하철 역 사이에 선로를 추가해주세요.',
 }
 
-// Used in SideBar.tsx
-export const SIDE_BAR_CONTENT = {
+// Used in ToolForm.tsx
+export const TOOL_FORM_TITLE = {
+  select_train: '',
+  select_line: '',
+  append: '지하철역 추가',
+  line: '그릴 선로 선택',
+}
+
+// Used in ToolForm.tsx
+export const TOOL_FORM_CONTENT = {
   select_train: TrainPlatformForm,
   select_line: TrainPlatformForm,
   append: TrainPlatformForm,
+  line: TrainLineForm,
 }
 
-// Used in ToolMenu.tsx
-export const TOOL_MENU_ICON = {
+// Used in ToolItem.tsx
+export const TOOL_ITEM_ICON = {
   hand: IoHandRightSharp,
   select: HiCursorClick,
   append: BiAddToQueue,

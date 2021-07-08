@@ -1,6 +1,6 @@
 import { FunctionComponent, ChangeEvent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { useStateTrainForm } from 'state/SideBar/trainFormState'
+import { useStateTrainForm } from 'state/FloatingForm/trainFormState'
 import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
 import { TrainPlatformType } from 'types/Train.types'
 
@@ -87,10 +87,10 @@ const EnterTrainPlatformName: FunctionComponent = function () {
 
 const enterTrainPlatformNameStyle = css`
   width: 100%;
-  height: 50px;
+  height: 40px;
   border: 0;
   border-bottom: 2px solid rgba(0, 0, 0, 0.5);
-  font-size: 1.1rem;
+  font-size: 1rem;
   outline: none;
   transition: border-bottom 0.3s;
 

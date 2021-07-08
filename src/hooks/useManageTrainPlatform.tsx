@@ -5,7 +5,7 @@ import { useSetTrainPlatform } from 'state/Train/trainPlatformState'
 import {
   useGetTrainForm,
   useResetTrainForm,
-} from 'state/SideBar/trainFormState'
+} from 'state/FloatingForm/trainFormState'
 import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 import { TrainPlatformType, TrainLineItemType } from 'types/Train.types'
 

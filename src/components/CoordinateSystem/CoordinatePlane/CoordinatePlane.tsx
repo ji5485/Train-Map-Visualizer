@@ -95,7 +95,7 @@ const coordPlaneStyle = css`
   display: flex;
   overflow: scroll;
   height: 100%;
-  background: lightgrey;
+  background: #e9ecef;
 
   &::-webkit-scrollbar {
     width: 10px;

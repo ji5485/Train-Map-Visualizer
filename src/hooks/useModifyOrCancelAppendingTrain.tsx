@@ -1,5 +1,5 @@
-import { useResetTrainForm } from 'state/SideBar/trainFormState'
-import { useSetSideBar } from 'state/SideBar/sideBarState'
+import { useResetTrainForm } from 'state/FloatingForm/trainFormState'
+import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
 import { useSetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 
 type useModifyOrCancelAppendingTrainType = {
@@ -8,7 +8,7 @@ type useModifyOrCancelAppendingTrainType = {
 }
 
 export default function useModifyOrCancelAppendingTrain(): useModifyOrCancelAppendingTrainType {
-  const setSideBar = useSetSideBar()
+  const setFloatingForm = useSetFloatingForm()
   const resetTrainForm = useResetTrainForm()
   const setCurrentMode = useSetCoordinateSystemCurrentMode()
 
@@ -16,7 +16,7 @@ export default function useModifyOrCancelAppendingTrain(): useModifyOrCancelAppe
 
   const modify = () => {
     setHandMode()
-    setSideBar(prev => ({ ...prev, isOpen: true }))
+    setFloatingForm(prev => ({ ...prev, isOpen: true }))
   }
 
   const cancel = () => {

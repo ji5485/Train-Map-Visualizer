@@ -1,13 +1,13 @@
 import { TrainLineItemType } from 'types/Train.types'
 
-// SideBar Condition Type
-export type SideBarContentType = 'select_train' | 'select_line' | 'append'
-export type SideBarType = {
+// FloatingForm Condition Type
+export type FloatingFormContentType = 'select_train' | 'select_line' | 'append'
+export type FloatingFormType = {
   isOpen: boolean
-  menu: SideBarContentType | null
+  menu: FloatingFormContentType | null
 }
 
-// Train Form in SideBar Type
+// Train Form in FloatingForm Type
 export type TrainFormType = {
   selectedTrainLine: TrainLineItemType
   trainPlatform: {
