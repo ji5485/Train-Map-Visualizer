@@ -75,7 +75,7 @@ const TrainLineList: FunctionComponent<TrainLineListProps> = function ({
 
 const trainLineListStyle = css`
   position: absolute;
-  top: 50px;
+  top: 40px;
   left: 0px;
 
   overflow-y: auto;

@@ -1,7 +1,11 @@
 import { TrainLineItemType } from 'types/Train.types'
 
 // FloatingForm Condition Type
-export type FloatingFormContentType = 'select_train' | 'select_line' | 'append'
+export type FloatingFormContentType =
+  | 'select_train'
+  | 'select_line'
+  | 'append'
+  | 'line'
 export type FloatingFormType = {
   isOpen: boolean
   menu: FloatingFormContentType | null

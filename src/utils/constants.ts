@@ -6,7 +6,7 @@ import { BiAddToQueue } from 'react-icons/bi'
 import { HiCursorClick } from 'react-icons/hi'
 import { IoHandRightSharp } from 'react-icons/io5'
 import TrainPlatformForm from 'components/AppendTrainPlatform/TrainPlatformForm'
-import TrainLineForm from 'components/SelectDrawingLine/TrainLineForm/TrainLineForm'
+import DrawingLineForm from 'components/SelectDrawingLine/DrawingLineForm'
 
 // Used in TrainLineItem.tsx
 export const TRAIN_LINE_ITEM_ICON = {
@@ -44,7 +44,7 @@ export const TOOL_FORM_CONTENT = {
   select_train: TrainPlatformForm,
   select_line: TrainPlatformForm,
   append: TrainPlatformForm,
-  line: TrainLineForm,
+  line: DrawingLineForm,
 }
 
 // Used in ToolItem.tsx

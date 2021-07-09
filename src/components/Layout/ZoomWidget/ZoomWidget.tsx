@@ -35,7 +35,7 @@ const zoomWidgetStyle = css`
   align-items: center;
 
   position: fixed;
-  left: 30px;
+  right: 40px;
   bottom: 40px;
 
   width: 230px;

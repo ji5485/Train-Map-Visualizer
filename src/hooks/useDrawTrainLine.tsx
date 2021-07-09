@@ -16,6 +16,7 @@ import {
   PreviewTrainLineStackItemType,
   TrainLineType,
 } from 'types/Train.types'
+import useSelectDrawingTrainLine from './useSelectDrawingTrainLine'
 
 type useDrawTrainLineType = {
   isDrawingCurrentNode: boolean
@@ -71,6 +72,7 @@ export default function useDrawTrainLine(
   const [direction, setDirection] = useState<TrainLineDirection | null>(null)
 
   // Train Info Setter
+  const { openDrawingLineList } = useSelectDrawingTrainLine()
   const [trainLine, setTrainLine] = useStateTrainLine()
   const setTrainPlatform = useSetTrainPlatform()
   const {
@@ -111,17 +113,21 @@ export default function useDrawTrainLine(
 
   // 선로 그리기 시작 함수
   const startDrawing = () => {
-    // TODO: 그릴 선로의 호선 선택 부분 구현
+    // 만약 환승역인 경우에는 선로를 직접 선택할 수 있게 폼을 띄워줌
+    if (trainPlatform !== null && trainPlatform.line.length >= 2)
+      openDrawingLineList(trainPlatform.line)
 
     setIsDrawingCurrentNode(true)
-
-    if (!isDrawing && trainPlatform !== null) {
-      setDrawingLineStatus({
+    if (trainPlatform !== null && !isDrawing) {
+      setDrawingLineStatus(prev => ({
         isDrawing: true,
         currentNode: nodeNumber,
         startTrainPlatform: trainPlatform,
-        drawingLine: trainPlatform.line[0],
-      })
+        drawingLine:
+          trainPlatform.line.length === 1
+            ? trainPlatform.line[0]
+            : prev.drawingLine,
+      }))
     }
   }
 

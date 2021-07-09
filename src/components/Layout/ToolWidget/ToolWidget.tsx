@@ -4,6 +4,7 @@ import { RiSubwayFill } from 'react-icons/ri'
 import ToolItem from 'components/Layout/ToolItem'
 import FloatingForm from 'components/Layout/FloatingForm'
 import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
+import { useManageCoordinateSystemDrawingLineStatus } from 'state/CoordinateSystem/coordinateSystemDrawingLineState'
 import { useStateFloatingForm } from 'state/FloatingForm/FloatingFormState'
 import { useResetTrainForm } from 'state/FloatingForm/trainFormState'
 import { CoordinateSystemCurrentModeType } from 'types/CoordinateSystem.types'
@@ -16,6 +17,9 @@ const ToolWidget: FunctionComponent = function () {
   const [{ isOpen, menu }, setFloatingForm] = useStateFloatingForm()
   const [currentMode, setCurrentMode] = useStateCoordinateSystemCurrentMode()
   const resetTrainForm = useResetTrainForm()
+  const {
+    resetDrawingLineStatus,
+  } = useManageCoordinateSystemDrawingLineStatus()
 
   const handleClickToolMenu = (
     openOrNot: boolean,
@@ -37,6 +41,7 @@ const ToolWidget: FunctionComponent = function () {
   const closeFloatingForm = () => {
     setFloatingForm(prev => ({ ...prev, isOpen: false }))
     if (menu === 'append') resetTrainForm()
+    else if (menu === 'line') resetDrawingLineStatus()
   }
 
   return (
