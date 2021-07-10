@@ -1,6 +1,6 @@
 import { FunctionComponent, ChangeEvent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { useStateTrainForm } from 'state/FloatingForm/trainFormState'
+import { useStateTrainForm } from 'state/FloatingForm/TrainPlatformFormState'
 import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
 import { TrainPlatformType } from 'types/Train.types'
 

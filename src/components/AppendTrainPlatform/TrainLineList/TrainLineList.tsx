@@ -3,7 +3,7 @@ import { jsx, css } from '@emotion/react'
 import useVisibleNewTrainLineItem from 'hooks/useVisibleNewTrainLineItem'
 import useManageTrainLine from 'hooks/useManageTrainLineList'
 import { useGetFilteredTrainLineList } from 'state/Train/trainLineListState'
-import { useSetTrainForm } from 'state/FloatingForm/trainFormState'
+import { useSetTrainForm } from 'state/FloatingForm/TrainPlatformFormState'
 import TrainLineItem from 'components/AppendTrainPlatform/TrainLineItem'
 import { TrainLineItemType } from 'types/Train.types'
 
@@ -100,7 +100,7 @@ const trainLineListStyle = css`
 
 const emptyTrainLine = css`
   position: absolute;
-  top: 50px;
+  top: 40px;
   left: 0px;
 
   display: grid;

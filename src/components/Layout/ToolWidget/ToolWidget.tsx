@@ -4,28 +4,29 @@ import { RiSubwayFill } from 'react-icons/ri'
 import ToolItem from 'components/Layout/ToolItem'
 import FloatingForm from 'components/Layout/FloatingForm'
 import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
-import { useManageCoordinateSystemDrawingLineStatus } from 'state/CoordinateSystem/coordinateSystemDrawingLineState'
 import { useStateFloatingForm } from 'state/FloatingForm/FloatingFormState'
-import { useResetTrainForm } from 'state/FloatingForm/trainFormState'
+import { useResetTrainForm } from 'state/FloatingForm/TrainPlatformFormState'
 import { CoordinateSystemCurrentModeType } from 'types/CoordinateSystem.types'
 import {
   FloatingFormType,
   FloatingFormContentType,
 } from 'types/FloatingForm.types'
+import useGoBackOrCancelDrawingTrainLine from 'hooks/useGoBackOrCancelDrawingTrainLine'
 
 const ToolWidget: FunctionComponent = function () {
   const [{ isOpen, menu }, setFloatingForm] = useStateFloatingForm()
   const [currentMode, setCurrentMode] = useStateCoordinateSystemCurrentMode()
   const resetTrainForm = useResetTrainForm()
-  const {
-    resetDrawingLineStatus,
-  } = useManageCoordinateSystemDrawingLineStatus()
+  const { cancel: cancelDrawingTrainLine } = useGoBackOrCancelDrawingTrainLine()
 
   const handleClickToolMenu = (
     openOrNot: boolean,
     mode: CoordinateSystemCurrentModeType,
     floatingFormMenu: FloatingFormContentType | null = null,
   ) => () => {
+    if (menu === 'append') resetTrainForm()
+    else if (menu === 'line') cancelDrawingTrainLine()
+
     const nextFloatingFormState = (prevState: FloatingFormType) => ({
       isOpen: openOrNot,
       menu:
@@ -39,9 +40,10 @@ const ToolWidget: FunctionComponent = function () {
   }
 
   const closeFloatingForm = () => {
-    setFloatingForm(prev => ({ ...prev, isOpen: false }))
     if (menu === 'append') resetTrainForm()
-    else if (menu === 'line') resetDrawingLineStatus()
+    else if (menu === 'line') cancelDrawingTrainLine()
+
+    setFloatingForm(prev => ({ ...prev, isOpen: false }))
   }
 
   return (

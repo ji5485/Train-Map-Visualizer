@@ -117,6 +117,7 @@ export default function useDrawTrainLine(
     if (trainPlatform !== null && trainPlatform.line.length >= 2)
       openDrawingLineList(trainPlatform.line)
 
+    // 환승역인 경우에도 일단 그리기 모드 실행
     setIsDrawingCurrentNode(true)
     if (trainPlatform !== null && !isDrawing) {
       setDrawingLineStatus(prev => ({
@@ -226,12 +227,15 @@ export default function useDrawTrainLine(
 
     const completeDrawing = () => setIsDrawingCurrentNode(false)
 
+    // 선로 그리기 되돌리기 사용 시 위치 싱크를 위한 부분
     if (nodeNumber !== currentNode) {
       setDirection(null)
       return
     }
 
-    if (isDrawing && isDrawingCurrentNode) {
+    // 현재 그리기 모드인 경우에 선로 미리보기가 띄워지도록 설정
+    // 환승역인 경우에는 그릴 노선을 선택하면 띄워지도록 설정
+    if (isDrawing && isDrawingCurrentNode && drawingLine !== null) {
       window.document.addEventListener('mousemove', drawing)
       window.document.addEventListener('click', completeDrawing)
     }
@@ -240,7 +244,7 @@ export default function useDrawTrainLine(
       window.document.removeEventListener('mousemove', drawing)
       window.document.removeEventListener('click', completeDrawing)
     }
-  }, [isDrawing, isDrawingCurrentNode, currentNode])
+  }, [isDrawing, isDrawingCurrentNode, currentNode, drawingLine])
 
   // 현재 노드 그리기 모드 종료 부분
   useEffect(() => {

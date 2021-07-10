@@ -1,4 +1,4 @@
-import { MouseEventHandler, MouseEvent } from 'react'
+import { MouseEvent } from 'react'
 import produce from 'immer'
 import {
   useManagePreviewTrainLineTrace,
@@ -9,12 +9,12 @@ import { useSetTrainLine } from 'state/Train/trainLineState'
 import { useSetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
 
-type useGoBackOrCancelDrawingTrainLine = {
-  goBack: MouseEventHandler<HTMLDivElement>
-  cancel: MouseEventHandler<HTMLDivElement>
+type useGoBackOrCancelDrawingTrainLineType = {
+  goBack: (event: MouseEvent<HTMLDivElement>) => void
+  cancel: () => void
 }
 
-export default function useGoBackOrCancelDrawingTrainLine(): useGoBackOrCancelDrawingTrainLine {
+export default function useGoBackOrCancelDrawingTrainLine(): useGoBackOrCancelDrawingTrainLineType {
   const setCurrentMode = useSetCoordinateSystemCurrentMode()
   const { width } = useGetCoordinatePlaneSize()
 

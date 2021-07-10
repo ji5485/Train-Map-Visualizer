@@ -1,4 +1,4 @@
-import { useResetTrainForm } from 'state/FloatingForm/trainFormState'
+import { useResetTrainForm } from 'state/FloatingForm/TrainPlatformFormState'
 import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
 import { useSetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 
