@@ -252,10 +252,14 @@ export default function useDrawTrainLine(
       !isDrawing ||
       isDrawingCurrentNode ||
       nodeNumber !== currentNode ||
-      direction === null ||
       drawingLine === null
     )
       return
+
+    if (direction === null) {
+      setIsDrawingCurrentNode(true)
+      return
+    }
 
     const { row, column } = getPositionByNodeNumber(nodeNumber, width)
     const newPreviewTrainLineStackItem: PreviewTrainLineStackItemType = {

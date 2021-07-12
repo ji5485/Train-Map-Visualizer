@@ -67,8 +67,10 @@ export default function useManageTrainPlatform(
       currentMode !== 'append' ||
       nodeRef.current === null ||
       trainPlatform !== null
-    )
+    ) {
+      hideTrainPreview()
       return
+    }
 
     nodeRef.current.addEventListener('mouseover', showTrainPreview)
     nodeRef.current.addEventListener('mouseleave', hideTrainPreview)

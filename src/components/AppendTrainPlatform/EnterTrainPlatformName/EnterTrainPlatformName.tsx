@@ -2,7 +2,7 @@ import { FunctionComponent, ChangeEvent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { useStateTrainForm } from 'state/FloatingForm/TrainPlatformFormState'
 import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
-import { TrainPlatformType } from 'types/Train.types'
+import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
 
 const EnterTrainPlatformName: FunctionComponent = function () {
   const [
@@ -12,6 +12,7 @@ const EnterTrainPlatformName: FunctionComponent = function () {
     },
     setTrainForm,
   ] = useStateTrainForm()
+  const { width, height } = useGetCoordinatePlaneSize()
   const trainPlatformMatrix = useGetTrainPlatform()
 
   const handleTrainPlatformNameChange = (
@@ -24,6 +25,26 @@ const EnterTrainPlatformName: FunctionComponent = function () {
         name: event.target.value,
       },
     }))
+
+  const checkTrainPlatformAlreadyExists = () => {
+    for (let row = 0; row < height; row++) {
+      for (let column = 0; column < width; column++) {
+        const trainPlatform = trainPlatformMatrix[row][column]
+        if (trainPlatform === null) continue
+
+        const { name, line } = trainPlatform
+
+        if (
+          name === trainPlatformName &&
+          line.find(trainLine => trainLine.id === id)
+        )
+          return true
+      }
+    }
+
+    return false
+  }
+
   const checkTrainPlatformIsValid = () => {
     const setValidationOfTrainPlatformName = (
       isValid: boolean,
@@ -50,19 +71,7 @@ const EnterTrainPlatformName: FunctionComponent = function () {
         false,
         '역 이름은 한글 2글자 ~ 5글자로 설정해주세요.',
       )
-    else if (
-      trainPlatformMatrix.every(trainPlatformList => {
-        trainPlatformList.filter((trainPlatform: TrainPlatformType | null) => {
-          if (trainPlatform === null) return false
-
-          const { name, line } = trainPlatform
-          return (
-            name === trainPlatformName &&
-            line.find(trainLine => trainLine.id === id)
-          )
-        }).length !== 0
-      })
-    )
+    else if (checkTrainPlatformAlreadyExists())
       setValidationOfTrainPlatformName(
         false,
         '동일 호선에 같은 이름의 역이 존재합니다.',
@@ -75,7 +84,7 @@ const EnterTrainPlatformName: FunctionComponent = function () {
       <input
         css={enterTrainPlatformNameStyle}
         type="text"
-        placeholder="끝에 '역'을 입력해주세요."
+        placeholder="2~5글자로 입력해주세요."
         value={trainPlatformName}
         onChange={handleTrainPlatformNameChange}
         onBlur={checkTrainPlatformIsValid}
