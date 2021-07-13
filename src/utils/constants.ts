@@ -65,3 +65,11 @@ export const TRAIN_LINE_NEXT_POSITION = {
   bottom: [1, 0],
   left: [0, -1],
 }
+
+// Used in TrainPlatform.tsx
+export const TRANSFER_TRAIN_PLATFORM_COLOR = `
+  radial-gradient(circle at 50% 0, rgb(224, 49, 49), rgba(224, 49, 49, 0.1) 80%),
+  radial-gradient(circle at 6.7% 75%, rgb(59, 91, 219), rgba(59, 91, 219, 0.1) 60%),
+  radial-gradient(circle at 93.3% 75%, rgb(255, 212, 59), rgba(255, 212, 59, 0.1) 80%)
+  beige
+`

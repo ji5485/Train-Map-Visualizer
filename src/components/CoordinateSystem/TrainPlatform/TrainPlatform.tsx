@@ -1,7 +1,9 @@
-import { FunctionComponent } from 'react'
+import { useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { useGetTrainLineColorHexByName } from 'state/Train/trainLineColorState'
 import { TrainLineItemType } from 'types/Train.types'
+import { TRANSFER_TRAIN_PLATFORM_COLOR } from 'utils/constants'
+import useSelectCoordComponent from 'hooks/useSelectCoordComponent'
 
 type TrainPlatformProps = {
   platformName: string
@@ -14,30 +16,22 @@ const TrainPlatform: FunctionComponent<TrainPlatformProps> = function ({
   trainLine,
   isPreview,
 }) {
-  const trainLineColor =
-    trainLine.length > 1
-      ? `
-        radial-gradient(circle at 50% 0, rgb(224, 49, 49), rgba(224, 49, 49, 0.1) 80%),
-        radial-gradient(circle at 6.7% 75%, rgb(59, 91, 219), rgba(59, 91, 219, 0.1) 60%),
-        radial-gradient(circle at 93.3% 75%, rgb(255, 212, 59), rgba(255, 212, 59, 0.1) 80%)
-        beige
-      `
-      : useGetTrainLineColorHexByName(trainLine[0].color)
-
-  if (trainLine.length > 1)
-    return (
-      <div css={trainPlatformStyle(trainLineColor, isPreview)}>
-        <div css={trainPlatformContentStyle}>
-          <div css={trainLineTextStyle}>환승역</div>
-          <div css={trainPlatformTextStyle}>{platformName}</div>
-        </div>
-      </div>
-    )
+  const trainLineColor = useGetTrainLineColorHexByName(trainLine[0].color)
+  const trainPlatformRef = useRef<HTMLDivElement | null>(null)
+  useSelectCoordComponent('TrainPlatform', trainPlatformRef)
 
   return (
-    <div css={trainPlatformStyle(trainLineColor, isPreview)}>
+    <div
+      css={trainPlatformStyle(
+        trainLine.length > 1 ? TRANSFER_TRAIN_PLATFORM_COLOR : trainLineColor,
+        isPreview,
+      )}
+      ref={trainPlatformRef}
+    >
       <div css={trainPlatformContentStyle}>
-        <div css={trainLineTextStyle}>{trainLine[0].name}</div>
+        <div css={trainLineTextStyle}>
+          {trainLine.length > 1 ? '환승역' : trainLine[0].name}
+        </div>
         <div css={trainPlatformTextStyle}>{platformName}</div>
       </div>
     </div>

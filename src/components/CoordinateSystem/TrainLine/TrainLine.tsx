@@ -1,7 +1,8 @@
-import { FunctionComponent } from 'react'
+import { useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { useGetTrainLineColorHexByName } from 'state/Train/trainLineColorState'
 import { TrainLineDirection, TrainLineColorName } from 'types/Train.types'
+import useSelectCoordComponent from 'hooks/useSelectCoordComponent'
 
 type TrainLineProps = {
   color: TrainLineColorName
@@ -14,9 +15,11 @@ const TrainLine: FunctionComponent<TrainLineProps> = function ({
 }) {
   if (direction === null) return null
 
+  const trainLineRef = useRef<HTMLDivElement | null>(null)
   const colorHex = useGetTrainLineColorHexByName(color)
+  useSelectCoordComponent('TrainLine', trainLineRef)
 
-  return <div css={trainLineStyle(colorHex, direction)} />
+  return <div css={trainLineStyle(colorHex, direction)} ref={trainLineRef} />
 }
 
 const RORATE_DEG_BY_DIRECTION = {
