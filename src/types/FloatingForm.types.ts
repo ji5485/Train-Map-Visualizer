@@ -1,8 +1,8 @@
-import { TrainLineItemType } from 'types/Train.types'
+import { TrainLineItemType, TrainPlatformType } from 'types/Train.types'
 
 // FloatingForm Condition Type
 export type FloatingFormContentType =
-  | 'select_train'
+  | 'select_platform'
   | 'select_line'
   | 'append'
   | 'line'
@@ -20,3 +20,6 @@ export type TrainFormType = {
     error: string
   }
 }
+
+// Selected Train Form Type
+export type SelectTrainPlatformFormType = TrainPlatformType

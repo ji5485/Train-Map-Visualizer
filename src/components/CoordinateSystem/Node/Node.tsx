@@ -41,6 +41,7 @@ const Node: FunctionComponent<NodeProps> = function ({
     <div ref={nodeRef} css={nodeStyle}>
       {visibleTrainPlatformPreview && (
         <TrainPlatform
+          nodeNumber={nodeNumber}
           platformName={platformName}
           trainLine={selectedTrainLine}
           isPreview
@@ -49,6 +50,7 @@ const Node: FunctionComponent<NodeProps> = function ({
 
       {trainPlatform !== null && (
         <TrainPlatform
+          nodeNumber={nodeNumber}
           platformName={trainPlatform.name}
           trainLine={trainPlatform.line}
           isPreview={false}
@@ -57,6 +59,7 @@ const Node: FunctionComponent<NodeProps> = function ({
 
       {isDrawingCurrentNode && (
         <TrainLine
+          nodeNumber={nodeNumber}
           color={currentDrawingLine.color}
           direction={currentDrawingLine.direction}
         />
@@ -67,6 +70,7 @@ const Node: FunctionComponent<NodeProps> = function ({
 
         return line === null ? null : (
           <TrainLine
+            nodeNumber={nodeNumber}
             color={line.color}
             direction={direction as TrainLineDirection}
             key={index}

@@ -6,19 +6,21 @@ import { TRANSFER_TRAIN_PLATFORM_COLOR } from 'utils/constants'
 import useSelectCoordComponent from 'hooks/useSelectCoordComponent'
 
 type TrainPlatformProps = {
+  nodeNumber: number
   platformName: string
   trainLine: TrainLineItemType[]
   isPreview: boolean
 }
 
 const TrainPlatform: FunctionComponent<TrainPlatformProps> = function ({
+  nodeNumber,
   platformName,
   trainLine,
   isPreview,
 }) {
   const trainLineColor = useGetTrainLineColorHexByName(trainLine[0].color)
   const trainPlatformRef = useRef<HTMLDivElement | null>(null)
-  useSelectCoordComponent('TrainPlatform', trainPlatformRef)
+  useSelectCoordComponent('platform', trainPlatformRef, nodeNumber, null)
 
   return (
     <div

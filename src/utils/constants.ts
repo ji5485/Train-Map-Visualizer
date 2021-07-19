@@ -7,6 +7,7 @@ import { HiCursorClick } from 'react-icons/hi'
 import { IoHandRightSharp } from 'react-icons/io5'
 import TrainPlatformForm from 'components/AppendTrainPlatform/TrainPlatformForm'
 import DrawingLineForm from 'components/SelectDrawingLine/DrawingLineForm'
+import SelectTrainPlatformForm from 'components/SelectTrainPlatform/SelectTrainPlatformForm/SelectTrainPlatformForm'
 
 // Used in TrainLineItem.tsx
 export const TRAIN_LINE_ITEM_ICON = {
@@ -33,7 +34,7 @@ export const MESSAGE_TYPE = {
 
 // Used in ToolForm.tsx
 export const TOOL_FORM_TITLE = {
-  select_train: '',
+  select_platform: '선택한 지하철역',
   select_line: '',
   append: '지하철역 추가',
   line: '그릴 선로 선택',
@@ -41,7 +42,7 @@ export const TOOL_FORM_TITLE = {
 
 // Used in ToolForm.tsx
 export const TOOL_FORM_CONTENT = {
-  select_train: TrainPlatformForm,
+  select_platform: SelectTrainPlatformForm,
   select_line: TrainPlatformForm,
   append: TrainPlatformForm,
   line: DrawingLineForm,

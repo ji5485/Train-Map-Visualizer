@@ -5,11 +5,13 @@ import { TrainLineDirection, TrainLineColorName } from 'types/Train.types'
 import useSelectCoordComponent from 'hooks/useSelectCoordComponent'
 
 type TrainLineProps = {
+  nodeNumber: number
   color: TrainLineColorName
   direction: TrainLineDirection | null
 }
 
 const TrainLine: FunctionComponent<TrainLineProps> = function ({
+  nodeNumber,
   color,
   direction,
 }) {
@@ -17,7 +19,7 @@ const TrainLine: FunctionComponent<TrainLineProps> = function ({
 
   const trainLineRef = useRef<HTMLDivElement | null>(null)
   const colorHex = useGetTrainLineColorHexByName(color)
-  useSelectCoordComponent('TrainLine', trainLineRef)
+  useSelectCoordComponent('line', trainLineRef, nodeNumber, direction)
 
   return <div css={trainLineStyle(colorHex, direction)} ref={trainLineRef} />
 }
