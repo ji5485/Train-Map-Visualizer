@@ -4,11 +4,11 @@ import { useGetSelectTrainPlatformForm } from 'state/FloatingForm/SelectTrainPla
 import TrainLineItemForm from 'components/SelectTrainPlatform/TrainLineItemForm'
 
 const SelectTrainPlatformForm: FunctionComponent = function () {
-  const { name } = useGetSelectTrainPlatformForm()
+  const { name, line } = useGetSelectTrainPlatformForm()
 
   return (
     <div css={selectTrainPlatformFormStyle}>
-      <TrainLineItemForm />
+      <TrainLineItemForm line={line} />
       {name}
     </div>
   )
