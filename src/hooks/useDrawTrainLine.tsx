@@ -16,7 +16,8 @@ import {
   PreviewTrainLineStackItemType,
   TrainLineType,
 } from 'types/Train.types'
-import useSelectDrawingTrainLine from './useSelectDrawingTrainLine'
+import useSelectDrawingTrainLine from 'hooks/useSelectDrawingTrainLine'
+import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
 
 type useDrawTrainLineType = {
   isDrawingCurrentNode: boolean
@@ -25,12 +26,6 @@ type useDrawTrainLineType = {
     direction: TrainLineDirection | null
   }
 }
-
-// 노드 넘버를 통해 현재 위치를 구하는 함수
-const getPositionByNodeNumber = (number: number, width: number) => ({
-  row: Math.floor(number / width),
-  column: number % width,
-})
 
 // 노드 넘버가 좌표계 내에 있는지 체크하는 함수
 const checkNotExistNextNodeInCoord = (
@@ -87,29 +82,11 @@ export default function useDrawTrainLine(
   } = useManagePreviewTrainLineStack()
 
   // Node Position Information
-  const [nextNodeNumber, setNextNodeNumber] = useState<{
-    top: number
-    right: number
-    bottom: number
-    left: number
-  }>({
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-  })
-
-  // Set Position of Current Node and Next Node Number
-  useEffect(() => {
-    if (width === 0) return
-
-    setNextNodeNumber({
-      top: nodeNumber - width,
-      right: nodeNumber + 1,
-      bottom: nodeNumber + width,
-      left: nodeNumber - 1,
-    })
-  }, [width])
+  const {
+    position: { row, column },
+    nextNodeNumber,
+    getPositionByNodeNumber,
+  } = useGetPositionByNodeNumber(nodeNumber)
 
   // 선로 그리기 시작 함수
   const startDrawing = () => {
@@ -141,7 +118,6 @@ export default function useDrawTrainLine(
         produce(prev, draft => {
           const { row, column } = getPositionByNodeNumber(
             trainPlatform.nodeNumber,
-            width,
           )
 
           draft[row][column]?.line.push(drawingLine)
@@ -189,7 +165,6 @@ export default function useDrawTrainLine(
         const nextPosValue = nextPosByDirection.find(
           nextPos => nextPos.direction === direction,
         )
-        const { row, column } = getPositionByNodeNumber(nodeNumber, width)
 
         const nextRow =
           ['top', 'bottom'].includes(direction) && nextPosValue
@@ -261,7 +236,6 @@ export default function useDrawTrainLine(
       return
     }
 
-    const { row, column } = getPositionByNodeNumber(nodeNumber, width)
     const newPreviewTrainLineStackItem: PreviewTrainLineStackItemType = {
       start: nodeNumber,
       destination: nextNodeNumber[direction],

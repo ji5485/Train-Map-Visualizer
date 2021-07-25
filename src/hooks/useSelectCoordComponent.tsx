@@ -1,16 +1,11 @@
 import { useEffect, MutableRefObject } from 'react'
 import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
-import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
 import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
 import { useSetSelectTrainPlatformForm } from 'state/FloatingForm/SelectTrainPlatformFormState'
 import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
+import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
 import { TrainLineDirection } from 'types/Train.types'
 import { FloatingFormContentType } from 'types/FloatingForm.types'
-
-const getPositionByNodeNumber = (number: number, width: number) => ({
-  row: Math.floor(number / width),
-  column: number % width,
-})
 
 export default function useSelectCoordComponent(
   type: 'platform' | 'line',
@@ -19,7 +14,9 @@ export default function useSelectCoordComponent(
   direction: TrainLineDirection | null,
 ): void {
   const [currentMode, setCurrentMode] = useStateCoordinateSystemCurrentMode()
-  const { width } = useGetCoordinatePlaneSize()
+  const {
+    position: { row, column },
+  } = useGetPositionByNodeNumber(nodeNumber)
   const setFloatingForm = useSetFloatingForm()
   const setSelectTrainPlatformForm = useSetSelectTrainPlatformForm()
   const trainPlatformMatrix = useGetTrainPlatform()
@@ -37,7 +34,6 @@ export default function useSelectCoordComponent(
   }
 
   const setTrainPlatformInfo = () => {
-    const { row, column } = getPositionByNodeNumber(nodeNumber, width)
     const selectedTrainPlatform = trainPlatformMatrix[row][column]
 
     if (selectedTrainPlatform === null) return
@@ -45,7 +41,7 @@ export default function useSelectCoordComponent(
   }
 
   const setTrainLineInfo = () => {
-    console.log(type, getPositionByNodeNumber(nodeNumber, width), direction)
+    console.log(type, row, column, direction)
   }
 
   useEffect(() => {
