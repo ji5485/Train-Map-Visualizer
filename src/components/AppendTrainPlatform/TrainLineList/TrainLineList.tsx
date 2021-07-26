@@ -10,13 +10,13 @@ import { TrainLineItemType } from 'types/Train.types'
 type TrainLineListProps = {
   trainLineName: string
   setTrainLineName: Dispatch<SetStateAction<string>>
-  setSelectorIsVisible: Dispatch<SetStateAction<boolean>>
+  setIsVisible: Dispatch<SetStateAction<boolean>>
 }
 
 const TrainLineList: FunctionComponent<TrainLineListProps> = function ({
   trainLineName,
   setTrainLineName,
-  setSelectorIsVisible,
+  setIsVisible,
 }) {
   const setTrainForm = useSetTrainForm()
   const trainLine = useGetFilteredTrainLineList(trainLineName)
@@ -32,7 +32,7 @@ const TrainLineList: FunctionComponent<TrainLineListProps> = function ({
 
     setTrainForm(prev => ({ ...prev, selectedTrainLine }))
     setTrainLineName('')
-    setSelectorIsVisible(false)
+    setIsVisible(false)
   }
   const appendTrainLine = () => {
     const newTrainLine = createTrainLine(trainLineName, newTrainLineColor)
@@ -41,7 +41,7 @@ const TrainLineList: FunctionComponent<TrainLineListProps> = function ({
       selectedTrainLine: newTrainLine,
     }))
     setTrainLineName('')
-    setSelectorIsVisible(false)
+    setIsVisible(false)
   }
 
   if (trainLine.length === 0 && trainLineName === '')

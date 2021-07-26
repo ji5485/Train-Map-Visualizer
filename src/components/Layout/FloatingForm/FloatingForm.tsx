@@ -1,7 +1,18 @@
 import { createElement, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { VscChromeClose } from 'react-icons/vsc'
-import { TOOL_FORM_TITLE, TOOL_FORM_CONTENT } from 'utils/constants'
+import { TOOL_FORM_TITLE } from 'utils/constants'
+import TrainPlatformForm from 'components/AppendTrainPlatform/TrainPlatformForm'
+import DrawingLineForm from 'components/SelectDrawingLine/DrawingLineForm'
+import SelectTrainPlatformForm from 'components/SelectTrainPlatform/SelectTrainPlatformForm/SelectTrainPlatformForm'
+
+// constants.ts 파일에 두면 순환 종속성 문제로 인한 에러 발생
+const TOOL_FORM_CONTENT = {
+  select_platform: SelectTrainPlatformForm,
+  select_line: TrainPlatformForm,
+  append: TrainPlatformForm,
+  line: DrawingLineForm,
+}
 
 type FloatingFormProps = {
   menu: keyof typeof TOOL_FORM_CONTENT

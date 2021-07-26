@@ -16,14 +16,15 @@ const SelectTrainLine: FunctionComponent = function () {
     setTrainForm,
   ] = useStateTrainForm()
   const [trainLineName, setTrainLineName] = useState<string>('')
-  const [selectorIsVisible, setSelectorIsVisible] = useState<boolean>(false)
-  const clickOutSideRef = useHandleClickOutSide(selectorIsVisible, () =>
-    setSelectorIsVisible(false),
-  )
+  const {
+    ref,
+    isVisible,
+    setIsVisible,
+    showComponent,
+  } = useHandleClickOutSide()
 
   const handleTrainLineNameChange = (event: ChangeEvent<HTMLInputElement>) =>
     setTrainLineName(event.target.value)
-  const handleShowTrainLineList = () => setSelectorIsVisible(true)
   const handleResetSelectedTrainLine = () =>
     setTrainForm(prev => ({
       ...prev,
@@ -31,12 +32,12 @@ const SelectTrainLine: FunctionComponent = function () {
     }))
 
   return (
-    <div css={selectTrainLineStyle} ref={clickOutSideRef}>
+    <div css={selectTrainLineStyle} ref={ref}>
       {id === '' ? (
         <input
           css={inputTrainLineStyle}
           type="text"
-          onFocus={handleShowTrainLineList}
+          onFocus={showComponent}
           value={trainLineName}
           onChange={handleTrainLineNameChange}
         />
@@ -51,11 +52,11 @@ const SelectTrainLine: FunctionComponent = function () {
         </div>
       )}
 
-      {selectorIsVisible && (
+      {isVisible && (
         <TrainLineList
           trainLineName={trainLineName}
           setTrainLineName={setTrainLineName}
-          setSelectorIsVisible={setSelectorIsVisible}
+          setIsVisible={setIsVisible}
         />
       )}
     </div>

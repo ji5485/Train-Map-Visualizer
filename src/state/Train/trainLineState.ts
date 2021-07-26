@@ -1,9 +1,7 @@
 import { atom, useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil'
 import { TrainLineType, TrainLineMatrixType } from 'types/Train.types'
 import { Getter, Setter, GetterAndSetter } from 'types/RecoilMethods.types'
-// import { TRAIN_MATRIX_MAX_LENGTH } from 'utils/constants'
-
-const TRAIN_MATRIX_MAX_LENGTH = 30
+import { TRAIN_MATRIX_MAX_LENGTH } from 'utils/constants'
 
 const trainLineAtom = atom<TrainLineMatrixType>({
   key: 'trainLine',

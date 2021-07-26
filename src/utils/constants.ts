@@ -1,13 +1,9 @@
-import { AiOutlineCheck } from 'react-icons/ai'
+import { AiOutlineCheck, AiOutlineEdit } from 'react-icons/ai'
 import { MdClose } from 'react-icons/md'
 import { GrAdd } from 'react-icons/gr'
-import { AiOutlineEdit } from 'react-icons/ai'
 import { BiAddToQueue } from 'react-icons/bi'
 import { HiCursorClick } from 'react-icons/hi'
 import { IoHandRightSharp } from 'react-icons/io5'
-import TrainPlatformForm from 'components/AppendTrainPlatform/TrainPlatformForm'
-import DrawingLineForm from 'components/SelectDrawingLine/DrawingLineForm'
-import SelectTrainPlatformForm from 'components/SelectTrainPlatform/SelectTrainPlatformForm/SelectTrainPlatformForm'
 
 // Used in TrainLineItem.tsx
 export const TRAIN_LINE_ITEM_ICON = {
@@ -41,12 +37,6 @@ export const TOOL_FORM_TITLE = {
 }
 
 // Used in ToolForm.tsx
-export const TOOL_FORM_CONTENT = {
-  select_platform: SelectTrainPlatformForm,
-  select_line: TrainPlatformForm,
-  append: TrainPlatformForm,
-  line: DrawingLineForm,
-}
 
 // Used in ToolItem.tsx
 export const TOOL_ITEM_ICON = {

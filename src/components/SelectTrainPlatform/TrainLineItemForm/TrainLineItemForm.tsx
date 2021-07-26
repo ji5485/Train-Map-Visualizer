@@ -2,9 +2,11 @@ import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { useGetTrainLine } from 'state/Train/trainLineState'
 import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
+import useHandleClickOutSide from 'hooks/useHandleClickOutSide'
 import { TrainLineItemType, TrainLineColorName } from 'types/Train.types'
 import { GrAdd } from 'react-icons/gr'
 import TrainLineItemButton from 'components/SelectTrainPlatform/TrainLineItemButton'
+import AppendTrainLineItemList from 'components/SelectTrainPlatform/AppendTrainLineItemList'
 
 type TrainLineItemFormProps = {
   line: TrainLineItemType[]
@@ -17,6 +19,12 @@ const TrainLineItemForm: FunctionComponent<TrainLineItemFormProps> = function ({
 }) {
   const { nextNodeNumber } = useGetPositionByNodeNumber(nodeNumber)
   const trainLineMatrix = useGetTrainLine()
+  const {
+    ref,
+    isVisible,
+    showComponent,
+    hideComponent,
+  } = useHandleClickOutSide()
 
   const checkTrainLineItemIsNotUsed = (color: TrainLineColorName) =>
     Object.values(nextNodeNumber).every((next: number) => {
@@ -26,6 +34,11 @@ const TrainLineItemForm: FunctionComponent<TrainLineItemFormProps> = function ({
 
   const removeTrainLine = () => {
     console.log('abc', nodeNumber)
+  }
+
+  const appendTrainLine = () => {
+    showComponent()
+    console.log('abc', hideComponent)
   }
 
   return (
@@ -44,8 +57,9 @@ const TrainLineItemForm: FunctionComponent<TrainLineItemFormProps> = function ({
         )
       })}
 
-      <div css={appendLineButtonStyle}>
+      <div css={appendLineButtonStyle} onClick={appendTrainLine}>
         <GrAdd />
+        {isVisible ? <AppendTrainLineItemList line={line} ref={ref} /> : null}
       </div>
     </div>
   )
@@ -58,6 +72,7 @@ const trainLineItemFormStyle = css`
 `
 
 const appendLineButtonStyle = css`
+  position: relative;
   display: grid;
   place-items: center;
   border: 3px dashed #adb5bd;
