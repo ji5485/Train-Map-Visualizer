@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { useGetTrainLineColorHexByName } from 'state/Train/trainLineColorState'
+import { TRAIN_LINE_COLOR } from 'utils/constants'
 import { TrainLineColorName } from 'types/Train.types'
 
 type DrawingLineItemProps = {
@@ -12,15 +12,13 @@ const DrawingLineItem: FunctionComponent<DrawingLineItemProps> = function ({
   color,
   selectLine,
 }) {
-  const colorHex = useGetTrainLineColorHexByName(color)
-
-  return <div css={drawingLineItemStyle(colorHex)} onClick={selectLine} />
+  return <div css={drawingLineItemStyle(color)} onClick={selectLine} />
 }
 
-const drawingLineItemStyle = (colorHex: string) => css`
+const drawingLineItemStyle = (color: TrainLineColorName) => css`
   height: 50px;
   border-radius: 5px;
-  background: ${colorHex};
+  background: ${TRAIN_LINE_COLOR[color]};
   cursor: pointer;
   transition: filter 0.5s;
 

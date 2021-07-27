@@ -5,6 +5,19 @@ import { BiAddToQueue } from 'react-icons/bi'
 import { HiCursorClick } from 'react-icons/hi'
 import { IoHandRightSharp } from 'react-icons/io5'
 
+// Train Line Color
+export const TRAIN_LINE_COLOR = {
+  indigo: '#4263eb',
+  teal: '#20c997',
+  orange: '#fd7e14',
+  blue: '#1864ab',
+  violet: '#9775fa',
+  red: '#fa5252',
+  yellow: '#fcc419',
+  pink: '#e64980',
+  lime: '#5c940d',
+}
+
 // Used in TrainLineItem.tsx
 export const TRAIN_LINE_ITEM_ICON = {
   check: {
@@ -35,8 +48,6 @@ export const TOOL_FORM_TITLE = {
   append: '지하철역 추가',
   line: '그릴 선로 선택',
 }
-
-// Used in ToolForm.tsx
 
 // Used in ToolItem.tsx
 export const TOOL_ITEM_ICON = {

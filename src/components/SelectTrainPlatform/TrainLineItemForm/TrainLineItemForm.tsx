@@ -1,6 +1,8 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { useGetTrainLine } from 'state/Train/trainLineState'
+import { useGetFilteredTrainLineList } from 'state/Train/trainLineListState'
+import { useSetSelectTrainPlatformForm } from 'state/FloatingForm/SelectTrainPlatformFormState'
 import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
 import useHandleClickOutSide from 'hooks/useHandleClickOutSide'
 import { TrainLineItemType, TrainLineColorName } from 'types/Train.types'
@@ -19,6 +21,7 @@ const TrainLineItemForm: FunctionComponent<TrainLineItemFormProps> = function ({
 }) {
   const { nextNodeNumber } = useGetPositionByNodeNumber(nodeNumber)
   const trainLineMatrix = useGetTrainLine()
+  const setSelectTrainPlatformForm = useSetSelectTrainPlatformForm()
   const {
     ref,
     isVisible,
@@ -26,19 +29,32 @@ const TrainLineItemForm: FunctionComponent<TrainLineItemFormProps> = function ({
     hideComponent,
   } = useHandleClickOutSide()
 
+  const filteredTrainLine = useGetFilteredTrainLineList(
+    line.map(({ name }) => name),
+  )
+
   const checkTrainLineItemIsNotUsed = (color: TrainLineColorName) =>
     Object.values(nextNodeNumber).every((next: number) => {
       const trainLine = trainLineMatrix[nodeNumber][next]
       return trainLine === null ? true : trainLine.color !== color
     })
 
-  const removeTrainLine = () => {
-    console.log('abc', nodeNumber)
-  }
+  const removeTrainLine = (lineId: string) =>
+    setSelectTrainPlatformForm(({ line, ...rest }) => {
+      const modifiedList = line.filter(({ id }) => id !== lineId)
 
-  const appendTrainLine = () => {
-    showComponent()
-    console.log('abc', hideComponent)
+      return {
+        line: modifiedList,
+        ...rest,
+      }
+    })
+
+  const appendTrainLineItem = (lineItem: TrainLineItemType) => {
+    setSelectTrainPlatformForm(({ line, ...rest }) => ({
+      line: [...line, lineItem],
+      ...rest,
+    }))
+    hideComponent()
   }
 
   return (
@@ -48,6 +64,7 @@ const TrainLineItemForm: FunctionComponent<TrainLineItemFormProps> = function ({
 
         return (
           <TrainLineItemButton
+            id={id}
             name={name}
             color={color}
             canRemove={canRemove}
@@ -57,10 +74,18 @@ const TrainLineItemForm: FunctionComponent<TrainLineItemFormProps> = function ({
         )
       })}
 
-      <div css={appendLineButtonStyle} onClick={appendTrainLine}>
-        <GrAdd />
-        {isVisible ? <AppendTrainLineItemList line={line} ref={ref} /> : null}
-      </div>
+      {filteredTrainLine.length !== 0 ? (
+        <div css={appendLineButtonStyle} onClick={showComponent}>
+          <GrAdd />
+          {isVisible ? (
+            <AppendTrainLineItemList
+              line={filteredTrainLine}
+              appendTrainLineItem={appendTrainLineItem}
+              ref={ref}
+            />
+          ) : null}
+        </div>
+      ) : null}
     </div>
   )
 }

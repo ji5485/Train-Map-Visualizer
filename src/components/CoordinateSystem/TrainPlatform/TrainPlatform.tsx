@@ -1,8 +1,10 @@
 import { useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { useGetTrainLineColorHexByName } from 'state/Train/trainLineColorState'
 import { TrainLineItemType } from 'types/Train.types'
-import { TRANSFER_TRAIN_PLATFORM_COLOR } from 'utils/constants'
+import {
+  TRANSFER_TRAIN_PLATFORM_COLOR,
+  TRAIN_LINE_COLOR,
+} from 'utils/constants'
 import useSelectCoordComponent from 'hooks/useSelectCoordComponent'
 
 type TrainPlatformProps = {
@@ -18,14 +20,15 @@ const TrainPlatform: FunctionComponent<TrainPlatformProps> = function ({
   trainLine,
   isPreview,
 }) {
-  const trainLineColor = useGetTrainLineColorHexByName(trainLine[0].color)
   const trainPlatformRef = useRef<HTMLDivElement | null>(null)
   useSelectCoordComponent('platform', trainPlatformRef, nodeNumber, null)
 
   return (
     <div
       css={trainPlatformStyle(
-        trainLine.length > 1 ? TRANSFER_TRAIN_PLATFORM_COLOR : trainLineColor,
+        trainLine.length > 1
+          ? TRANSFER_TRAIN_PLATFORM_COLOR
+          : TRAIN_LINE_COLOR[trainLine[0].color],
         isPreview,
       )}
       ref={trainPlatformRef}

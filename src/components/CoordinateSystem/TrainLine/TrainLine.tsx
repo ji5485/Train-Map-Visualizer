@@ -1,6 +1,6 @@
 import { useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { useGetTrainLineColorHexByName } from 'state/Train/trainLineColorState'
+import { TRAIN_LINE_COLOR } from 'utils/constants'
 import { TrainLineDirection, TrainLineColorName } from 'types/Train.types'
 import useSelectCoordComponent from 'hooks/useSelectCoordComponent'
 
@@ -18,10 +18,9 @@ const TrainLine: FunctionComponent<TrainLineProps> = function ({
   if (direction === null) return null
 
   const trainLineRef = useRef<HTMLDivElement | null>(null)
-  const colorHex = useGetTrainLineColorHexByName(color)
   useSelectCoordComponent('line', trainLineRef, nodeNumber, direction)
 
-  return <div css={trainLineStyle(colorHex, direction)} ref={trainLineRef} />
+  return <div css={trainLineStyle(color, direction)} ref={trainLineRef} />
 }
 
 const RORATE_DEG_BY_DIRECTION = {
@@ -31,7 +30,10 @@ const RORATE_DEG_BY_DIRECTION = {
   left: '270',
 }
 
-const trainLineStyle = (color: string, direction: TrainLineDirection) => css`
+const trainLineStyle = (
+  color: TrainLineColorName,
+  direction: TrainLineDirection,
+) => css`
   position: absolute;
   bottom: calc(50% - 5px);
   left: calc(50% - 5px);
@@ -39,7 +41,7 @@ const trainLineStyle = (color: string, direction: TrainLineDirection) => css`
 
   width: 10px;
   height: 130px;
-  background: ${color};
+  background: ${TRAIN_LINE_COLOR[color]};
   border-radius: 5px;
   transform-origin: 50% 125px;
   transform: rotate(${RORATE_DEG_BY_DIRECTION[direction]}deg);

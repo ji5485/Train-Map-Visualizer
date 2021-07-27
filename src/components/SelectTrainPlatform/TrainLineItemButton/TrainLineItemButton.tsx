@@ -2,26 +2,29 @@ import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { TrainLineColorName } from 'types/Train.types'
-import { useGetTrainLineColorHexByName } from 'state/Train/trainLineColorState'
+import { TRAIN_LINE_COLOR } from 'utils/constants'
 
 type TrainLineItemButtonProps = {
+  id: string
   name: string
   color: TrainLineColorName
   canRemove: boolean
-  removeTrainLine: () => void
+  removeTrainLine: (lineId: string) => void
 }
 
 const TrainLineItemButton: FunctionComponent<TrainLineItemButtonProps> = function ({
+  id,
   color,
   canRemove,
   removeTrainLine,
 }) {
-  const colorHex = useGetTrainLineColorHexByName(color)
-
   return (
-    <div css={trainLineItemButton(colorHex, canRemove)}>
+    <div css={trainLineItemButton(color, canRemove)}>
       {canRemove ? (
-        <div css={trainLineItemRemoveButton} onClick={removeTrainLine}>
+        <div
+          css={trainLineItemRemoveButton}
+          onClick={() => removeTrainLine(id)}
+        >
           <AiOutlineCloseCircle />
         </div>
       ) : null}
@@ -29,10 +32,13 @@ const TrainLineItemButton: FunctionComponent<TrainLineItemButtonProps> = functio
   )
 }
 
-const trainLineItemButton = (colorHex: string, canRemove: boolean) => css`
+const trainLineItemButton = (
+  color: TrainLineColorName,
+  canRemove: boolean,
+) => css`
   height: 40px;
   border-radius: 5px;
-  background: ${colorHex};
+  background: ${TRAIN_LINE_COLOR[color]};
 
   ${canRemove
     ? `

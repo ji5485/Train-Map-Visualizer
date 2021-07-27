@@ -1,4 +1,4 @@
-import { TRAIN_LINE_COLOR } from 'state/Train/trainLineColorState'
+import { TRAIN_LINE_COLOR } from 'utils/constants'
 
 // Train Line Color Type
 export type TrainLineColorType = typeof TRAIN_LINE_COLOR
