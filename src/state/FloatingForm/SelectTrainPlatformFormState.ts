@@ -1,6 +1,6 @@
-import { atom, useSetRecoilState, useRecoilValue } from 'recoil'
+import { atom, useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil'
 import { SelectTrainPlatformFormType } from 'types/FloatingForm.types'
-import { Getter, Setter } from 'types/RecoilMethods.types'
+import { Getter, Setter, GetterAndSetter } from 'types/RecoilMethods.types'
 
 const selectTrainPlatformFormAtom = atom<SelectTrainPlatformFormType>({
   key: 'selectTrainPlatformForm',
@@ -17,3 +17,6 @@ export const useGetSelectTrainPlatformForm = (): Getter<SelectTrainPlatformFormT
 
 export const useSetSelectTrainPlatformForm = (): Setter<SelectTrainPlatformFormType> =>
   useSetRecoilState(selectTrainPlatformFormAtom)
+
+export const useStateSelectTrainPlatformForm = (): GetterAndSetter<SelectTrainPlatformFormType> =>
+  useRecoilState(selectTrainPlatformFormAtom)
