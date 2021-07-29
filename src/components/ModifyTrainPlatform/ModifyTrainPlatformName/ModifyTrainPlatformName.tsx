@@ -1,18 +1,25 @@
 import { FunctionComponent, ChangeEvent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { useStateSelectTrainPlatformForm } from 'state/FloatingForm/SelectTrainPlatformFormState'
+import {
+  useStateModifyTrainPlatformForm,
+  useSetModifyTrainPlatformFormStatus,
+} from 'state/FloatingForm/ModifyTrainPlatformState'
 
 const ModifyTrainPlatformName: FunctionComponent = function () {
   const [
     { name },
-    setSelectTrainPlatformForm,
-  ] = useStateSelectTrainPlatformForm()
+    setModifyTrainPlatformForm,
+  ] = useStateModifyTrainPlatformForm()
+  const setModifyTrainPlatformFormStatus = useSetModifyTrainPlatformFormStatus()
 
   const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
-    setSelectTrainPlatformForm(prev => ({
+    setModifyTrainPlatformForm(prev => ({
       ...prev,
       name: value,
     }))
+
+  const handleFocus = (isModifyingName: boolean) =>
+    setModifyTrainPlatformFormStatus(prev => ({ ...prev, isModifyingName }))
 
   return (
     <div css={modifyPlatformNameBoxStyle}>
@@ -24,6 +31,8 @@ const ModifyTrainPlatformName: FunctionComponent = function () {
         placeholder="2~5글자로 입력해주세요."
         value={name}
         onChange={handleChange}
+        onFocus={() => handleFocus(true)}
+        onBlur={() => handleFocus(false)}
       />
     </div>
   )

@@ -7,7 +7,6 @@ import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlan
 const EnterTrainPlatformName: FunctionComponent = function () {
   const [
     {
-      selectedTrainLine: { id },
       trainPlatform: { name: trainPlatformName, error },
     },
     setTrainForm,
@@ -32,13 +31,7 @@ const EnterTrainPlatformName: FunctionComponent = function () {
         const trainPlatform = trainPlatformMatrix[row][column]
         if (trainPlatform === null) continue
 
-        const { name, line } = trainPlatform
-
-        if (
-          name === trainPlatformName &&
-          line.find(trainLine => trainLine.id === id)
-        )
-          return true
+        if (trainPlatform.name === trainPlatformName) return true
       }
     }
 
@@ -72,10 +65,7 @@ const EnterTrainPlatformName: FunctionComponent = function () {
         '역 이름은 한글 2글자 ~ 5글자로 설정해주세요.',
       )
     else if (checkTrainPlatformAlreadyExists())
-      setValidationOfTrainPlatformName(
-        false,
-        '동일 호선에 같은 이름의 역이 존재합니다.',
-      )
+      setValidationOfTrainPlatformName(false, '역 이름이 이미 사용 중입니다.')
     else setValidationOfTrainPlatformName(true, '')
   }
 
@@ -89,7 +79,7 @@ const EnterTrainPlatformName: FunctionComponent = function () {
         onChange={handleTrainPlatformNameChange}
         onBlur={checkTrainPlatformIsValid}
       />
-      {error !== '' && <div css={errorMessageStyle}>{error}</div>}
+      {error !== '' ? <div css={errorMessageStyle}>{error}</div> : null}
     </div>
   )
 }

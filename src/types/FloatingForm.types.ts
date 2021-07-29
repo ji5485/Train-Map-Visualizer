@@ -21,5 +21,11 @@ export type TrainFormType = {
   }
 }
 
-// Selected Train Form Type
-export type SelectTrainPlatformFormType = TrainPlatformType
+// Modify Train Platform Form Type
+export type ModifyTrainPlatformFormType = TrainPlatformType
+
+// Modify Train Platform Form Status Type
+export type ModifyTrainPlatformFormStatusType = {
+  isModifyingName: boolean
+  error: string
+}

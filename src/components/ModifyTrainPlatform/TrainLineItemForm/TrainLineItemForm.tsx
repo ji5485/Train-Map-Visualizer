@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { useGetTrainLine } from 'state/Train/trainLineState'
 import { useGetFilteredTrainLineList } from 'state/Train/trainLineListState'
-import { useStateSelectTrainPlatformForm } from 'state/FloatingForm/SelectTrainPlatformFormState'
+import { useStateModifyTrainPlatformForm } from 'state/FloatingForm/ModifyTrainPlatformState'
 import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
 import { TrainLineColorName } from 'types/Train.types'
 import TrainLineItemButton from 'components/ModifyTrainPlatform/TrainLineItemButton'
@@ -11,8 +11,8 @@ import AppendTrainLineItem from 'components/ModifyTrainPlatform/AppendTrainLineI
 const TrainLineItemForm: FunctionComponent = function () {
   const [
     { line, nodeNumber },
-    setSelectTrainPlatformForm,
-  ] = useStateSelectTrainPlatformForm()
+    setModifyTrainPlatformForm,
+  ] = useStateModifyTrainPlatformForm()
   const { nextNodeNumber } = useGetPositionByNodeNumber(nodeNumber)
   const trainLineMatrix = useGetTrainLine()
 
@@ -27,7 +27,7 @@ const TrainLineItemForm: FunctionComponent = function () {
     })
 
   const removeTrainLine = (lineId: string) =>
-    setSelectTrainPlatformForm(({ line, ...rest }) => {
+    setModifyTrainPlatformForm(({ line, ...rest }) => {
       const modifiedList = line.filter(({ id }) => id !== lineId)
 
       return {
@@ -37,28 +37,40 @@ const TrainLineItemForm: FunctionComponent = function () {
     })
 
   return (
-    <div css={trainLineItemFormStyle}>
-      {line.map(({ id, name, color }) => {
-        const canRemove = line.length > 1 && checkTrainLineItemIsNotUsed(color)
+    <div>
+      <div css={trainLineItemFormTitleStyle}>호선 변경</div>
 
-        return (
-          <TrainLineItemButton
-            id={id}
-            name={name}
-            color={color}
-            canRemove={canRemove}
-            removeTrainLine={removeTrainLine}
-            key={id}
-          />
-        )
-      })}
+      <div css={trainLineItemFormStyle}>
+        {line.map(({ id, name, color }) => {
+          const canRemove =
+            line.length > 1 && checkTrainLineItemIsNotUsed(color)
 
-      {filteredTrainLine.length !== 0 ? (
-        <AppendTrainLineItem line={filteredTrainLine} />
-      ) : null}
+          return (
+            <TrainLineItemButton
+              id={id}
+              name={name}
+              color={color}
+              canRemove={canRemove}
+              removeTrainLine={removeTrainLine}
+              key={id}
+            />
+          )
+        })}
+
+        {filteredTrainLine.length !== 0 ? (
+          <AppendTrainLineItem line={filteredTrainLine} />
+        ) : null}
+      </div>
     </div>
   )
 }
+
+const trainLineItemFormTitleStyle = css`
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.7);
+`
 
 const trainLineItemFormStyle = css`
   display: grid;

@@ -2,12 +2,23 @@ import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import TrainLineItemForm from 'components/ModifyTrainPlatform/TrainLineItemForm'
 import ModifyTrainPlatformName from 'components/ModifyTrainPlatform/ModifyTrainPlatformName'
+import ModifyTrainPlatformError from 'components/ModifyTrainPlatform/ModifyTrainPlatformError'
+import {
+  useGetModifyTrainPlatformForm,
+  useGetModifyTrainPlatformFormStatus,
+} from 'state/FloatingForm/ModifyTrainPlatformState'
+import { useSetTrainPlatform } from 'state/Train/trainPlatformState'
 
 const ModifyForm: FunctionComponent = function () {
+  const modifyTrainPlatformForm = useGetModifyTrainPlatformForm()
+  const { error } = useGetModifyTrainPlatformFormStatus()
+  const setTrainPlatform = useSetTrainPlatform()
+
   return (
     <div>
       <TrainLineItemForm />
       <ModifyTrainPlatformName />
+      <ModifyTrainPlatformError />
       <div css={modifyFormButtonBox}>
         <div css={modifyButtonStyle(true)}>변경하기</div>
         <div css={removeButtonStyle}>제거하기</div>
