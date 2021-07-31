@@ -4,12 +4,13 @@ import { VscChromeClose } from 'react-icons/vsc'
 import { TOOL_FORM_TITLE } from 'utils/constants'
 import TrainPlatformForm from 'components/AppendTrainPlatform/TrainPlatformForm'
 import DrawingLineForm from 'components/SelectDrawingLine/DrawingLineForm'
-import ModifyTrainPlatformForm from 'components/ModifyTrainPlatform/ModifyTrainPlatformForm/ModifyTrainPlatformForm'
+import ModifyTrainPlatformForm from 'components/ModifyTrainPlatform/ModifyTrainPlatformForm'
+import ModifyTrainLineForm from 'components/ModifyTrainLine/ModifyTrainLineForm'
 
 // constants.ts 파일에 두면 순환 종속성 문제로 인한 에러 발생
 const TOOL_FORM_CONTENT = {
   select_platform: ModifyTrainPlatformForm,
-  select_line: TrainPlatformForm,
+  select_line: ModifyTrainLineForm,
   append: TrainPlatformForm,
   line: DrawingLineForm,
 }

@@ -44,7 +44,7 @@ export const MESSAGE_TYPE = {
 // Used in ToolForm.tsx
 export const TOOL_FORM_TITLE = {
   select_platform: '선택한 지하철역',
-  select_line: '',
+  select_line: '선택한 선로',
   append: '지하철역 추가',
   line: '그릴 선로 선택',
 }
