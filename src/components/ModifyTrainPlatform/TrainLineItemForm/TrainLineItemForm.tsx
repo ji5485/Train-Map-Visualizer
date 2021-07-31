@@ -2,17 +2,17 @@ import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { useGetTrainLine } from 'state/Train/trainLineState'
 import { useGetFilteredTrainLineList } from 'state/Train/trainLineListState'
-import { useStateModifyTrainPlatformForm } from 'state/FloatingForm/ModifyTrainPlatformState'
+import { useManageModifyTrainPlatformForm } from 'state/FloatingForm/ModifyTrainPlatformState'
 import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
 import { TrainLineColorName } from 'types/Train.types'
 import TrainLineItemButton from 'components/ModifyTrainPlatform/TrainLineItemButton'
 import AppendTrainLineItem from 'components/ModifyTrainPlatform/AppendTrainLineItem'
 
 const TrainLineItemForm: FunctionComponent = function () {
-  const [
-    { line, nodeNumber },
+  const {
+    modifyTrainPlatformForm: { line, nodeNumber },
     setModifyTrainPlatformForm,
-  ] = useStateModifyTrainPlatformForm()
+  } = useManageModifyTrainPlatformForm()
   const { nextNodeNumber } = useGetPositionByNodeNumber(nodeNumber)
   const trainLineMatrix = useGetTrainLine()
 

@@ -1,9 +1,9 @@
-import { atom, useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil'
+import { atom, useRecoilState, useResetRecoilState, Resetter } from 'recoil'
 import {
   ModifyTrainPlatformFormType,
   ModifyTrainPlatformFormStatusType,
 } from 'types/FloatingForm.types'
-import { Getter, Setter, GetterAndSetter } from 'types/RecoilMethods.types'
+import { Getter, Setter } from 'types/RecoilMethods.types'
 
 const modifyTrainPlatformFormAtom = atom<ModifyTrainPlatformFormType>({
   key: 'modifyTrainPlatformForm',
@@ -25,20 +25,41 @@ const modifyTrainPlatformFormStatusAtom = atom<ModifyTrainPlatformFormStatusType
   },
 )
 
-export const useGetModifyTrainPlatformForm = (): Getter<ModifyTrainPlatformFormType> =>
-  useRecoilValue(modifyTrainPlatformFormAtom)
+export const useManageModifyTrainPlatformForm = (): {
+  modifyTrainPlatformForm: Getter<ModifyTrainPlatformFormType>
+  setModifyTrainPlatformForm: Setter<ModifyTrainPlatformFormType>
+  resetModifyTrainPlatformForm: Resetter
+} => {
+  const [modifyTrainPlatformForm, setModifyTrainPlatformForm] = useRecoilState(
+    modifyTrainPlatformFormAtom,
+  )
+  const resetModifyTrainPlatformForm = useResetRecoilState(
+    modifyTrainPlatformFormAtom,
+  )
 
-export const useSetModifyTrainPlatformForm = (): Setter<ModifyTrainPlatformFormType> =>
-  useSetRecoilState(modifyTrainPlatformFormAtom)
+  return {
+    modifyTrainPlatformForm,
+    setModifyTrainPlatformForm,
+    resetModifyTrainPlatformForm,
+  }
+}
 
-export const useStateModifyTrainPlatformForm = (): GetterAndSetter<ModifyTrainPlatformFormType> =>
-  useRecoilState(modifyTrainPlatformFormAtom)
+export const useManageModifyTrainPlatformFormStatus = (): {
+  modifyTrainPlatformFormStatus: Getter<ModifyTrainPlatformFormStatusType>
+  setModifyTrainPlatformFormStatus: Setter<ModifyTrainPlatformFormStatusType>
+  resetModifyTrainPlatformFormStatus: Resetter
+} => {
+  const [
+    modifyTrainPlatformFormStatus,
+    setModifyTrainPlatformFormStatus,
+  ] = useRecoilState(modifyTrainPlatformFormStatusAtom)
+  const resetModifyTrainPlatformFormStatus = useResetRecoilState(
+    modifyTrainPlatformFormStatusAtom,
+  )
 
-export const useGetModifyTrainPlatformFormStatus = (): Getter<ModifyTrainPlatformFormStatusType> =>
-  useRecoilValue(modifyTrainPlatformFormStatusAtom)
-
-export const useSetModifyTrainPlatformFormStatus = (): Setter<ModifyTrainPlatformFormStatusType> =>
-  useSetRecoilState(modifyTrainPlatformFormStatusAtom)
-
-export const useStateModifyTrainPlatformFormStatus = (): GetterAndSetter<ModifyTrainPlatformFormStatusType> =>
-  useRecoilState(modifyTrainPlatformFormStatusAtom)
+  return {
+    modifyTrainPlatformFormStatus,
+    setModifyTrainPlatformFormStatus,
+    resetModifyTrainPlatformFormStatus,
+  }
+}

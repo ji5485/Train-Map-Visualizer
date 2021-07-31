@@ -91,7 +91,7 @@ export default function useDrawTrainLine(
   // 선로 그리기 시작 함수
   const startDrawing = () => {
     // 만약 환승역인 경우에는 선로를 직접 선택할 수 있게 폼을 띄워줌
-    if (trainPlatform !== null && trainPlatform.line.length >= 2)
+    if (trainPlatform !== null && trainPlatform.line.length >= 2 && !isDrawing)
       openDrawingLineList(trainPlatform.line)
 
     // 환승역인 경우에도 일단 그리기 모드 실행

@@ -20,7 +20,7 @@ type useGetPositionByNodeNumberType = {
 }
 
 export default function useGetPositionByNodeNumber(
-  nodeNumber: number,
+  nodeNumber?: number | undefined,
 ): useGetPositionByNodeNumberType {
   const { width } = useGetCoordinatePlaneSize()
   const [position, setPosition] = useState<PositionType>({
@@ -40,6 +40,8 @@ export default function useGetPositionByNodeNumber(
   })
 
   useEffect(() => {
+    if (nodeNumber === undefined) return
+
     setPosition(getPositionByNodeNumber(nodeNumber))
     setNextNodeNumber({
       top: nodeNumber - width,

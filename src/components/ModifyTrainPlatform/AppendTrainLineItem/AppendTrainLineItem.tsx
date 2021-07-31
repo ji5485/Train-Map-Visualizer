@@ -4,7 +4,7 @@ import { TrainLineItemType, TrainLineColorName } from 'types/Train.types'
 import { TRAIN_LINE_COLOR } from 'utils/constants'
 import { GrAdd } from 'react-icons/gr'
 import useHandleClickOutSide from 'hooks/useHandleClickOutSide'
-import { useSetModifyTrainPlatformForm } from 'state/FloatingForm/ModifyTrainPlatformState'
+import { useManageModifyTrainPlatformForm } from 'state/FloatingForm/ModifyTrainPlatformState'
 
 type AppendTrainLineItemProps = {
   line: TrainLineItemType[]
@@ -13,7 +13,7 @@ type AppendTrainLineItemProps = {
 const AppendTrainLineItem: FunctionComponent<AppendTrainLineItemProps> = function ({
   line,
 }) {
-  const setModifyTrainPlatformForm = useSetModifyTrainPlatformForm()
+  const { setModifyTrainPlatformForm } = useManageModifyTrainPlatformForm()
   const {
     ref,
     isVisible,

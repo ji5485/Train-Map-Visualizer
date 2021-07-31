@@ -1,16 +1,18 @@
 import { FunctionComponent, ChangeEvent } from 'react'
 import { jsx, css } from '@emotion/react'
 import {
-  useStateModifyTrainPlatformForm,
-  useSetModifyTrainPlatformFormStatus,
+  useManageModifyTrainPlatformForm,
+  useManageModifyTrainPlatformFormStatus,
 } from 'state/FloatingForm/ModifyTrainPlatformState'
 
 const ModifyTrainPlatformName: FunctionComponent = function () {
-  const [
-    { name },
+  const {
+    modifyTrainPlatformForm: { name },
     setModifyTrainPlatformForm,
-  ] = useStateModifyTrainPlatformForm()
-  const setModifyTrainPlatformFormStatus = useSetModifyTrainPlatformFormStatus()
+  } = useManageModifyTrainPlatformForm()
+  const {
+    setModifyTrainPlatformFormStatus,
+  } = useManageModifyTrainPlatformFormStatus()
 
   const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
     setModifyTrainPlatformForm(prev => ({

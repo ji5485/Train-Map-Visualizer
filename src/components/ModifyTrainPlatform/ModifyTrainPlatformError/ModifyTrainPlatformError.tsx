@@ -1,18 +1,20 @@
 import { useEffect, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import {
-  useGetModifyTrainPlatformForm,
-  useStateModifyTrainPlatformFormStatus,
+  useManageModifyTrainPlatformForm,
+  useManageModifyTrainPlatformFormStatus,
 } from 'state/FloatingForm/ModifyTrainPlatformState'
 import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
 import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
 
 const ModifyTrainPlatformError: FunctionComponent = function () {
-  const { name, nodeNumber } = useGetModifyTrainPlatformForm()
-  const [
-    { isModifyingName, error },
+  const {
+    modifyTrainPlatformForm: { name, nodeNumber },
+  } = useManageModifyTrainPlatformForm()
+  const {
+    modifyTrainPlatformFormStatus: { isModifyingName, error },
     setModifyTrainPlatformFormStatus,
-  ] = useStateModifyTrainPlatformFormStatus()
+  } = useManageModifyTrainPlatformFormStatus()
   const { width, height } = useGetCoordinatePlaneSize()
   const trainPlatformMatrix = useGetTrainPlatform()
 

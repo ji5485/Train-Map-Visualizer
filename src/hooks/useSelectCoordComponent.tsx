@@ -1,7 +1,7 @@
 import { useEffect, MutableRefObject } from 'react'
 import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
-import { useSetModifyTrainPlatformForm } from 'state/FloatingForm/ModifyTrainPlatformState'
+import { useManageModifyTrainPlatformForm } from 'state/FloatingForm/ModifyTrainPlatformState'
 import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
 import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
 import { TrainLineDirection } from 'types/Train.types'
@@ -18,7 +18,7 @@ export default function useSelectCoordComponent(
     position: { row, column },
   } = useGetPositionByNodeNumber(nodeNumber)
   const setFloatingForm = useSetFloatingForm()
-  const setModifyTrainPlatformForm = useSetModifyTrainPlatformForm()
+  const { setModifyTrainPlatformForm } = useManageModifyTrainPlatformForm()
   const trainPlatformMatrix = useGetTrainPlatform()
 
   const handleComponentClick = () => {

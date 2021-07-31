@@ -1,18 +1,48 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
+import produce from 'immer'
 import TrainLineItemForm from 'components/ModifyTrainPlatform/TrainLineItemForm'
 import ModifyTrainPlatformName from 'components/ModifyTrainPlatform/ModifyTrainPlatformName'
 import ModifyTrainPlatformError from 'components/ModifyTrainPlatform/ModifyTrainPlatformError'
 import {
-  useGetModifyTrainPlatformForm,
-  useGetModifyTrainPlatformFormStatus,
+  useManageModifyTrainPlatformForm,
+  useManageModifyTrainPlatformFormStatus,
 } from 'state/FloatingForm/ModifyTrainPlatformState'
 import { useSetTrainPlatform } from 'state/Train/trainPlatformState'
+import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
+import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
+import { TrainPlatformType } from 'types/Train.types'
 
 const ModifyForm: FunctionComponent = function () {
-  const modifyTrainPlatformForm = useGetModifyTrainPlatformForm()
-  const { error } = useGetModifyTrainPlatformFormStatus()
+  const { modifyTrainPlatformForm } = useManageModifyTrainPlatformForm()
+  const {
+    modifyTrainPlatformFormStatus: { error },
+  } = useManageModifyTrainPlatformFormStatus()
   const setTrainPlatform = useSetTrainPlatform()
+  const { getPositionByNodeNumber } = useGetPositionByNodeNumber()
+  const setFloatingForm = useSetFloatingForm()
+
+  const trainPlatformSetter = (modified: TrainPlatformType | null) => {
+    const { row, column } = getPositionByNodeNumber(
+      modifyTrainPlatformForm.nodeNumber,
+    )
+
+    setTrainPlatform(prev =>
+      produce(prev, draft => {
+        draft[row][column] = modified
+        return draft
+      }),
+    )
+    setFloatingForm(prev => ({ ...prev, isOpen: false }))
+  }
+
+  const modifyTrainPlatform = () => trainPlatformSetter(modifyTrainPlatformForm)
+
+  const removeTrainPlatform = () => {
+    // TODO: Check Connected With Line
+
+    trainPlatformSetter(null)
+  }
 
   return (
     <div>
@@ -20,8 +50,15 @@ const ModifyForm: FunctionComponent = function () {
       <ModifyTrainPlatformName />
       <ModifyTrainPlatformError />
       <div css={modifyFormButtonBox}>
-        <div css={modifyButtonStyle(true)}>변경하기</div>
-        <div css={removeButtonStyle}>제거하기</div>
+        <div
+          css={modifyButtonStyle(!error)}
+          onClick={!error ? modifyTrainPlatform : undefined}
+        >
+          변경하기
+        </div>
+        <div css={removeButtonStyle} onClick={removeTrainPlatform}>
+          제거하기
+        </div>
       </div>
     </div>
   )
