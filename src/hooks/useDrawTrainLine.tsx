@@ -10,6 +10,10 @@ import {
   useManagePreviewTrainLineStack,
 } from 'state/Train/PreviewTrainLineState'
 import {
+  useManageTrainMapGraph,
+  useManageTrainMapGraphEdge,
+} from 'state/Train/TrainMapGraphState'
+import {
   TrainLineColorName,
   TrainPlatformType,
   TrainLineDirection,
@@ -18,6 +22,7 @@ import {
 } from 'types/Train.types'
 import useSelectDrawingTrainLine from 'hooks/useSelectDrawingTrainLine'
 import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
+import shortId from 'utils/shortId'
 
 type useDrawTrainLineType = {
   isDrawingCurrentNode: boolean
@@ -53,7 +58,7 @@ export default function useDrawTrainLine(
     drawingLineStatus: {
       isDrawing,
       currentNode,
-      // startTrainPlatform,
+      startTrainPlatform,
       drawingLine,
     },
     setDrawingLineStatus,
@@ -81,6 +86,14 @@ export default function useDrawTrainLine(
     resetPreviewTrainLineStack,
   } = useManagePreviewTrainLineStack()
 
+  // Train Map Graph
+  const { setTrainMapGraph } = useManageTrainMapGraph()
+  const {
+    trainMapGraphEdge,
+    setTrainMapGraphEdge,
+    resetTrainMapGraphEdge,
+  } = useManageTrainMapGraphEdge()
+
   // Node Position Information
   const {
     position: { row, column },
@@ -106,12 +119,27 @@ export default function useDrawTrainLine(
             ? trainPlatform.line[0]
             : prev.drawingLine,
       }))
+      setTrainMapGraphEdge({ id: shortId(), time: 0 })
     }
   }
 
   // 선로 그리기를 끝내는 함수
   const finishDrawing = () => {
-    if (trainPlatform === null || drawingLine === null) return
+    if (
+      trainPlatform === null ||
+      drawingLine === null ||
+      startTrainPlatform === null
+    )
+      return
+
+    setTrainMapGraph(prev =>
+      produce(prev, draft => {
+        draft[startTrainPlatform.nodeNumber][trainPlatform.nodeNumber] = draft[
+          trainPlatform.nodeNumber
+        ][startTrainPlatform.nodeNumber] = trainMapGraphEdge
+        return draft
+      }),
+    )
 
     if (!trainPlatform.line.find(({ id }) => id === drawingLine.id)) {
       setTrainPlatform(prev =>
@@ -130,6 +158,7 @@ export default function useDrawTrainLine(
     resetDrawingLineStatus()
     resetPreviewTrainLineTrace()
     resetPreviewTrainLineStack()
+    resetTrainMapGraphEdge()
   }
 
   // 선로 그리기 함수
@@ -269,6 +298,7 @@ export default function useDrawTrainLine(
       ...prev,
       currentNode: destination,
     }))
+    setTrainMapGraphEdge(prev => ({ ...prev, time: prev.time + 1 }))
   }, [isDrawingCurrentNode])
 
   // startDrawing 함수와 finishDrawing 함수를 실행시키기 위한 부분

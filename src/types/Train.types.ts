@@ -42,3 +42,10 @@ export type PreviewTrainLineStackItemType = {
   column: number
 }
 export type PreviewTrainLineStackType = PreviewTrainLineStackItemType[]
+
+// Train Map Graph Type
+export type TrainMapGraphEdgeType = {
+  id: string
+  time: number
+}
+export type TrainMapGraphType = (TrainMapGraphEdgeType | null)[][]

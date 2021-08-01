@@ -1,3 +1,3 @@
-const shortId = (): string => Math.random().toString(36).substring(2)
-
-export default shortId
+export default function shortId(): string {
+  return Math.random().toString(36).substring(2)
+}
