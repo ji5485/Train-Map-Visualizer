@@ -3,9 +3,13 @@ import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coor
 import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
 import { useManageModifyTrainPlatformForm } from 'state/FloatingForm/ModifyTrainPlatformState'
 import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
+import { useGetTrainLine } from 'state/Train/trainLineState'
+// import { useManageTrainMapGraph } from 'state/Train/TrainMapGraphState'
 import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
+import useFindTrainLinePath from 'hooks/useFindTrainLinePath'
 import { TrainLineDirection } from 'types/Train.types'
 import { FloatingFormContentType } from 'types/FloatingForm.types'
+import { TRAIN_LINE_NEXT_POSITION } from 'utils/constants'
 
 export default function useSelectCoordComponent(
   type: 'platform' | 'line',
@@ -16,10 +20,15 @@ export default function useSelectCoordComponent(
   const [currentMode, setCurrentMode] = useStateCoordinateSystemCurrentMode()
   const {
     position: { row, column },
+    getNodeNumberByPosition,
   } = useGetPositionByNodeNumber(nodeNumber)
+  const { findConnectedLine } = useFindTrainLinePath()
+
   const setFloatingForm = useSetFloatingForm()
   const { setModifyTrainPlatformForm } = useManageModifyTrainPlatformForm()
   const trainPlatformMatrix = useGetTrainPlatform()
+  const trainLineMatrix = useGetTrainLine()
+  // const trainMapGraph = useManageTrainMapGraph()
 
   const handleComponentClick = () => {
     if (type === 'platform') setTrainPlatformInfo()
@@ -41,7 +50,15 @@ export default function useSelectCoordComponent(
   }
 
   const setTrainLineInfo = () => {
-    console.log(type, row, column, direction)
+    if (direction === null) return
+
+    const [dy, dx]: number[] = TRAIN_LINE_NEXT_POSITION[direction]
+    const nextNodeNumber = getNodeNumberByPosition(row + dy, column + dx)
+    const selectedTrainLine = trainLineMatrix[nodeNumber][nextNodeNumber]
+
+    if (selectedTrainLine === null) return
+
+    findConnectedLine(nodeNumber, selectedTrainLine)
   }
 
   useEffect(() => {

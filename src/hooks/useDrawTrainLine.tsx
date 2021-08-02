@@ -277,7 +277,7 @@ export default function useDrawTrainLine(
     setTrainLine(prev =>
       produce(prev, draft => {
         const newPreviewTrainLine: TrainLineType = {
-          lineId: drawingLine.id,
+          lineId: trainMapGraphEdge.id,
           color: drawingLine.color,
         }
 

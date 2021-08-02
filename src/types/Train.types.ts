@@ -23,7 +23,7 @@ export type TrainPlatformMatrixType = (TrainPlatformType | null)[][]
 // Train Line Type
 export type TrainLineDirection = 'top' | 'right' | 'bottom' | 'left'
 export type TrainLineType = {
-  lineId: TrainLineItemType['id']
+  lineId: TrainMapGraphEdgeType['id']
   color: TrainLineColorName
 }
 export type TrainLineMatrixType = (TrainLineType | null)[][]

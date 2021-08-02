@@ -6,6 +6,12 @@ export type CoordinatePlaneSizeType = {
   height: number
 }
 
+// Coordinate System Position Type
+export type CoordinatePositionType = {
+  row: number
+  column: number
+}
+
 // Coordinate System Current Mode Type
 export type CoordinateSystemCurrentModeType =
   | 'hand'

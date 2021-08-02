@@ -17,6 +17,7 @@ type useGetPositionByNodeNumberType = {
   position: PositionType
   nextNodeNumber: NextNodeNumberType
   getPositionByNodeNumber: (number: number) => PositionType
+  getNodeNumberByPosition: (row: number, column: number) => number
 }
 
 export default function useGetPositionByNodeNumber(
@@ -39,6 +40,9 @@ export default function useGetPositionByNodeNumber(
     column: number % width,
   })
 
+  const getNodeNumberByPosition = (row: number, column: number) =>
+    row * width + column
+
   useEffect(() => {
     if (nodeNumber === undefined) return
 
@@ -51,5 +55,10 @@ export default function useGetPositionByNodeNumber(
     })
   }, [width])
 
-  return { position, nextNodeNumber, getPositionByNodeNumber }
+  return {
+    position,
+    nextNodeNumber,
+    getPositionByNodeNumber,
+    getNodeNumberByPosition,
+  }
 }
