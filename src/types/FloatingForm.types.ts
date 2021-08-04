@@ -1,4 +1,8 @@
-import { TrainLineItemType, TrainPlatformType } from 'types/Train.types'
+import {
+  TrainLineItemType,
+  TrainLineType,
+  TrainPlatformType,
+} from 'types/Train.types'
 
 // FloatingForm Condition Type
 export type FloatingFormContentType =
@@ -28,4 +32,11 @@ export type ModifyTrainPlatformFormType = TrainPlatformType
 export type ModifyTrainPlatformFormStatusType = {
   isModifyingName: boolean
   error: string
+}
+
+// Modify Train Line Form Type
+export type ModifyTrainLineFormType = {
+  selectedTrainLine: TrainLineType | null
+  connectedTrainPlatform: TrainPlatformType[]
+  time: number
 }

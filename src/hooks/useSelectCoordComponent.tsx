@@ -2,9 +2,10 @@ import { useEffect, MutableRefObject } from 'react'
 import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
 import { useManageModifyTrainPlatformForm } from 'state/FloatingForm/ModifyTrainPlatformState'
+import { useManageModifyTrainLineForm } from 'state/FloatingForm/ModifyTrainLineState'
 import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
 import { useGetTrainLine } from 'state/Train/trainLineState'
-// import { useManageTrainMapGraph } from 'state/Train/TrainMapGraphState'
+import { useManageTrainMapGraph } from 'state/Train/TrainMapGraphState'
 import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
 import useFindTrainLinePath from 'hooks/useFindTrainLinePath'
 import { TrainLineDirection } from 'types/Train.types'
@@ -22,13 +23,14 @@ export default function useSelectCoordComponent(
     position: { row, column },
     getNodeNumberByPosition,
   } = useGetPositionByNodeNumber(nodeNumber)
-  const { findConnectedLine } = useFindTrainLinePath()
+  const { findConnectedPlatformWithSelectedLine } = useFindTrainLinePath()
 
-  const setFloatingForm = useSetFloatingForm()
-  const { setModifyTrainPlatformForm } = useManageModifyTrainPlatformForm()
   const trainPlatformMatrix = useGetTrainPlatform()
   const trainLineMatrix = useGetTrainLine()
-  // const trainMapGraph = useManageTrainMapGraph()
+  const { trainMapGraph } = useManageTrainMapGraph()
+  const setFloatingForm = useSetFloatingForm()
+  const { setModifyTrainPlatformForm } = useManageModifyTrainPlatformForm()
+  const { setModifyTrainLineForm } = useManageModifyTrainLineForm()
 
   const handleComponentClick = () => {
     if (type === 'platform') setTrainPlatformInfo()
@@ -54,11 +56,21 @@ export default function useSelectCoordComponent(
 
     const [dy, dx]: number[] = TRAIN_LINE_NEXT_POSITION[direction]
     const nextNodeNumber = getNodeNumberByPosition(row + dy, column + dx)
-    const selectedTrainLine = trainLineMatrix[nodeNumber][nextNodeNumber]
+    const selectedTrainLine = trainLineMatrix[nodeNumber][nextNodeNumber]!
 
-    if (selectedTrainLine === null) return
+    const connectedTrainPlatform = findConnectedPlatformWithSelectedLine(
+      nodeNumber,
+      selectedTrainLine,
+    )
+    const selectedTrainLineTime = trainMapGraph[
+      connectedTrainPlatform[0].nodeNumber
+    ][connectedTrainPlatform[1].nodeNumber]!.time
 
-    findConnectedLine(nodeNumber, selectedTrainLine)
+    setModifyTrainLineForm({
+      selectedTrainLine,
+      connectedTrainPlatform,
+      time: selectedTrainLineTime,
+    })
   }
 
   useEffect(() => {

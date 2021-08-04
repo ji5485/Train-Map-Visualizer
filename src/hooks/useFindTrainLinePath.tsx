@@ -2,11 +2,18 @@ import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
 import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
 import { useGetTrainLine } from 'state/Train/trainLineState'
 import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
-import { TrainLineType } from 'types/Train.types'
+import { TrainLineType, TrainPlatformType } from 'types/Train.types'
 import { CoordinatePositionType } from 'types/CoordinateSystem.types'
 
 type useFindTrainLinePathType = {
-  findConnectedLine: (nodeNumber: number, selectedLine: TrainLineType) => void
+  findConnectedPlatformWithSelectedLine: (
+    nodeNumber: number,
+    selectedLine: TrainLineType,
+  ) => TrainPlatformType[]
+  findLineWithSelectedLine: (
+    nodeNumber: number,
+    selectedLine: TrainLineType,
+  ) => void
 }
 
 export default function useFindTrainLinePath(): useFindTrainLinePathType {
@@ -22,53 +29,79 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
     nodeNumber - 1,
   ]
 
-  const findPathWithBFS = (startNodeNumber: number, selectedLineId: string) => {
+  const findPathWithBFS = (
+    startNodeNumber: number,
+    selectedLineId: string,
+  ): CoordinatePositionType[] => {
     const result: CoordinatePositionType[] = []
-    const queue = []
-    const visited = new Array<boolean[]>(height).fill(
-      new Array<boolean>(width).fill(false),
+    const queue = [startNodeNumber]
+    const visited = Array.from(Array<boolean[]>(height), () =>
+      Array<boolean>(width).fill(false),
     )
-
-    const startPosition = getPositionByNodeNumber(startNodeNumber)
-    queue.push(startNodeNumber)
-    visited[startPosition.row][startPosition.column] = true
 
     while (queue.length !== 0) {
       const currentNodeNumber = queue.shift()
-      if (currentNodeNumber === undefined) return
+      if (currentNodeNumber === undefined) break
+
+      const { row, column } = getPositionByNodeNumber(currentNodeNumber)
+      visited[row][column] = true
+      if (trainPlatformMatrix[row][column])
+        result.push({ row, column } as CoordinatePositionType)
 
       getNextNodeNumber(currentNodeNumber).forEach(nextNodeNumber => {
         if (nextNodeNumber < 0 || nextNodeNumber >= width * height - 1) return
 
-        console.log(nextNodeNumber)
-
-        const { row, column } = getPositionByNodeNumber(nextNodeNumber)
+        const nextPosition = getPositionByNodeNumber(nextNodeNumber)
         const trainLine = trainLineMatrix[currentNodeNumber][nextNodeNumber]
 
         if (
           trainLine &&
           trainLine.lineId === selectedLineId &&
-          !visited[row][column]
-        ) {
+          !visited[nextPosition.row][nextPosition.column]
+        )
           queue.push(nextNodeNumber)
-          // visited[row][column] = true
-
-          if (trainPlatformMatrix[row][column])
-            result.push({ row, column } as CoordinatePositionType)
-        }
       })
     }
-    // return result
+
+    return result
   }
 
-  const findConnectedLine = (
+  const findConnectedPlatformWithSelectedLine = (
+    nodeNumber: number,
+    selectedLine: TrainLineType,
+  ): TrainPlatformType[] => {
+    const [firstPosition, secondPosition] = findPathWithBFS(
+      nodeNumber,
+      selectedLine.lineId,
+    )
+    const trainPlatforms = [
+      trainPlatformMatrix[firstPosition.row][
+        firstPosition.column
+      ] as TrainPlatformType,
+      trainPlatformMatrix[secondPosition.row][
+        secondPosition.column
+      ] as TrainPlatformType,
+    ]
+
+    return trainPlatforms
+  }
+
+  const findLineWithSelectedLine = (
     nodeNumber: number,
     selectedLine: TrainLineType,
   ) => {
-    findPathWithBFS(nodeNumber, selectedLine.lineId)
+    const [firstPosition, secondPosition] = findPathWithBFS(
+      nodeNumber,
+      selectedLine.lineId,
+    )
+    const trainPlatforms = [
+      trainPlatformMatrix[firstPosition.row][firstPosition.column],
+      trainPlatformMatrix[secondPosition.row][secondPosition.column],
+    ]
 
-    // console.log(result)
+    console.log(trainPlatforms)
+    return trainPlatforms
   }
 
-  return { findConnectedLine }
+  return { findConnectedPlatformWithSelectedLine, findLineWithSelectedLine }
 }
