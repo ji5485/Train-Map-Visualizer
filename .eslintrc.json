@@ -28,6 +28,7 @@
         "args": "all",
         "varsIgnorePattern": "^jsx$"
       }
-    ]
+    ],
+    "@typescript-eslint/no-non-null-assertion": 0
   }
 }
