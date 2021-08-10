@@ -1,6 +1,5 @@
 import { useState, useEffect, MutableRefObject } from 'react'
 import produce from 'immer'
-import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
 import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 import { useManageCoordinateSystemDrawingLineStatus } from 'state/CoordinateSystem/coordinateSystemDrawingLineState'
 import { useSetTrainPlatform } from 'state/Train/trainPlatformState'
@@ -32,20 +31,6 @@ type useDrawTrainLineType = {
   }
 }
 
-// 노드 넘버가 좌표계 내에 있는지 체크하는 함수
-const checkNotExistNextNodeInCoord = (
-  nodeNumber: number,
-  direction: TrainLineDirection,
-  width: number,
-  height: number,
-) =>
-  ({
-    top: nodeNumber < width,
-    right: (nodeNumber + 1) / width === 0,
-    bottom: width * (height - 1) <= nodeNumber,
-    left: (nodeNumber + 1) % width === 1,
-  }[direction])
-
 export default function useDrawTrainLine(
   nodeNumber: number,
   nodeRef: MutableRefObject<HTMLDivElement | null>,
@@ -53,7 +38,6 @@ export default function useDrawTrainLine(
 ): useDrawTrainLineType {
   // Information About Coordinate System
   const [currentMode, setCurrentMode] = useStateCoordinateSystemCurrentMode()
-  const { width, height } = useGetCoordinatePlaneSize()
   const {
     drawingLineStatus: {
       isDrawing,
@@ -99,6 +83,7 @@ export default function useDrawTrainLine(
     position: { row, column },
     nextNodeNumber,
     getPositionByNodeNumber,
+    checkNotExistNextNodeInCoord,
   } = useGetPositionByNodeNumber(nodeNumber)
 
   // 선로 그리기 시작 함수
@@ -214,7 +199,7 @@ export default function useDrawTrainLine(
         const direction = getDirectionByAngle()
 
         if (
-          checkNotExistNextNodeInCoord(nodeNumber, direction, width, height) ||
+          checkNotExistNextNodeInCoord(nodeNumber, direction) ||
           trainLine[nodeNumber][nextNodeNumber[direction]] !== null ||
           trainLine[nextNodeNumber[direction]][nodeNumber] !== null
         )

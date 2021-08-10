@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
+import { TrainLineDirection } from 'types/Train.types'
 
 type PositionType = {
   row: number
@@ -18,12 +19,16 @@ type useGetPositionByNodeNumberType = {
   nextNodeNumber: NextNodeNumberType
   getPositionByNodeNumber: (number: number) => PositionType
   getNodeNumberByPosition: (row: number, column: number) => number
+  checkNotExistNextNodeInCoord: (
+    nodeNumber: number,
+    direction: TrainLineDirection,
+  ) => boolean
 }
 
 export default function useGetPositionByNodeNumber(
   nodeNumber?: number | undefined,
 ): useGetPositionByNodeNumberType {
-  const { width } = useGetCoordinatePlaneSize()
+  const { width, height } = useGetCoordinatePlaneSize()
   const [position, setPosition] = useState<PositionType>({
     row: 0,
     column: 0,
@@ -43,6 +48,17 @@ export default function useGetPositionByNodeNumber(
   const getNodeNumberByPosition = (row: number, column: number) =>
     row * width + column
 
+  const checkNotExistNextNodeInCoord = (
+    nodeNumber: number,
+    direction: TrainLineDirection,
+  ) =>
+    ({
+      top: nodeNumber < width,
+      right: (nodeNumber + 1) / width === 0,
+      bottom: width * (height - 1) <= nodeNumber,
+      left: (nodeNumber + 1) % width === 1,
+    }[direction])
+
   useEffect(() => {
     if (nodeNumber === undefined) return
 
@@ -60,5 +76,6 @@ export default function useGetPositionByNodeNumber(
     nextNodeNumber,
     getPositionByNodeNumber,
     getNodeNumberByPosition,
+    checkNotExistNextNodeInCoord,
   }
 }

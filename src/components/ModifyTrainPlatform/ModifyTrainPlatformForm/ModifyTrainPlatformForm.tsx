@@ -9,9 +9,11 @@ import {
   useManageModifyTrainPlatformFormStatus,
 } from 'state/FloatingForm/ModifyTrainPlatformState'
 import { useSetTrainPlatform } from 'state/Train/trainPlatformState'
+import { useGetTrainLine } from 'state/Train/trainLineState'
 import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
 import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
-import { TrainPlatformType } from 'types/Train.types'
+import useFindTrainLinePath from 'hooks/useFindTrainLinePath'
+import { TrainPlatformType, TrainLineDirection } from 'types/Train.types'
 
 const ModifyForm: FunctionComponent = function () {
   const { modifyTrainPlatformForm } = useManageModifyTrainPlatformForm()
@@ -19,7 +21,13 @@ const ModifyForm: FunctionComponent = function () {
     modifyTrainPlatformFormStatus: { error },
   } = useManageModifyTrainPlatformFormStatus()
   const setTrainPlatform = useSetTrainPlatform()
-  const { getPositionByNodeNumber } = useGetPositionByNodeNumber()
+  const trainLineMatrix = useGetTrainLine()
+  const { removeLineWithSelectedLine } = useFindTrainLinePath()
+  const {
+    nextNodeNumber,
+    getPositionByNodeNumber,
+    checkNotExistNextNodeInCoord,
+  } = useGetPositionByNodeNumber(modifyTrainPlatformForm.nodeNumber)
   const setFloatingForm = useSetFloatingForm()
 
   const trainPlatformSetter = (modified: TrainPlatformType | null) => {
@@ -39,7 +47,19 @@ const ModifyForm: FunctionComponent = function () {
   const modifyTrainPlatform = () => trainPlatformSetter(modifyTrainPlatformForm)
 
   const removeTrainPlatform = () => {
-    // TODO: Check Connected With Line
+    const nodeNumber = modifyTrainPlatformForm.nodeNumber
+
+    Object.entries(nextNodeNumber).forEach(next => {
+      if (
+        checkNotExistNextNodeInCoord(nodeNumber, next[0] as TrainLineDirection)
+      )
+        return
+
+      const trainLine = trainLineMatrix[nodeNumber][next[1]]
+      if (trainLine === null) return
+
+      removeLineWithSelectedLine(nodeNumber, trainLine)
+    })
 
     trainPlatformSetter(null)
   }
@@ -49,6 +69,7 @@ const ModifyForm: FunctionComponent = function () {
       <TrainLineItemForm />
       <ModifyTrainPlatformName />
       <ModifyTrainPlatformError />
+
       <div css={modifyFormButtonBox}>
         <div
           css={modifyButtonStyle(!error)}

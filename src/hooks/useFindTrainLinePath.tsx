@@ -1,9 +1,10 @@
 import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
 import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
-import { useGetTrainLine } from 'state/Train/trainLineState'
+import { useStateTrainLine } from 'state/Train/trainLineState'
 import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
 import { TrainLineType, TrainPlatformType } from 'types/Train.types'
 import { CoordinatePositionType } from 'types/CoordinateSystem.types'
+import produce from 'immer'
 
 type useFindTrainLinePathType = {
   findConnectedPlatformWithSelectedLine: (
@@ -14,11 +15,15 @@ type useFindTrainLinePathType = {
     nodeNumber: number,
     selectedLine: TrainLineType,
   ) => void
+  removeLineWithSelectedLine: (
+    nodeNumber: number,
+    selectedLine: TrainLineType,
+  ) => void
 }
 
 export default function useFindTrainLinePath(): useFindTrainLinePathType {
   const trainPlatformMatrix = useGetTrainPlatform()
-  const trainLineMatrix = useGetTrainLine()
+  const [trainLineMatrix, setTrainLineMatrix] = useStateTrainLine()
   const { width, height } = useGetCoordinatePlaneSize()
   const { getPositionByNodeNumber } = useGetPositionByNodeNumber()
 
@@ -32,6 +37,7 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
   const findPathWithBFS = (
     startNodeNumber: number,
     selectedLineId: string,
+    callback?: (currentNodeNumber: number, nextNodeNumber: number) => void,
   ): CoordinatePositionType[] => {
     const result: CoordinatePositionType[] = []
     const queue = [startNodeNumber]
@@ -58,8 +64,12 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
           trainLine &&
           trainLine.lineId === selectedLineId &&
           !visited[nextPosition.row][nextPosition.column]
-        )
+        ) {
           queue.push(nextNodeNumber)
+
+          if (callback !== undefined)
+            callback(currentNodeNumber, nextNodeNumber)
+        }
       })
     }
 
@@ -103,5 +113,29 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
     return trainPlatforms
   }
 
-  return { findConnectedPlatformWithSelectedLine, findLineWithSelectedLine }
+  const removeLineWithSelectedLine = (
+    nodeNumber: number,
+    selectedLine: TrainLineType,
+  ) => {
+    const removeTrainLine = (
+      currentNodeNumber: number,
+      nextNodeNumber: number,
+    ) =>
+      setTrainLineMatrix(prev =>
+        produce(prev, draft => {
+          draft[currentNodeNumber][nextNodeNumber] = draft[nextNodeNumber][
+            currentNodeNumber
+          ] = null
+          return draft
+        }),
+      )
+
+    findPathWithBFS(nodeNumber, selectedLine.lineId, removeTrainLine)
+  }
+
+  return {
+    findConnectedPlatformWithSelectedLine,
+    findLineWithSelectedLine,
+    removeLineWithSelectedLine,
+  }
 }

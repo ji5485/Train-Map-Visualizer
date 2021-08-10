@@ -1,15 +1,27 @@
-import { FunctionComponent } from 'react'
+import { useState, FunctionComponent, ChangeEvent } from 'react'
 import { jsx, css } from '@emotion/react'
 
 type ModifyTrainLineTimeProps = {
   time: number
-  // handleChangeTime: (event: ChangeEvent<HTMLInputElement>) => void
+  setSelectedTrainLineTime: (time: number) => void
 }
 
 const ModifyTrainLineTime: FunctionComponent<ModifyTrainLineTimeProps> = function ({
   time,
-  // handleChangeTime,
+  setSelectedTrainLineTime,
 }) {
+  const [trainLineTime, setTrainLineTime] = useState<string>(String(time))
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
+    setTrainLineTime(event.target.value)
+
+  const validateTrainLineTime = () => {
+    if (!/^[0-9]{2,5}$/.test(trainLineTime)) setTrainLineTime(String(time))
+    else if (parseInt(trainLineTime) <= 0 || parseInt(trainLineTime) > 1000)
+      setTrainLineTime(String(time))
+    else setSelectedTrainLineTime(parseInt(trainLineTime))
+  }
+
   return (
     <div css={modifyTrainLineTimeStyle}>
       <div css={modifyTrainLineTimeTitleStyle}>소요 시간 변경</div>
@@ -18,8 +30,9 @@ const ModifyTrainLineTime: FunctionComponent<ModifyTrainLineTimeProps> = functio
         css={modifyTrainLineTimeInputStyle}
         type="text"
         placeholder="해당 경로 소요 시간을 입력해주세요."
-        value={time}
-        // onChange={handleChangeTime}
+        value={trainLineTime}
+        onChange={handleChange}
+        onBlur={validateTrainLineTime}
       />
     </div>
   )
