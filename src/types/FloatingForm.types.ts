@@ -6,6 +6,7 @@ import {
 
 // FloatingForm Condition Type
 export type FloatingFormContentType =
+  | 'setting'
   | 'select_platform'
   | 'select_line'
   | 'append'

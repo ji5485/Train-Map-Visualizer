@@ -55,7 +55,10 @@ const ToolWidget: FunctionComponent = function () {
   return (
     <div css={toolWidgetStyle}>
       <div css={toolMenuStyle}>
-        <div css={logoStyle}>
+        <div
+          css={logoStyle}
+          onClick={handleClickToolMenu(true, 'hand', 'setting')}
+        >
           <RiSubwayFill />
         </div>
         <div css={toolItemListStyle}>
@@ -113,6 +116,12 @@ const logoStyle = css`
   background: #b197fc;
   color: #ffffff;
   font-size: 1.5rem;
+  cursor: pointer;
+  transition: filter 0.3s;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
 `
 
 const toolItemListStyle = css`
