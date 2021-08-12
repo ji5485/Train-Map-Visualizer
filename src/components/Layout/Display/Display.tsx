@@ -9,7 +9,7 @@ import HelperWidget from 'components/Layout/HelperWidget'
 const Display: FunctionComponent = function () {
   return (
     <div css={displayStyle}>
-      <CoordinatePlane width={9} height={6} />
+      <CoordinatePlane />
       <ToolWidget />
       <ZoomWidget />
       <MessageWidget />

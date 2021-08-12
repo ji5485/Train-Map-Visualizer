@@ -3,7 +3,7 @@ import { jsx, css } from '@emotion/react'
 import Node from 'components/CoordinateSystem/Node'
 import { useGetCoordinatePlaneZoom } from 'state/CoordinateSystem/coordinatePlaneZoomState'
 import {
-  useSetCoordinatePlaneSize,
+  useGetCoordinatePlaneSize,
   useGetCalculatedCoordinatePlaneSize,
 } from 'state/CoordinateSystem/coordinatePlaneSizeState'
 import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
@@ -11,20 +11,12 @@ import { useGetTrainLine } from 'state/Train/trainLineState'
 import useChangeCursor from 'hooks/useChangeCursor'
 import useScrollWithMouse from 'hooks/useScrollWithMouse'
 
-type CoordinatePlaneProps = {
-  width: number
-  height: number
-}
-
-const CoordinatePlane: FunctionComponent<CoordinatePlaneProps> = function ({
-  width,
-  height,
-}) {
+const CoordinatePlane: FunctionComponent = function () {
   const coordPlaneRef = useRef<HTMLDivElement | null>(null)
   useChangeCursor(coordPlaneRef)
   useScrollWithMouse(coordPlaneRef)
-  useSetCoordinatePlaneSize(width, height)
 
+  const { width, height } = useGetCoordinatePlaneSize()
   const zoom = useGetCoordinatePlaneZoom()
   const {
     width: calculatedWidth,

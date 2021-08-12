@@ -43,7 +43,7 @@ export const MESSAGE_TYPE = {
 
 // Used in ToolForm.tsx
 export const TOOL_FORM_TITLE = {
-  setting: '메뉴',
+  setting: '프로젝트 메뉴',
   select_platform: '선택한 지하철역',
   select_line: '선택한 선로',
   append: '지하철역 추가',

@@ -1,8 +1,7 @@
-import { useEffect } from 'react'
 import { atom, selector, useRecoilValue, useSetRecoilState } from 'recoil'
 import { coordinatePlaneZoomAtom } from 'state/CoordinateSystem/coordinatePlaneZoomState'
 import { CoordinatePlaneSizeType } from 'types/CoordinateSystem.types'
-import { Getter } from 'types/RecoilMethods.types'
+import { Getter, Setter } from 'types/RecoilMethods.types'
 
 const coordinatePlaneSizeAtom = atom<CoordinatePlaneSizeType>({
   key: 'coordinatePlaneSize',
@@ -27,16 +26,8 @@ const calculatedCoordinatePlaneSizeSelector = selector<CoordinatePlaneSizeType>(
 export const useGetCoordinatePlaneSize = (): Getter<CoordinatePlaneSizeType> =>
   useRecoilValue(coordinatePlaneSizeAtom)
 
-export const useSetCoordinatePlaneSize = (
-  width: number,
-  height: number,
-): void => {
-  const setCoordinatePlaneSize = useSetRecoilState(coordinatePlaneSizeAtom)
-
-  useEffect(() => {
-    setCoordinatePlaneSize({ width, height })
-  }, [])
-}
+export const useSetCoordinatePlaneSize = (): Setter<CoordinatePlaneSizeType> =>
+  useSetRecoilState(coordinatePlaneSizeAtom)
 
 export const useGetCalculatedCoordinatePlaneSize = (): Getter<CoordinatePlaneSizeType> =>
   useRecoilValue(calculatedCoordinatePlaneSizeSelector)
