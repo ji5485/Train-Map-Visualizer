@@ -1,6 +1,6 @@
 import { useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import useManageTrainPlatform from 'hooks/useManageTrainPlatform'
+import useAppendTrainPlatform from 'hooks/useAppendTrainPlatform'
 import useDrawTrainLine from 'hooks/useDrawTrainLine'
 import TrainPlatform from 'components/CoordinateSystem/TrainPlatform'
 import TrainLine from 'components/CoordinateSystem/TrainLine'
@@ -30,7 +30,7 @@ const Node: FunctionComponent<NodeProps> = function ({
   const {
     visibleTrainPlatformPreview,
     previewTrainPlatform: { platformName, selectedTrainLine },
-  } = useManageTrainPlatform(row, column, nodeNumber, nodeRef, trainPlatform)
+  } = useAppendTrainPlatform(row, column, nodeNumber, nodeRef, trainPlatform)
   const { isDrawingCurrentNode, currentDrawingLine } = useDrawTrainLine(
     nodeNumber,
     nodeRef,

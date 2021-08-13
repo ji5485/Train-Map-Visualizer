@@ -3,6 +3,13 @@ import { jsx, css } from '@emotion/react'
 import { MdNoteAdd } from 'react-icons/md'
 import { CoordinatePlaneSizeType } from 'types/CoordinateSystem.types'
 import { useSetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
+import {
+  useManageTrainPlatform,
+  useManageTrainLine,
+} from 'state/Train/TrainMapState'
+import { useManageTrainMapGraph } from 'state/Train/TrainMapGraphState'
+import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
+import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
 
 const CreateProjectMenu: FunctionComponent = function () {
   const [isVisible, setIsVisible] = useState<boolean>(false)
@@ -10,11 +17,16 @@ const CreateProjectMenu: FunctionComponent = function () {
     { width, height },
     setCoordinateSize,
   ] = useState<CoordinatePlaneSizeType>({
-    width: 10,
-    height: 6,
+    width: 8,
+    height: 5,
   })
 
+  const { width: prevWidth, height: prevHeight } = useGetCoordinatePlaneSize()
   const setCoordinatePlaneSize = useSetCoordinatePlaneSize()
+  const setFloatingForm = useSetFloatingForm()
+  const { resetTrainPlatformMatrix } = useManageTrainPlatform()
+  const { resetTrainLineMatrix } = useManageTrainLine()
+  const { resetTrainMapGraph } = useManageTrainMapGraph()
 
   const handleVisibleForm = () => setIsVisible(prev => !prev)
 
@@ -32,10 +44,15 @@ const CreateProjectMenu: FunctionComponent = function () {
       parseInt(value) > 30
     )
       setCoordinateSize(prev => ({ ...prev, [name]: 3 }))
+    else setCoordinateSize(prev => ({ ...prev, [name]: parseInt(value) }))
   }
 
   const createNewProject = () => {
+    resetTrainPlatformMatrix()
+    resetTrainLineMatrix()
+    resetTrainMapGraph()
     setCoordinatePlaneSize({ width, height })
+    setFloatingForm(prev => ({ ...prev, isOpen: false }))
   }
 
   return (
@@ -74,6 +91,13 @@ const CreateProjectMenu: FunctionComponent = function () {
               />
             </div>
           </div>
+
+          {prevWidth !== 0 && prevHeight !== 0 ? (
+            <div css={createProjectWarnStyle}>
+              기존 프로젝트는 복구할 수 없습니다.
+            </div>
+          ) : null}
+
           <div css={createProjectButtonStyle} onClick={createNewProject}>
             프로젝트 만들기
           </div>
@@ -103,7 +127,6 @@ const createProjectMenuStyle = css`
 
   span {
     margin-left: 5px;
-    font-size: 1.1rem;
   }
 `
 
@@ -118,6 +141,7 @@ const createProjectFormStyle = css`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 30px;
+  margin-bottom: 15px;
 `
 
 const menuFormItemStyle = css`
@@ -143,10 +167,17 @@ const menuFormItemStyle = css`
   }
 `
 
+const createProjectWarnStyle = css`
+  margin-bottom: 5px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(255, 0, 0, 0.8);
+  text-align: center;
+`
+
 const createProjectButtonStyle = css`
   width: 100%;
   padding: 8px;
-  margin-top: 15px;
   text-align: center;
   background: #1971c2;
   border-radius: 10px;

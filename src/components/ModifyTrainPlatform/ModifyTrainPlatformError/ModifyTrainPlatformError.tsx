@@ -5,7 +5,7 @@ import {
   useManageModifyTrainPlatformFormStatus,
 } from 'state/FloatingForm/ModifyTrainPlatformState'
 import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
-import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
+import { useManageTrainPlatform } from 'state/Train/TrainMapState'
 
 const ModifyTrainPlatformError: FunctionComponent = function () {
   const {
@@ -16,7 +16,7 @@ const ModifyTrainPlatformError: FunctionComponent = function () {
     setModifyTrainPlatformFormStatus,
   } = useManageModifyTrainPlatformFormStatus()
   const { width, height } = useGetCoordinatePlaneSize()
-  const trainPlatformMatrix = useGetTrainPlatform()
+  const { trainPlatformMatrix } = useManageTrainPlatform()
 
   const getNodeNumberWithPosition = (row: number, column: number) =>
     row * width + column

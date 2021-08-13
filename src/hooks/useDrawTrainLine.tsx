@@ -2,8 +2,10 @@ import { useState, useEffect, MutableRefObject } from 'react'
 import produce from 'immer'
 import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 import { useManageCoordinateSystemDrawingLineStatus } from 'state/CoordinateSystem/coordinateSystemDrawingLineState'
-import { useSetTrainPlatform } from 'state/Train/trainPlatformState'
-import { useStateTrainLine } from 'state/Train/trainLineState'
+import {
+  useManageTrainPlatform,
+  useManageTrainLine,
+} from 'state/Train/TrainMapState'
 import {
   useManagePreviewTrainLineTrace,
   useManagePreviewTrainLineStack,
@@ -57,8 +59,8 @@ export default function useDrawTrainLine(
 
   // Train Info Setter
   const { openDrawingLineList } = useSelectDrawingTrainLine()
-  const [trainLine, setTrainLine] = useStateTrainLine()
-  const setTrainPlatform = useSetTrainPlatform()
+  const { trainLineMatrix, setTrainLineMatrix } = useManageTrainLine()
+  const { setTrainPlatformMatrix } = useManageTrainPlatform()
   const {
     previewTrainLineTrace,
     setPreviewTrainLineTrace,
@@ -127,7 +129,7 @@ export default function useDrawTrainLine(
     )
 
     if (!trainPlatform.line.find(({ id }) => id === drawingLine.id)) {
-      setTrainPlatform(prev =>
+      setTrainPlatformMatrix(prev =>
         produce(prev, draft => {
           const { row, column } = getPositionByNodeNumber(
             trainPlatform.nodeNumber,
@@ -200,8 +202,8 @@ export default function useDrawTrainLine(
 
         if (
           checkNotExistNextNodeInCoord(nodeNumber, direction) ||
-          trainLine[nodeNumber][nextNodeNumber[direction]] !== null ||
-          trainLine[nextNodeNumber[direction]][nodeNumber] !== null
+          trainLineMatrix[nodeNumber][nextNodeNumber[direction]] !== null ||
+          trainLineMatrix[nextNodeNumber[direction]][nodeNumber] !== null
         )
           return null
 
@@ -259,7 +261,7 @@ export default function useDrawTrainLine(
 
     const { start, destination } = newPreviewTrainLineStackItem
 
-    setTrainLine(prev =>
+    setTrainLineMatrix(prev =>
       produce(prev, draft => {
         const newPreviewTrainLine: TrainLineType = {
           lineId: trainMapGraphEdge.id,

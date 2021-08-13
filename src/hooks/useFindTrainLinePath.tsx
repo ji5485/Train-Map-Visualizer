@@ -1,6 +1,8 @@
 import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
-import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
-import { useStateTrainLine } from 'state/Train/trainLineState'
+import {
+  useManageTrainPlatform,
+  useManageTrainLine,
+} from 'state/Train/TrainMapState'
 import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
 import { TrainLineType, TrainPlatformType } from 'types/Train.types'
 import { CoordinatePositionType } from 'types/CoordinateSystem.types'
@@ -22,8 +24,8 @@ type useFindTrainLinePathType = {
 }
 
 export default function useFindTrainLinePath(): useFindTrainLinePathType {
-  const trainPlatformMatrix = useGetTrainPlatform()
-  const [trainLineMatrix, setTrainLineMatrix] = useStateTrainLine()
+  const { trainPlatformMatrix } = useManageTrainPlatform()
+  const { trainLineMatrix, setTrainLineMatrix } = useManageTrainLine()
   const { width, height } = useGetCoordinatePlaneSize()
   const { getPositionByNodeNumber } = useGetPositionByNodeNumber()
 

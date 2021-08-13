@@ -1,7 +1,7 @@
 import { useState, useEffect, MutableRefObject } from 'react'
 import produce from 'immer'
 import shortId from 'utils/shortId'
-import { useSetTrainPlatform } from 'state/Train/trainPlatformState'
+import { useManageTrainPlatform } from 'state/Train/TrainMapState'
 import {
   useGetTrainForm,
   useResetTrainForm,
@@ -9,7 +9,7 @@ import {
 import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 import { TrainPlatformType, TrainLineItemType } from 'types/Train.types'
 
-type useManageTrainPlatformType = {
+type useAppendTrainPlatformType = {
   visibleTrainPlatformPreview: boolean
   previewTrainPlatform: {
     platformName: string
@@ -20,13 +20,13 @@ type useManageTrainPlatformType = {
   createTrainPlatform: () => void
 }
 
-export default function useManageTrainPlatform(
+export default function useAppendTrainPlatform(
   row: number,
   column: number,
   nodeNumber: number,
   nodeRef: MutableRefObject<HTMLDivElement | null>,
   trainPlatform: TrainPlatformType | null,
-): useManageTrainPlatformType {
+): useAppendTrainPlatformType {
   const [currentMode, setCurrentMode] = useStateCoordinateSystemCurrentMode()
   const {
     selectedTrainLine,
@@ -37,7 +37,7 @@ export default function useManageTrainPlatform(
     visibleTrainPlatformPreview,
     setVisibleTrainPlatformPreview,
   ] = useState<boolean>(false)
-  const setTrainPlatform = useSetTrainPlatform()
+  const { setTrainPlatformMatrix } = useManageTrainPlatform()
 
   const showTrainPreview = () => setVisibleTrainPlatformPreview(true)
 
@@ -54,7 +54,7 @@ export default function useManageTrainPlatform(
     hideTrainPreview()
     resetTrainForm()
     setCurrentMode('hand')
-    setTrainPlatform(prev =>
+    setTrainPlatformMatrix(prev =>
       produce(prev, draft => {
         draft[row][column] = newTrainPlatform
         return draft

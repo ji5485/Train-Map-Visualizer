@@ -3,8 +3,10 @@ import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coor
 import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
 import { useManageModifyTrainPlatformForm } from 'state/FloatingForm/ModifyTrainPlatformState'
 import { useManageModifyTrainLineForm } from 'state/FloatingForm/ModifyTrainLineState'
-import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
-import { useGetTrainLine } from 'state/Train/trainLineState'
+import {
+  useManageTrainPlatform,
+  useManageTrainLine,
+} from 'state/Train/TrainMapState'
 import { useManageTrainMapGraph } from 'state/Train/TrainMapGraphState'
 import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
 import useFindTrainLinePath from 'hooks/useFindTrainLinePath'
@@ -25,8 +27,8 @@ export default function useSelectCoordComponent(
   } = useGetPositionByNodeNumber(nodeNumber)
   const { findConnectedPlatformWithSelectedLine } = useFindTrainLinePath()
 
-  const trainPlatformMatrix = useGetTrainPlatform()
-  const trainLineMatrix = useGetTrainLine()
+  const { trainPlatformMatrix } = useManageTrainPlatform()
+  const { trainLineMatrix } = useManageTrainLine()
   const { trainMapGraph } = useManageTrainMapGraph()
   const setFloatingForm = useSetFloatingForm()
   const { setModifyTrainPlatformForm } = useManageModifyTrainPlatformForm()

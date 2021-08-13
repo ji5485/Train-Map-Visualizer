@@ -1,7 +1,7 @@
 import { FunctionComponent, ChangeEvent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { useStateTrainForm } from 'state/FloatingForm/TrainPlatformFormState'
-import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
+import { useManageTrainPlatform } from 'state/Train/TrainMapState'
 import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
 
 const EnterTrainPlatformName: FunctionComponent = function () {
@@ -12,7 +12,7 @@ const EnterTrainPlatformName: FunctionComponent = function () {
     setTrainForm,
   ] = useStateTrainForm()
   const { width, height } = useGetCoordinatePlaneSize()
-  const trainPlatformMatrix = useGetTrainPlatform()
+  const { trainPlatformMatrix } = useManageTrainPlatform()
 
   const handleTrainPlatformNameChange = (
     event: ChangeEvent<HTMLInputElement>,

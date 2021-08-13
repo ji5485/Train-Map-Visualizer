@@ -6,8 +6,10 @@ import {
   useGetCoordinatePlaneSize,
   useGetCalculatedCoordinatePlaneSize,
 } from 'state/CoordinateSystem/coordinatePlaneSizeState'
-import { useGetTrainPlatform } from 'state/Train/trainPlatformState'
-import { useGetTrainLine } from 'state/Train/trainLineState'
+import {
+  useManageTrainPlatform,
+  useManageTrainLine,
+} from 'state/Train/TrainMapState'
 import useChangeCursor from 'hooks/useChangeCursor'
 import useScrollWithMouse from 'hooks/useScrollWithMouse'
 
@@ -23,61 +25,73 @@ const CoordinatePlane: FunctionComponent = function () {
     height: calculatedHeight,
   } = useGetCalculatedCoordinatePlaneSize()
 
-  const trainPlatformMatrix = useGetTrainPlatform()
-  const trainLineMatrix = useGetTrainLine()
+  const { trainPlatformMatrix } = useManageTrainPlatform()
+  const { trainLineMatrix } = useManageTrainLine()
 
   return (
     <div ref={coordPlaneRef} css={coordPlaneStyle}>
-      <div
-        css={coordPlaneBackgroundStyle}
-        style={{
-          width: `${calculatedWidth}px`,
-          height: `${calculatedHeight}px`,
-        }}
-      >
+      {width === 0 && height === 0 ? (
+        <div css={coordPlaneStyle}>
+          <div css={coordPlaneInfoStyle}>
+            <img
+              src={process.env.PUBLIC_URL + '/img/append_project_image.svg'}
+              alt="Append Project"
+            />
+            새 프로젝트를 생성해주세요.
+          </div>
+        </div>
+      ) : (
         <div
-          css={coordPlaneContentStyle}
+          css={coordPlaneBackgroundStyle}
           style={{
-            width: `${width * 120}px`,
-            height: `${height * 120}px`,
-            transform: `scale(${zoom})`,
+            width: `${calculatedWidth}px`,
+            height: `${calculatedHeight}px`,
           }}
         >
-          {[...Array<number>(height).keys()].map(
-            (row: number, rowIndex: number) => (
-              <div css={rowStyle} key={`row-${row}`}>
-                {[...Array<number>(width).keys()].map(
-                  (column: number, columnIndex: number) => {
-                    const nodeNumber = width * rowIndex + columnIndex
+          <div
+            css={coordPlaneContentStyle}
+            style={{
+              width: `${width * 120}px`,
+              height: `${height * 120}px`,
+              transform: `scale(${zoom})`,
+            }}
+          >
+            {[...Array<number>(height).keys()].map(
+              (row: number, rowIndex: number) => (
+                <div css={rowStyle} key={`row-${row}`}>
+                  {[...Array<number>(width).keys()].map(
+                    (column: number, columnIndex: number) => {
+                      const nodeNumber = width * rowIndex + columnIndex
 
-                    const trainLine = {
-                      right:
-                        columnIndex !== width - 1
-                          ? trainLineMatrix[nodeNumber][nodeNumber + 1]
-                          : null,
-                      bottom:
-                        rowIndex !== height - 1
-                          ? trainLineMatrix[nodeNumber][nodeNumber + width]
-                          : null,
-                    }
+                      const trainLine = {
+                        right:
+                          columnIndex !== width - 1
+                            ? trainLineMatrix[nodeNumber][nodeNumber + 1]
+                            : null,
+                        bottom:
+                          rowIndex !== height - 1
+                            ? trainLineMatrix[nodeNumber][nodeNumber + width]
+                            : null,
+                      }
 
-                    return (
-                      <Node
-                        key={`${row}-${column}`}
-                        row={row}
-                        column={column}
-                        nodeNumber={nodeNumber}
-                        trainPlatform={trainPlatformMatrix[row][column]}
-                        trainLine={trainLine}
-                      />
-                    )
-                  },
-                )}
-              </div>
-            ),
-          )}
+                      return (
+                        <Node
+                          key={`${row}-${column}`}
+                          row={row}
+                          column={column}
+                          nodeNumber={nodeNumber}
+                          trainPlatform={trainPlatformMatrix[row][column]}
+                          trainLine={trainLine}
+                        />
+                      )
+                    },
+                  )}
+                </div>
+              ),
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
@@ -110,6 +124,23 @@ const coordPlaneBackgroundStyle = css`
   margin: auto;
   padding: 100px 150px;
   box-sizing: initial;
+`
+
+const coordPlaneInfoStyle = css`
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  font-size: 2rem;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.3);
+  user-select: none;
+
+  img {
+    width: 300px;
+    margin-bottom: 30px;
+  }
 `
 
 const coordPlaneContentStyle = css`

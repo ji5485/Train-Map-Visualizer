@@ -5,7 +5,7 @@ import {
   useManagePreviewTrainLineStack,
 } from 'state/Train/PreviewTrainLineState'
 import { useManageCoordinateSystemDrawingLineStatus } from 'state/CoordinateSystem/coordinateSystemDrawingLineState'
-import { useSetTrainLine } from 'state/Train/trainLineState'
+import { useManageTrainLine } from 'state/Train/TrainMapState'
 import { useSetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
 
@@ -22,7 +22,7 @@ export default function useGoBackOrCancelDrawingTrainLine(): useGoBackOrCancelDr
     setDrawingLineStatus,
     resetDrawingLineStatus,
   } = useManageCoordinateSystemDrawingLineStatus()
-  const setTrainLine = useSetTrainLine()
+  const { setTrainLineMatrix } = useManageTrainLine()
   const {
     setPreviewTrainLineTrace,
     resetPreviewTrainLineTrace,
@@ -40,7 +40,7 @@ export default function useGoBackOrCancelDrawingTrainLine(): useGoBackOrCancelDr
     start: number
     destination: number
   }) =>
-    setTrainLine(prev =>
+    setTrainLineMatrix(prev =>
       produce(prev, draft => {
         draft[start][destination] = draft[destination][start] = null
         return draft
