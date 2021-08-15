@@ -1,5 +1,5 @@
 import shortId from 'utils/shortId'
-import { useStateTrainLineList } from 'state/Train/trainLineListState'
+import { useManageTrainLineItem } from 'state/Train/TrainLineItemState'
 import { TrainLineItemType, TrainLineColorName } from 'types/Train.types'
 
 type useManageTrainLineListType = {
@@ -12,7 +12,7 @@ type useManageTrainLineListType = {
 }
 
 export default function useManageTrainLineList(): useManageTrainLineListType {
-  const [trainLineList, setTrainLineList] = useStateTrainLineList()
+  const { trainLineItem, setTrainLineItem } = useManageTrainLineItem()
 
   const createTrainLine = (
     name: string,
@@ -24,7 +24,7 @@ export default function useManageTrainLineList(): useManageTrainLineListType {
       color,
     }
 
-    setTrainLineList(prev => [...prev, newTrainLine])
+    setTrainLineItem(prev => [...prev, newTrainLine])
 
     return newTrainLine
   }
@@ -33,13 +33,13 @@ export default function useManageTrainLineList(): useManageTrainLineListType {
     const trainLineAfterRemoved = (prevState: TrainLineItemType[]) =>
       prevState.filter(({ id }: TrainLineItemType) => id !== removeId)
 
-    setTrainLineList(trainLineAfterRemoved)
+    setTrainLineItem(trainLineAfterRemoved)
   }
 
   const getTrainLineItemById = (
     selectedId: string,
   ): TrainLineItemType | undefined =>
-    trainLineList.find(({ id }) => id === selectedId)
+    trainLineItem.find(({ id }) => id === selectedId)
 
   return { createTrainLine, removeTrainLine, getTrainLineItemById }
 }

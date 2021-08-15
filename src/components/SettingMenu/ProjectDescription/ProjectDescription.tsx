@@ -18,7 +18,7 @@ const ProjectDescription: FunctionComponent = function () {
 }
 
 const projectDescriptionStyle = css`
-  margin-top: 50px;
+  margin-top: 30px;
   color: #495057;
   font-size: 0.7rem;
   font-weight: 300;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useGetRandomUnusedColor } from 'state/Train/trainLineColorState'
+import { useGetRandomUnusedColor } from 'state/Train/TrainLineColorState'
 import { TrainLineItemType, TrainLineColorName } from 'types/Train.types'
 
 type useVisibleNewTrainLineItemType = {

@@ -2,11 +2,13 @@ import { createElement, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { VscChromeClose } from 'react-icons/vsc'
 import { TOOL_FORM_TITLE } from 'utils/constants'
+import { FloatingFormContentType } from 'types/FloatingForm.types'
 import TrainPlatformForm from 'components/AppendTrainPlatform/TrainPlatformForm'
 import DrawingLineForm from 'components/SelectDrawingLine/DrawingLineForm'
 import ModifyTrainPlatformForm from 'components/ModifyTrainPlatform/ModifyTrainPlatformForm'
 import ModifyTrainLineForm from 'components/ModifyTrainLine/ModifyTrainLineForm'
 import SettingMenuContent from 'components/SettingMenu/SettingMenuContent/SettingMenuContent'
+import FindTrainPathContent from 'components/FindTrainPath/FindTrainPathContent'
 
 // constants.ts 파일에 두면 순환 종속성 문제로 인한 에러 발생
 const TOOL_FORM_CONTENT = {
@@ -15,10 +17,11 @@ const TOOL_FORM_CONTENT = {
   select_line: ModifyTrainLineForm,
   append: TrainPlatformForm,
   line: DrawingLineForm,
+  path: FindTrainPathContent,
 }
 
 type FloatingFormProps = {
-  menu: keyof typeof TOOL_FORM_CONTENT
+  menu: FloatingFormContentType
   closeFloatingForm: () => void
 }
 

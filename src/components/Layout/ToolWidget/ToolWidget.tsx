@@ -82,6 +82,11 @@ const ToolWidget: FunctionComponent = function () {
             onClick={handleClickToolMenu(false, 'line')}
             currentMode={currentMode}
           />
+          <ToolItem
+            type="path"
+            onClick={handleClickToolMenu(true, 'hand', 'path')}
+            currentMode={currentMode}
+          />
         </div>
       </div>
 

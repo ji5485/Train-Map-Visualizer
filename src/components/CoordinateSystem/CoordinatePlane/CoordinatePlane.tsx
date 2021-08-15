@@ -31,14 +31,12 @@ const CoordinatePlane: FunctionComponent = function () {
   return (
     <div ref={coordPlaneRef} css={coordPlaneStyle}>
       {width === 0 && height === 0 ? (
-        <div css={coordPlaneStyle}>
-          <div css={coordPlaneInfoStyle}>
-            <img
-              src={process.env.PUBLIC_URL + '/img/append_project_image.svg'}
-              alt="Append Project"
-            />
-            새 프로젝트를 생성해주세요.
-          </div>
+        <div css={coordPlaneInfoStyle}>
+          <img
+            src={process.env.PUBLIC_URL + '/img/append_project_image.svg'}
+            alt="Append Project"
+          />
+          새 프로젝트를 생성해주세요.
         </div>
       ) : (
         <div
@@ -123,6 +121,7 @@ const coordPlaneBackgroundStyle = css`
   display: flex;
   margin: auto;
   padding: 100px 150px;
+  background: #e9ecef;
   box-sizing: initial;
 `
 

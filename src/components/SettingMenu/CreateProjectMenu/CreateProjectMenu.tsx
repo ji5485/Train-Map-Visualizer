@@ -8,6 +8,7 @@ import {
   useManageTrainLine,
 } from 'state/Train/TrainMapState'
 import { useManageTrainMapGraph } from 'state/Train/TrainMapGraphState'
+import { useManageTrainLineItem } from 'state/Train/TrainLineItemState'
 import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
 import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
 
@@ -17,8 +18,8 @@ const CreateProjectMenu: FunctionComponent = function () {
     { width, height },
     setCoordinateSize,
   ] = useState<CoordinatePlaneSizeType>({
-    width: 8,
-    height: 5,
+    width: 10,
+    height: 6,
   })
 
   const { width: prevWidth, height: prevHeight } = useGetCoordinatePlaneSize()
@@ -27,6 +28,7 @@ const CreateProjectMenu: FunctionComponent = function () {
   const { resetTrainPlatformMatrix } = useManageTrainPlatform()
   const { resetTrainLineMatrix } = useManageTrainLine()
   const { resetTrainMapGraph } = useManageTrainMapGraph()
+  const { resetTrainLineItem } = useManageTrainLineItem()
 
   const handleVisibleForm = () => setIsVisible(prev => !prev)
 
@@ -51,6 +53,7 @@ const CreateProjectMenu: FunctionComponent = function () {
     resetTrainPlatformMatrix()
     resetTrainLineMatrix()
     resetTrainMapGraph()
+    resetTrainLineItem()
     setCoordinatePlaneSize({ width, height })
     setFloatingForm(prev => ({ ...prev, isOpen: false }))
   }

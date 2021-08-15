@@ -2,7 +2,7 @@ import { FunctionComponent, Dispatch, SetStateAction } from 'react'
 import { jsx, css } from '@emotion/react'
 import useVisibleNewTrainLineItem from 'hooks/useVisibleNewTrainLineItem'
 import useManageTrainLine from 'hooks/useManageTrainLineList'
-import { useGetFilteredTrainLineList } from 'state/Train/trainLineListState'
+import { useGetFilteredTrainLineItem } from 'state/Train/TrainLineItemState'
 import { useSetTrainForm } from 'state/FloatingForm/TrainPlatformFormState'
 import TrainLineItem from 'components/AppendTrainPlatform/TrainLineItem'
 import { TrainLineItemType } from 'types/Train.types'
@@ -19,7 +19,7 @@ const TrainLineList: FunctionComponent<TrainLineListProps> = function ({
   setIsVisible,
 }) {
   const setTrainForm = useSetTrainForm()
-  const trainLine = useGetFilteredTrainLineList(trainLineName)
+  const trainLine = useGetFilteredTrainLineItem(trainLineName)
   const { newTrainLineColor, newTrainLineVisible } = useVisibleNewTrainLineItem(
     trainLine,
     trainLineName,

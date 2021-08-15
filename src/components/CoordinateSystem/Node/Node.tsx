@@ -89,22 +89,22 @@ const nodeStyle = css`
   width: 120px;
   height: 120px;
 
-  background: linear-gradient(
-      to left,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0) calc(50% - 0.8px),
-      rgba(0, 0, 0, 1) 50%,
-      rgba(0, 0, 0, 0) calc(50% + 0.8px),
-      rgba(0, 0, 0, 0) 100%
-    ),
-    linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0) calc(50% - 0.8px),
-      rgba(0, 0, 0, 1) 50%,
-      rgba(0, 0, 0, 0) calc(50% + 0.8px),
-      rgba(0, 0, 0, 0) 100%
-    );
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  &:before {
+    width: 100%;
+    height: 2px;
+  }
+
+  &:after {
+    width: 2px;
+    height: 100%;
+  }
 `
 
 export default Node

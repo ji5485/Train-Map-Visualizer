@@ -4,6 +4,7 @@ import { GrAdd } from 'react-icons/gr'
 import { BiAddToQueue } from 'react-icons/bi'
 import { HiCursorClick } from 'react-icons/hi'
 import { IoHandRightSharp } from 'react-icons/io5'
+import { GiPathDistance } from 'react-icons/gi'
 
 // Train Line Color
 export const TRAIN_LINE_COLOR = {
@@ -48,6 +49,7 @@ export const TOOL_FORM_TITLE = {
   select_line: '선택한 선로',
   append: '지하철역 추가',
   line: '그릴 선로 선택',
+  path: '경로 찾기',
 }
 
 // Used in ToolItem.tsx
@@ -56,6 +58,7 @@ export const TOOL_ITEM_ICON = {
   select: HiCursorClick,
   append: BiAddToQueue,
   line: AiOutlineEdit,
+  path: GiPathDistance,
 }
 
 // Used in Train Line & Platform State

@@ -1,25 +1,26 @@
 import {
   atom,
   useRecoilValue,
-  useSetRecoilState,
   selectorFamily,
   useRecoilState,
+  Resetter,
+  useResetRecoilState,
 } from 'recoil'
 import { TrainLineItemType } from 'types/Train.types'
-import { Getter, Setter, GetterAndSetter } from 'types/RecoilMethods.types'
+import { Getter, Setter } from 'types/RecoilMethods.types'
 
-const trainLineListAtom = atom<TrainLineItemType[]>({
-  key: 'trainLineList',
+const trainLineItemAtom = atom<TrainLineItemType[]>({
+  key: 'trainLineItem',
   default: [],
 })
 
-const filteredTrainLineListSelector = selectorFamily<
+const filteredTrainLineItemSelector = selectorFamily<
   TrainLineItemType[],
   string | string[]
 >({
   key: 'filteredTrainLineList',
   get: trainLineName => ({ get }) => {
-    const trainLine = get(trainLineListAtom)
+    const trainLine = get(trainLineItemAtom)
 
     if (typeof trainLineName === 'string')
       return trainLineName === ''
@@ -33,24 +34,30 @@ const filteredTrainLineListSelector = selectorFamily<
   },
 })
 
-export const useGetTrainLineList = (): Getter<TrainLineItemType[]> =>
-  useRecoilValue(trainLineListAtom)
+export const useManageTrainLineItem = (): {
+  trainLineItem: Getter<TrainLineItemType[]>
+  setTrainLineItem: Setter<TrainLineItemType[]>
+  resetTrainLineItem: Resetter
+} => {
+  const [trainLineItem, setTrainLineItem] = useRecoilState(trainLineItemAtom)
+  const resetTrainLineItem = useResetRecoilState(trainLineItemAtom)
 
-export const useSetTrainLineList = (): Setter<TrainLineItemType[]> =>
-  useSetRecoilState(trainLineListAtom)
+  return {
+    trainLineItem,
+    setTrainLineItem,
+    resetTrainLineItem,
+  }
+}
 
-export const useStateTrainLineList = (): GetterAndSetter<TrainLineItemType[]> =>
-  useRecoilState(trainLineListAtom)
-
-export const useGetFilteredTrainLineList = (
+export const useGetFilteredTrainLineItem = (
   trainLineName: string | string[],
 ): Getter<TrainLineItemType[]> =>
-  useRecoilValue(filteredTrainLineListSelector(trainLineName))
+  useRecoilValue(filteredTrainLineItemSelector(trainLineName))
 
 export const useGetTrainLineItemById = (
   selectedId: string,
 ): Getter<TrainLineItemType> => {
-  const selectedTrainLine = useGetTrainLineList().find(
+  const selectedTrainLine = useRecoilValue(trainLineItemAtom).find(
     ({ id }) => id === selectedId,
   )
 

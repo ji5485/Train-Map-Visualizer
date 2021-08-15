@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { useManageTrainLine } from 'state/Train/TrainMapState'
-import { useGetFilteredTrainLineList } from 'state/Train/trainLineListState'
+import { useGetFilteredTrainLineItem } from 'state/Train/TrainLineItemState'
 import { useManageModifyTrainPlatformForm } from 'state/FloatingForm/ModifyTrainPlatformState'
 import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
 import { TrainLineColorName } from 'types/Train.types'
@@ -16,7 +16,7 @@ const TrainLineItemForm: FunctionComponent = function () {
   const { nextNodeNumber } = useGetPositionByNodeNumber(nodeNumber)
   const { trainLineMatrix } = useManageTrainLine()
 
-  const filteredTrainLine = useGetFilteredTrainLineList(
+  const filteredTrainLine = useGetFilteredTrainLineItem(
     line.map(({ name }) => name),
   )
 
