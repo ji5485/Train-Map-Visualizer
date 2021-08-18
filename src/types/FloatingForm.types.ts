@@ -37,3 +37,9 @@ export type ModifyTrainLineFormType = {
   connectedTrainPlatform: TrainPlatformType[]
   time: number
 }
+
+// Find Train Line Path Form Type
+export type FindTrainPathFormType = {
+  start: number | null
+  destination: number | null
+}

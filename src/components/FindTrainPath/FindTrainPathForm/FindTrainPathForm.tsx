@@ -11,6 +11,9 @@ const FindTrainPathForm: FunctionComponent = function () {
   )
 }
 
-const findTrainPathFormStyle = css``
+const findTrainPathFormStyle = css`
+  border-radius: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+`
 
 export default FindTrainPathForm
