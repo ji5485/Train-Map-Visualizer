@@ -3,6 +3,8 @@ import { jsx, css } from '@emotion/react'
 import { FindTrainPathFormType } from 'types/FloatingForm.types'
 import { useManageFindTrainPathForm } from 'state/FloatingForm/FindTrainPathState'
 import { useManageTrainPlatform } from 'state/Train/TrainMapState'
+import { TrainPlatformType } from 'types/Train.types'
+import TrainPlatformItem from 'components/FindTrainPath/TrainPlatformItem'
 
 type TrainPlatformListProps = {
   type: keyof FindTrainPathFormType
@@ -16,13 +18,58 @@ const TrainPlatformList: FunctionComponent<TrainPlatformListProps> = function ({
   const { trainPlatformMatrix } = useManageTrainPlatform()
   const { findTrainPathForm } = useManageFindTrainPathForm()
 
-  const selectableTrainPlatform = useMemo(() => {
-    const usedPlatformNodeNumber = findTrainPathForm[type]
+  const selectableTrainPlatformList = useMemo<TrainPlatformType[]>(() => {
+    const usedPlatform =
+      findTrainPathForm[type === 'start' ? 'destination' : 'start']
+    const usedPlatformNodeNumber =
+      usedPlatform === null ? null : usedPlatform.nodeNumber
 
-    // TODO: Developing Train Platform List Without Selected Train Platform
+    const trainPlatformList = trainPlatformMatrix.reduce<TrainPlatformType[]>(
+      (result, trainPlatformLine) => {
+        const initialValue: TrainPlatformType[] = []
+
+        const trainPlatforms = trainPlatformLine.reduce<TrainPlatformType[]>(
+          (list, trainPlatform) => {
+            if (
+              trainPlatform !== null &&
+              trainPlatform.nodeNumber !== usedPlatformNodeNumber
+            )
+              list = [...list, trainPlatform]
+
+            return list
+          },
+          initialValue,
+        )
+
+        return [...result, ...trainPlatforms]
+      },
+      [],
+    )
+
+    return trainPlatformList
   }, [])
 
-  return <div css={trainPlatformListStyle}>{trainPlatformName}</div>
+  if (selectableTrainPlatformList.length === 0)
+    return (
+      <div css={emptyTrainPlatform}>선택 가능한 역이 존재하지 않습니다.</div>
+    )
+
+  return (
+    <div css={trainPlatformListStyle}>
+      {selectableTrainPlatformList.map(
+        ({ id, name, line }: TrainPlatformType) =>
+          name.includes(trainPlatformName) ? (
+            <TrainPlatformItem
+              name={name}
+              line={line}
+              iconType="check"
+              onClick={() => console.log('clicked')}
+              key={id}
+            />
+          ) : null,
+      )}
+    </div>
+  )
 }
 
 const trainPlatformListStyle = css`
@@ -49,6 +96,23 @@ const trainPlatformListStyle = css`
     background: rgba(0, 0, 0, 0.5);
     border-radius: 3px;
   }
+`
+
+const emptyTrainPlatform = css`
+  position: absolute;
+  top: 40px;
+  left: 0px;
+  z-index: 10;
+
+  display: grid;
+  place-items: center;
+
+  width: 100%;
+  height: 100px;
+  background: #f8f9fa;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  font-size: 0.9rem;
+  font-weight: 800;
 `
 
 export default TrainPlatformList

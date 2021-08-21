@@ -40,6 +40,6 @@ export type ModifyTrainLineFormType = {
 
 // Find Train Line Path Form Type
 export type FindTrainPathFormType = {
-  start: number | null
-  destination: number | null
+  start: TrainPlatformType | null
+  destination: TrainPlatformType | null
 }
