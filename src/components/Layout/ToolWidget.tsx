@@ -6,6 +6,7 @@ import FloatingForm from 'components/Layout/FloatingForm'
 import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 import { useStateFloatingForm } from 'state/FloatingForm/FloatingFormState'
 import { useResetTrainForm } from 'state/FloatingForm/TrainPlatformFormState'
+import { useManageFindTrainPathForm } from 'state/FloatingForm/FindTrainPathState'
 import useGoBackOrCancelDrawingTrainLine from 'hooks/useGoBackOrCancelDrawingTrainLine'
 import { useManageModifyTrainPlatformFormStatus } from 'state/FloatingForm/ModifyTrainPlatformState'
 import { CoordinateSystemCurrentModeType } from 'types/CoordinateSystem.types'
@@ -22,6 +23,7 @@ const ToolWidget: FunctionComponent = function () {
   const {
     resetModifyTrainPlatformFormStatus,
   } = useManageModifyTrainPlatformFormStatus()
+  const { resetFindTrainPathForm } = useManageFindTrainPathForm()
 
   const handleClickToolMenu = (
     openOrNot: boolean,
@@ -31,6 +33,7 @@ const ToolWidget: FunctionComponent = function () {
     if (menu === 'append') resetTrainForm()
     else if (menu === 'line') cancelDrawingTrainLine()
     else if (menu === 'select_platform') resetModifyTrainPlatformFormStatus()
+    else if (menu === 'path') resetFindTrainPathForm()
 
     const nextFloatingFormState = (prevState: FloatingFormType) => ({
       isOpen: openOrNot,

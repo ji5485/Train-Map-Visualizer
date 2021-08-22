@@ -9,14 +9,19 @@ import TrainPlatformItem from 'components/FindTrainPath/TrainPlatformItem'
 type TrainPlatformListProps = {
   type: keyof FindTrainPathFormType
   trainPlatformName: string
+  handleClose: () => void
 }
 
 const TrainPlatformList: FunctionComponent<TrainPlatformListProps> = function ({
   type,
   trainPlatformName,
+  handleClose,
 }) {
   const { trainPlatformMatrix } = useManageTrainPlatform()
-  const { findTrainPathForm } = useManageFindTrainPathForm()
+  const {
+    findTrainPathForm,
+    setFindTrainPathForm,
+  } = useManageFindTrainPathForm()
 
   const selectableTrainPlatformList = useMemo<TrainPlatformType[]>(() => {
     const usedPlatform =
@@ -49,6 +54,11 @@ const TrainPlatformList: FunctionComponent<TrainPlatformListProps> = function ({
     return trainPlatformList
   }, [])
 
+  const selectTrainPlatform = (trainPlatform: TrainPlatformType) => {
+    setFindTrainPathForm(prev => ({ ...prev, [type]: trainPlatform }))
+    handleClose()
+  }
+
   if (selectableTrainPlatformList.length === 0)
     return (
       <div css={emptyTrainPlatform}>선택 가능한 역이 존재하지 않습니다.</div>
@@ -56,17 +66,15 @@ const TrainPlatformList: FunctionComponent<TrainPlatformListProps> = function ({
 
   return (
     <div css={trainPlatformListStyle}>
-      {selectableTrainPlatformList.map(
-        ({ id, name, line }: TrainPlatformType) =>
-          name.includes(trainPlatformName) ? (
-            <TrainPlatformItem
-              name={name}
-              line={line}
-              iconType="check"
-              onClick={() => console.log('clicked')}
-              key={id}
-            />
-          ) : null,
+      {selectableTrainPlatformList.map((trainPlatform: TrainPlatformType) =>
+        trainPlatform.name.includes(trainPlatformName) ? (
+          <TrainPlatformItem
+            trainPlatform={trainPlatform}
+            iconType="check"
+            onClick={() => selectTrainPlatform(trainPlatform)}
+            key={trainPlatform.id}
+          />
+        ) : null,
       )}
     </div>
   )

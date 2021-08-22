@@ -25,6 +25,7 @@ const SelectTrainLine: FunctionComponent = function () {
 
   const handleTrainLineNameChange = (event: ChangeEvent<HTMLInputElement>) =>
     setTrainLineName(event.target.value)
+
   const handleResetSelectedTrainLine = () =>
     setTrainForm(prev => ({
       ...prev,
