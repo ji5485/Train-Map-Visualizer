@@ -7,7 +7,7 @@ import TrainPlatformForm from 'components/AppendTrainPlatform/TrainPlatformForm'
 import DrawingLineForm from 'components/SelectDrawingLine/DrawingLineForm'
 import ModifyTrainPlatformForm from 'components/ModifyTrainPlatform/ModifyTrainPlatformForm'
 import ModifyTrainLineForm from 'components/ModifyTrainLine/ModifyTrainLineForm'
-import SettingMenuContent from 'components/SettingMenu/SettingMenuContent/SettingMenuContent'
+import SettingMenuContent from 'components/SettingMenu/SettingMenuContent'
 import FindTrainPathContent from 'components/FindTrainPath/FindTrainPathContent'
 
 // constants.ts 파일에 두면 순환 종속성 문제로 인한 에러 발생

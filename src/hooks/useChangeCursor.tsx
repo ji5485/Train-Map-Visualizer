@@ -2,7 +2,7 @@ import { useEffect, MutableRefObject } from 'react'
 import { useGetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
 
 const CURSOR_BY_CURRENT_MODE = {
-  hand: 'grab',
+  hand: 'grabbing',
   select: 'pointer',
   append: 'copy',
   line: 'crosshair',
