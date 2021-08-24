@@ -78,6 +78,12 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
     return result
   }
 
+  const findPathWithDijkstra = () => {
+    // TODO: Convert Train Platform Information From Adjacency Matrix to Adjacency List
+    // TODO: Developing Dijkstra Algorithm
+    // TODO: Developing Tracing Shortest Path
+  }
+
   const findConnectedPlatformWithSelectedLine = (
     nodeNumber: number,
     selectedLine: TrainLineType,
