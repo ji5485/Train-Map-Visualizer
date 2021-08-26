@@ -3,19 +3,48 @@ import {
   useManageTrainPlatform,
   useManageTrainLine,
 } from 'state/Train/TrainMapState'
+import { useManageTrainMapGraph } from 'state/Train/TrainMapGraphState'
 import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
-import { TrainLineType, TrainPlatformType } from 'types/Train.types'
+import {
+  TrainLineType,
+  TrainPlatformType,
+  TrainMapGraphType,
+  TrainMapGraphEdgeType,
+} from 'types/Train.types'
 import { CoordinatePositionType } from 'types/CoordinateSystem.types'
 import produce from 'immer'
+
+const convertToAdjacencyList = (
+  graph: TrainMapGraphType,
+  width: number,
+  height: number,
+) => {
+  const maxNodeNumber = width * height - 1
+  const adjacencyList = Array.from(
+    Array<TrainMapGraphEdgeType[]>(maxNodeNumber + 1),
+    () => Array<TrainMapGraphEdgeType>(0),
+  )
+
+  for (let i = 0; i <= maxNodeNumber; i++) {
+    for (let j = i + 1; j <= maxNodeNumber; j++) {
+      if (graph[i][j] === null) continue
+
+      adjacencyList[i].push(graph[i][j] as TrainMapGraphEdgeType)
+      adjacencyList[j].push(graph[i][j] as TrainMapGraphEdgeType)
+    }
+  }
+
+  return adjacencyList
+}
 
 type useFindTrainLinePathType = {
   findConnectedPlatformWithSelectedLine: (
     nodeNumber: number,
     selectedLine: TrainLineType,
   ) => TrainPlatformType[]
-  findLineWithSelectedLine: (
-    nodeNumber: number,
-    selectedLine: TrainLineType,
+  findLineWithSelectedPlatforms: (
+    startNodeNumber: number,
+    destinationNodeNumber: number,
   ) => void
   removeLineWithSelectedLine: (
     nodeNumber: number,
@@ -26,8 +55,12 @@ type useFindTrainLinePathType = {
 export default function useFindTrainLinePath(): useFindTrainLinePathType {
   const { trainPlatformMatrix } = useManageTrainPlatform()
   const { trainLineMatrix, setTrainLineMatrix } = useManageTrainLine()
+  const { trainMapGraph } = useManageTrainMapGraph()
   const { width, height } = useGetCoordinatePlaneSize()
-  const { getPositionByNodeNumber } = useGetPositionByNodeNumber()
+  const {
+    getPositionByNodeNumber,
+    getNodeNumberByPosition,
+  } = useGetPositionByNodeNumber()
 
   const getNextNodeNumber = (nodeNumber: number) => [
     nodeNumber - width,
@@ -79,8 +112,18 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
   }
 
   const findPathWithDijkstra = () => {
-    // TODO: Convert Train Platform Information From Adjacency Matrix to Adjacency List
+    // Convert Train Platform Information From Adjacency Matrix to Adjacency List
+    const trainMapAdjacencyList = convertToAdjacencyList(
+      trainMapGraph,
+      width,
+      height,
+    )
+
     // TODO: Developing Dijkstra Algorithm
+    const shortestTime = new Array(getNodeNumberByPosition(width, height))
+    const visited = Array.from(Array<boolean[]>(height), () =>
+      Array<boolean>(width).fill(false),
+    )
     // TODO: Developing Tracing Shortest Path
   }
 
@@ -104,21 +147,13 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
     return trainPlatforms
   }
 
-  const findLineWithSelectedLine = (
-    nodeNumber: number,
-    selectedLine: TrainLineType,
+  const findLineWithSelectedPlatforms = (
+    startNodeNumber: number,
+    destinationNodeNumber: number,
   ) => {
-    const [firstPosition, secondPosition] = findPathWithBFS(
-      nodeNumber,
-      selectedLine.lineId,
-    )
-    const trainPlatforms = [
-      trainPlatformMatrix[firstPosition.row][firstPosition.column],
-      trainPlatformMatrix[secondPosition.row][secondPosition.column],
-    ]
+    findPathWithDijkstra()
 
-    console.log(trainPlatforms)
-    return trainPlatforms
+    console.log(startNodeNumber, destinationNodeNumber)
   }
 
   const removeLineWithSelectedLine = (
@@ -143,7 +178,7 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
 
   return {
     findConnectedPlatformWithSelectedLine,
-    findLineWithSelectedLine,
+    findLineWithSelectedPlatforms,
     removeLineWithSelectedLine,
   }
 }

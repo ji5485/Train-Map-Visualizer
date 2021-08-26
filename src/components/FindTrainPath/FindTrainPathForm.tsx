@@ -2,14 +2,19 @@ import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import FindPathTrainFormItem from 'components/FindTrainPath/FindTrainPathFormItem'
 import { useManageFindTrainPathForm } from 'state/FloatingForm/FindTrainPathState'
+import useFindTrainLinePath from 'hooks/useFindTrainLinePath'
 
 const FindTrainPathForm: FunctionComponent = function () {
   const {
     findTrainPathForm: { start, destination },
   } = useManageFindTrainPathForm()
   const formIsValid = start !== null && destination !== null
+  const { findLineWithSelectedPlatforms } = useFindTrainLinePath()
 
-  const findTrainPath = () => console.log('abc')
+  const findTrainPath = () => {
+    if (!formIsValid) return
+    findLineWithSelectedPlatforms(start!.nodeNumber, destination!.nodeNumber)
+  }
 
   return (
     <div>
