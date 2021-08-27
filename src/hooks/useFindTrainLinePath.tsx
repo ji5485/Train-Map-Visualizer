@@ -12,7 +12,13 @@ import {
   TrainMapGraphEdgeType,
 } from 'types/Train.types'
 import { CoordinatePositionType } from 'types/CoordinateSystem.types'
+import PriorityQueue from 'utils/priorityQueue'
 import produce from 'immer'
+
+type AdjacencyListNodeType = {
+  next: number
+  graph: TrainMapGraphEdgeType
+}
 
 const convertToAdjacencyList = (
   graph: TrainMapGraphType,
@@ -21,16 +27,22 @@ const convertToAdjacencyList = (
 ) => {
   const maxNodeNumber = width * height - 1
   const adjacencyList = Array.from(
-    Array<TrainMapGraphEdgeType[]>(maxNodeNumber + 1),
-    () => Array<TrainMapGraphEdgeType>(0),
+    Array<AdjacencyListNodeType[]>(maxNodeNumber + 1),
+    () => Array<AdjacencyListNodeType>(),
   )
 
   for (let i = 0; i <= maxNodeNumber; i++) {
     for (let j = i + 1; j <= maxNodeNumber; j++) {
       if (graph[i][j] === null) continue
 
-      adjacencyList[i].push(graph[i][j] as TrainMapGraphEdgeType)
-      adjacencyList[j].push(graph[i][j] as TrainMapGraphEdgeType)
+      adjacencyList[i].push({
+        next: j,
+        graph: graph[i][j] as TrainMapGraphEdgeType,
+      })
+      adjacencyList[j].push({
+        next: i,
+        graph: graph[i][j] as TrainMapGraphEdgeType,
+      })
     }
   }
 
@@ -111,7 +123,7 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
     return result
   }
 
-  const findPathWithDijkstra = () => {
+  const findPathWithDijkstra = (startNodeNumber: number) => {
     // Convert Train Platform Information From Adjacency Matrix to Adjacency List
     const trainMapAdjacencyList = convertToAdjacencyList(
       trainMapGraph,
@@ -124,6 +136,27 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
     const visited = Array.from(Array<boolean[]>(height), () =>
       Array<boolean>(width).fill(false),
     )
+    const priorityQueue = new PriorityQueue<number>(0, startNodeNumber)
+
+    shortestTime[startNodeNumber] = 0
+    visited[startNodeNumber] = true
+    priorityQueue.enqueue(0, startNodeNumber)
+
+    while (!priorityQueue.isEmpty()) {
+      const currentNodeNumber = priorityQueue.dequeue()
+      console.log(currentNodeNumber)
+
+      if (visited[currentNodeNumber]) continue
+      else visited[currentNodeNumber] = true
+
+      for (const { next, graph } of trainMapAdjacencyList[currentNodeNumber]) {
+        if (shortestTime[next] <= shortestTime[currentNodeNumber] + graph.time)
+          continue
+
+        shortestTime[next] = shortestTime[currentNodeNumber] + graph.time
+        priorityQueue.enqueue(graph.time, next)
+      }
+    }
     // TODO: Developing Tracing Shortest Path
   }
 
