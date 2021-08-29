@@ -1,10 +1,10 @@
-type HeapNodeType<Type> = {
-  key: number
-  value: Type
+type HeapNodeType = {
+  weight: number
+  node: number
 }
 
-export default class PriorityQueue<Type> {
-  heap: HeapNodeType<Type>[]
+export default class PriorityQueue {
+  heap: HeapNodeType[]
 
   constructor() {
     this.heap = []
@@ -15,10 +15,10 @@ export default class PriorityQueue<Type> {
   getParentIndex = (childIndex: number): number =>
     Math.floor((childIndex - 1) / 2)
 
-  peek = (): HeapNodeType<Type> => this.heap[0]
+  peek = (): HeapNodeType => this.heap[0]
 
-  enqueue = (priority: number, value: Type): void => {
-    this.heap.push({ key: priority, value })
+  enqueue = (weight: number, node: number): void => {
+    this.heap.push({ weight, node })
 
     let index = this.heap.length - 1
     const lastInsertedNode = this.heap[index]
@@ -26,7 +26,7 @@ export default class PriorityQueue<Type> {
     while (index > 0) {
       const parentIndex = this.getParentIndex(index)
 
-      if (this.heap[parentIndex].key > lastInsertedNode.key) {
+      if (this.heap[parentIndex].weight > lastInsertedNode.weight) {
         this.heap[index] = this.heap[parentIndex]
         index = parentIndex
       } else break
@@ -35,19 +35,18 @@ export default class PriorityQueue<Type> {
     this.heap[index] = lastInsertedNode
   }
 
-  dequeue = (): Type => {
+  dequeue = (): HeapNodeType | undefined => {
     const count = this.heap.length
-    const { value } = this.peek()
+    const rootNode = this.peek()
 
     if (count <= 0) return undefined
-
-    if (count === 1) this.heap = []
+    else if (count === 1) this.heap = []
     else {
-      this.heap[0] = this.heap.pop()
+      this.heap[0] = this.heap.pop()!
       this.heapifyDown()
     }
 
-    return value
+    return rootNode
   }
 
   isEmpty = (): boolean => this.heap.length <= 0
@@ -63,11 +62,11 @@ export default class PriorityQueue<Type> {
 
       const smallerChildIndex =
         rightChildIndex < count &&
-        this.heap[rightChildIndex].key < this.heap[leftChildIndex].key
+        this.heap[rightChildIndex].weight < this.heap[leftChildIndex].weight
           ? rightChildIndex
           : leftChildIndex
 
-      if (this.heap[smallerChildIndex].key <= rootNode.key) {
+      if (this.heap[smallerChildIndex].weight <= rootNode.weight) {
         this.heap[index] = this.heap[smallerChildIndex]
         index = smallerChildIndex
       } else break

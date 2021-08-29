@@ -10,12 +10,14 @@ type TrainPlatformListProps = {
   type: keyof FindTrainPathFormType
   trainPlatformName: string
   handleClose: () => void
+  handleResetInput: () => void
 }
 
 const TrainPlatformList: FunctionComponent<TrainPlatformListProps> = function ({
   type,
   trainPlatformName,
   handleClose,
+  handleResetInput,
 }) {
   const { trainPlatformMatrix } = useManageTrainPlatform()
   const {
@@ -56,6 +58,7 @@ const TrainPlatformList: FunctionComponent<TrainPlatformListProps> = function ({
 
   const selectTrainPlatform = (trainPlatform: TrainPlatformType) => {
     setFindTrainPathForm(prev => ({ ...prev, [type]: trainPlatform }))
+    handleResetInput()
     handleClose()
   }
 

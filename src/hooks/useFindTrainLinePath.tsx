@@ -9,15 +9,14 @@ import {
   TrainLineType,
   TrainPlatformType,
   TrainMapGraphType,
-  TrainMapGraphEdgeType,
 } from 'types/Train.types'
 import { CoordinatePositionType } from 'types/CoordinateSystem.types'
 import PriorityQueue from 'utils/priorityQueue'
 import produce from 'immer'
 
 type AdjacencyListNodeType = {
-  next: number
-  graph: TrainMapGraphEdgeType
+  node: number
+  weight: number
 }
 
 const convertToAdjacencyList = (
@@ -33,16 +32,12 @@ const convertToAdjacencyList = (
 
   for (let i = 0; i <= maxNodeNumber; i++) {
     for (let j = i + 1; j <= maxNodeNumber; j++) {
-      if (graph[i][j] === null) continue
+      const weight = graph[i][j]?.time
 
-      adjacencyList[i].push({
-        next: j,
-        graph: graph[i][j] as TrainMapGraphEdgeType,
-      })
-      adjacencyList[j].push({
-        next: i,
-        graph: graph[i][j] as TrainMapGraphEdgeType,
-      })
+      if (weight === undefined) continue
+
+      adjacencyList[i].push({ node: j, weight })
+      adjacencyList[j].push({ node: i, weight })
     }
   }
 
@@ -123,41 +118,53 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
     return result
   }
 
-  const findPathWithDijkstra = (startNodeNumber: number) => {
-    // Convert Train Platform Information From Adjacency Matrix to Adjacency List
+  const findPathWithDijkstra = (
+    startNodeNumber: number,
+    destinationNodeNumber: number,
+  ): number[] => {
     const trainMapAdjacencyList = convertToAdjacencyList(
       trainMapGraph,
       width,
       height,
     )
 
-    // TODO: Developing Dijkstra Algorithm
-    const shortestTime = new Array(getNodeNumberByPosition(width, height))
-    const visited = Array.from(Array<boolean[]>(height), () =>
-      Array<boolean>(width).fill(false),
-    )
-    const priorityQueue = new PriorityQueue<number>(0, startNodeNumber)
+    const nodeCount = getNodeNumberByPosition(width, height)
+    const timeTable = new Array<number>(nodeCount)
+    const visitedHistory = new Array<number>(nodeCount)
+    const priorityQueue = new PriorityQueue()
 
-    shortestTime[startNodeNumber] = 0
-    visited[startNodeNumber] = true
+    timeTable[startNodeNumber] = 0
     priorityQueue.enqueue(0, startNodeNumber)
 
     while (!priorityQueue.isEmpty()) {
-      const currentNodeNumber = priorityQueue.dequeue()
-      console.log(currentNodeNumber)
+      const currentNode = priorityQueue.dequeue()
+      if (currentNode === undefined) break
 
-      if (visited[currentNodeNumber]) continue
-      else visited[currentNodeNumber] = true
+      const { weight, node: currentNodeNumber } = currentNode
 
-      for (const { next, graph } of trainMapAdjacencyList[currentNodeNumber]) {
-        if (shortestTime[next] <= shortestTime[currentNodeNumber] + graph.time)
-          continue
+      if (timeTable[currentNodeNumber] < weight) continue
 
-        shortestTime[next] = shortestTime[currentNodeNumber] + graph.time
-        priorityQueue.enqueue(graph.time, next)
-      }
+      trainMapAdjacencyList[currentNodeNumber].forEach(
+        (nextNode: AdjacencyListNodeType) => {
+          const sumOfWeight = weight + nextNode.weight
+
+          if (timeTable[nextNode.node] <= sumOfWeight) return
+
+          timeTable[nextNode.node] = sumOfWeight
+          priorityQueue.enqueue(sumOfWeight, nextNode.node)
+          visitedHistory[nextNode.node] = currentNodeNumber
+        },
+      )
     }
-    // TODO: Developing Tracing Shortest Path
+
+    const tracedNodeNumberList = (function tracePath(
+      nodeNumber: number,
+    ): number[] {
+      if (nodeNumber === startNodeNumber) return [nodeNumber]
+      return [...tracePath(visitedHistory[nodeNumber]), nodeNumber]
+    })(destinationNodeNumber)
+
+    return tracedNodeNumberList
   }
 
   const findConnectedPlatformWithSelectedLine = (
@@ -184,9 +191,11 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
     startNodeNumber: number,
     destinationNodeNumber: number,
   ) => {
-    findPathWithDijkstra()
-
-    console.log(startNodeNumber, destinationNodeNumber)
+    const tracedNodeNumberList = findPathWithDijkstra(
+      startNodeNumber,
+      destinationNodeNumber,
+    )
+    console.log(tracedNodeNumberList)
   }
 
   const removeLineWithSelectedLine = (

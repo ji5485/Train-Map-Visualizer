@@ -57,6 +57,7 @@ const FindTrainPathFormItem: FunctionComponent<FindTrainPathFormItemProps> = fun
           type={type}
           trainPlatformName={trainPlatformName}
           handleClose={() => setIsVisible(false)}
+          handleResetInput={() => setTrainPlatformName('')}
         />
       ) : null}
     </div>
