@@ -11,13 +11,12 @@ import {
   TrainMapGraphType,
 } from 'types/Train.types'
 import { CoordinatePositionType } from 'types/CoordinateSystem.types'
+import {
+  AdjacencyListNodeType,
+  TrainPathSectionType,
+} from 'types/TrainPath.types'
 import PriorityQueue from 'utils/priorityQueue'
 import produce from 'immer'
-
-type AdjacencyListNodeType = {
-  node: number
-  weight: number
-}
 
 const convertToAdjacencyList = (
   graph: TrainMapGraphType,
@@ -129,7 +128,7 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
     )
 
     const nodeCount = getNodeNumberByPosition(width, height)
-    const timeTable = new Array<number>(nodeCount)
+    const timeTable = new Array<number>(nodeCount).fill(Number.MAX_SAFE_INTEGER)
     const visitedHistory = new Array<number>(nodeCount)
     const priorityQueue = new PriorityQueue()
 
@@ -156,6 +155,8 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
         },
       )
     }
+
+    if (timeTable[destinationNodeNumber] === Number.MAX_SAFE_INTEGER) return []
 
     const tracedNodeNumberList = (function tracePath(
       nodeNumber: number,
@@ -195,7 +196,67 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
       startNodeNumber,
       destinationNodeNumber,
     )
-    console.log(tracedNodeNumberList)
+
+    const result = tracedNodeNumberList.reduce<TrainPathSectionType[]>(
+      (list, nodeNumber, index) => {
+        const nextNodeNumberInLine = getNextNodeNumber(nodeNumber).filter(
+          nextNodeNumber => {
+            if (
+              nextNodeNumber < 0 ||
+              nextNodeNumber >= width * height - 1 ||
+              index >= tracedNodeNumberList.length
+            )
+              return false
+
+            const trainLine = trainLineMatrix[nodeNumber][nextNodeNumber]
+            const trainLineGraphEdge =
+              trainMapGraph[nodeNumber][tracedNodeNumberList[index + 1]]
+
+            if (trainLine === null || trainLineGraphEdge === null) return false
+
+            return trainLine.lineId === trainLineGraphEdge.id
+          },
+        )
+
+        if (index === 0) {
+          const { row, column } = getPositionByNodeNumber(nodeNumber)
+          const start = trainPlatformMatrix[row][column]
+
+          if (start === null || nextNodeNumberInLine.length !== 1)
+            throw new Error('abc')
+
+          const firstSection: TrainPathSectionType = {
+            start,
+            destination: null,
+            line: trainLineMatrix[nodeNumber][nextNodeNumberInLine[0]]!,
+            time: 0,
+          }
+
+          return [firstSection]
+        } else if (index === tracedNodeNumberList.length - 1) {
+          const lastSection = list[list.length - 1]
+          const lastSectionTime = trainMapGraph[
+            tracedNodeNumberList[index - 1]
+          ][tracedNodeNumberList[index]]!.time
+          const { row, column } = getPositionByNodeNumber(nodeNumber)
+
+          list.splice(list.length - 1, 1, {
+            ...lastSection,
+            destination: trainPlatformMatrix[row][column],
+            time: lastSection.time + lastSectionTime,
+          })
+
+          return list
+        }
+
+        // TODO: Check whether Prev Train Line Item Equals Next Train Line Item With nextNodeNumberInLine Variable
+
+        return list
+      },
+      [],
+    )
+
+    console.log(result)
   }
 
   const removeLineWithSelectedLine = (
