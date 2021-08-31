@@ -51,7 +51,7 @@ type useFindTrainLinePathType = {
   findLineWithSelectedPlatforms: (
     startNodeNumber: number,
     destinationNodeNumber: number,
-  ) => void
+  ) => TrainPathSectionType[]
   removeLineWithSelectedLine: (
     nodeNumber: number,
     selectedLine: TrainLineType,
@@ -191,20 +191,20 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
   const findLineWithSelectedPlatforms = (
     startNodeNumber: number,
     destinationNodeNumber: number,
-  ) => {
+  ): TrainPathSectionType[] => {
     const tracedNodeNumberList = findPathWithDijkstra(
       startNodeNumber,
       destinationNodeNumber,
     )
 
-    const result = tracedNodeNumberList.reduce<TrainPathSectionType[]>(
+    return tracedNodeNumberList.reduce<TrainPathSectionType[]>(
       (list, nodeNumber, index) => {
         const nextNodeNumberInLine = getNextNodeNumber(nodeNumber).filter(
           nextNodeNumber => {
             if (
               nextNodeNumber < 0 ||
               nextNodeNumber >= width * height - 1 ||
-              index >= tracedNodeNumberList.length
+              index >= tracedNodeNumberList.length - 1
             )
               return false
 
@@ -218,45 +218,55 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
           },
         )
 
-        if (index === 0) {
-          const { row, column } = getPositionByNodeNumber(nodeNumber)
-          const start = trainPlatformMatrix[row][column]
+        const lastSection = list[list.length - 1]
+        const lastSectionTime =
+          index !== 0
+            ? trainMapGraph[tracedNodeNumberList[index - 1]][
+                tracedNodeNumberList[index]
+              ]!.time
+            : 0
+        const nextTrainLine =
+          index !== tracedNodeNumberList.length - 1
+            ? trainLineMatrix[nodeNumber][nextNodeNumberInLine[0]]!
+            : null
+        const { row, column } = getPositionByNodeNumber(nodeNumber)
 
-          if (start === null || nextNodeNumberInLine.length !== 1)
-            throw new Error('abc')
+        const createNewSection = (): void => {
+          if (nextNodeNumberInLine.length !== 1)
+            throw new Error('Cannot Create New Section')
 
           const firstSection: TrainPathSectionType = {
-            start,
+            start: trainPlatformMatrix[row][column]!,
             destination: null,
             line: trainLineMatrix[nodeNumber][nextNodeNumberInLine[0]]!,
             time: 0,
           }
 
-          return [firstSection]
-        } else if (index === tracedNodeNumberList.length - 1) {
-          const lastSection = list[list.length - 1]
-          const lastSectionTime = trainMapGraph[
-            tracedNodeNumberList[index - 1]
-          ][tracedNodeNumberList[index]]!.time
-          const { row, column } = getPositionByNodeNumber(nodeNumber)
+          list.push(firstSection)
+        }
 
+        const completeSection = (): void => {
           list.splice(list.length - 1, 1, {
             ...lastSection,
             destination: trainPlatformMatrix[row][column],
             time: lastSection.time + lastSectionTime,
           })
-
-          return list
         }
 
-        // TODO: Check whether Prev Train Line Item Equals Next Train Line Item With nextNodeNumberInLine Variable
+        if (index === 0) createNewSection()
+        else if (index === tracedNodeNumberList.length - 1) completeSection()
+        else if (
+          nextTrainLine !== null &&
+          lastSection.line.color !== nextTrainLine.color
+        ) {
+          completeSection()
+          createNewSection()
+        } else lastSection.time += lastSectionTime
 
         return list
       },
       [],
     )
-
-    console.log(result)
   }
 
   const removeLineWithSelectedLine = (
