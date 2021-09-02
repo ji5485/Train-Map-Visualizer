@@ -240,6 +240,7 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
             destination: null,
             line: trainLineMatrix[nodeNumber][nextNodeNumberInLine[0]]!,
             time: 0,
+            pass: 0,
           }
 
           list.push(firstSection)
@@ -261,7 +262,10 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
         ) {
           completeSection()
           createNewSection()
-        } else lastSection.time += lastSectionTime
+        } else {
+          lastSection.time += lastSectionTime
+          lastSection.pass += 1
+        }
 
         return list
       },

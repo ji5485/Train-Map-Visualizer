@@ -6,7 +6,7 @@ import {
   Resetter,
   useResetRecoilState,
 } from 'recoil'
-import { TrainLineItemType } from 'types/Train.types'
+import { TrainLineItemType, TrainLineColorName } from 'types/Train.types'
 import { Getter, Setter } from 'types/RecoilMethods.types'
 
 const trainLineItemAtom = atom<TrainLineItemType[]>({
@@ -59,6 +59,22 @@ export const useGetTrainLineItemById = (
 ): Getter<TrainLineItemType> => {
   const selectedTrainLine = useRecoilValue(trainLineItemAtom).find(
     ({ id }) => id === selectedId,
+  )
+
+  const defaultTrainLine: TrainLineItemType = {
+    id: '',
+    name: '',
+    color: 'indigo',
+  }
+
+  return selectedTrainLine ?? defaultTrainLine
+}
+
+export const useGetTrainLineItemByColor = (
+  selectedColor: TrainLineColorName,
+): Getter<TrainLineItemType> => {
+  const selectedTrainLine = useRecoilValue(trainLineItemAtom).find(
+    ({ color }) => color === selectedColor,
   )
 
   const defaultTrainLine: TrainLineItemType = {

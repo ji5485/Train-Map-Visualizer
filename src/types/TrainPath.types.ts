@@ -12,4 +12,5 @@ export type TrainPathSectionType = {
   destination: TrainPlatformType | null
   line: TrainLineType
   time: number
+  pass: number
 }
