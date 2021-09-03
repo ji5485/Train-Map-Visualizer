@@ -1,7 +1,8 @@
-import { FunctionComponent } from 'react'
+import { Fragment, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { TrainPathSectionType } from 'types/TrainPath.types'
 import FindTrainPathResultSection from 'components/FindTrainPath/FindTrainPathResultSection'
+import FindTrainPathResultTransfer from 'components/FindTrainPath/FindTrainPathResultTransfer'
 
 type FindTrainPathResultProps = {
   result: TrainPathSectionType[]
@@ -25,7 +26,15 @@ const FindTrainPathResult: FunctionComponent<FindTrainPathResultProps> = functio
       </div>
       <div css={findTrainPathResultLineStyle} />
       {result.map((section: TrainPathSectionType, index: number) => (
-        <FindTrainPathResultSection section={section} key={index} />
+        <Fragment key={index}>
+          <FindTrainPathResultSection section={section} />
+          {index < result.length - 1 ? (
+            <FindTrainPathResultTransfer
+              from={section.line}
+              to={result[index + 1].line}
+            />
+          ) : null}
+        </Fragment>
       ))}
     </div>
   )

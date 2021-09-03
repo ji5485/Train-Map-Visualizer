@@ -203,7 +203,7 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
           nextNodeNumber => {
             if (
               nextNodeNumber < 0 ||
-              nextNodeNumber >= width * height - 1 ||
+              nextNodeNumber >= width * height ||
               index >= tracedNodeNumberList.length - 1
             )
               return false
