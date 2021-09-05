@@ -9,6 +9,7 @@ import FindTrainPathResult from 'components/FindTrainPath/FindTrainPathResult'
 const FindTrainPathForm: FunctionComponent = function () {
   const {
     findTrainPathForm: { start, destination },
+    resetFindTrainPathForm,
   } = useManageFindTrainPathForm()
   const { findLineWithSelectedPlatforms } = useFindTrainLinePath()
   const [{ isVisible, result }, setResultForm] = useState<{
@@ -32,7 +33,15 @@ const FindTrainPathForm: FunctionComponent = function () {
     })
   }
 
-  if (isVisible) return <FindTrainPathResult result={result} />
+  const handleResetForm = () => {
+    resetFindTrainPathForm()
+    setResultForm({ isVisible: false, result: [] })
+  }
+
+  if (isVisible)
+    return (
+      <FindTrainPathResult result={result} handleResetForm={handleResetForm} />
+    )
 
   return (
     <div>

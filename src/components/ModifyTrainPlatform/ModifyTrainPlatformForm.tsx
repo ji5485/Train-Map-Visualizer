@@ -13,6 +13,7 @@ import {
   useManageTrainLine,
 } from 'state/Train/TrainMapState'
 import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
+import { useManageTrainMapGraph } from 'state/Train/TrainMapGraphState'
 import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
 import useFindTrainLinePath from 'hooks/useFindTrainLinePath'
 import { TrainPlatformType, TrainLineDirection } from 'types/Train.types'
@@ -24,6 +25,7 @@ const ModifyForm: FunctionComponent = function () {
   } = useManageModifyTrainPlatformFormStatus()
   const { setTrainPlatformMatrix } = useManageTrainPlatform()
   const { trainLineMatrix } = useManageTrainLine()
+  const { setTrainMapGraph } = useManageTrainMapGraph()
   const { removeLineWithSelectedLine } = useFindTrainLinePath()
   const {
     nextNodeNumber,
@@ -60,7 +62,18 @@ const ModifyForm: FunctionComponent = function () {
       const trainLine = trainLineMatrix[nodeNumber][next[1]]
       if (trainLine === null) return
 
-      removeLineWithSelectedLine(nodeNumber, trainLine)
+      const platformNodeNumber: number = removeLineWithSelectedLine(
+        nodeNumber,
+        trainLine,
+      )
+      setTrainMapGraph(prev =>
+        produce(prev, draft => {
+          draft[nodeNumber][platformNodeNumber] = draft[platformNodeNumber][
+            nodeNumber
+          ] = null
+          return draft
+        }),
+      )
     })
 
     trainPlatformSetter(null)

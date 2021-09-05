@@ -19,7 +19,7 @@ const FindTrainPathResultTransfer: FunctionComponent<FindTrainPathResultTransfer
     <div css={findTrainPathResultTransferStyle}>
       <div css={findTrainPathResultTransferLineStyle} />
       <div css={findTrainPathResultTransferInfoStyle}>
-        {fromTrainLine.name} {toTrainLine.name}
+        {fromTrainLine.name}에서 {toTrainLine.name}으로 환승
       </div>
     </div>
   )
@@ -48,7 +48,10 @@ const findTrainPathResultTransferLineStyle = css`
 `
 
 const findTrainPathResultTransferInfoStyle = css`
-  padding: 10px 0;
+  padding: 15px 0;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.7);
 `
 
 export default FindTrainPathResultTransfer

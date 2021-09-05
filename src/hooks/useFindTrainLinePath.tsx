@@ -55,7 +55,7 @@ type useFindTrainLinePathType = {
   removeLineWithSelectedLine: (
     nodeNumber: number,
     selectedLine: TrainLineType,
-  ) => void
+  ) => number
 }
 
 export default function useFindTrainLinePath(): useFindTrainLinePathType {
@@ -96,7 +96,7 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
         result.push({ row, column } as CoordinatePositionType)
 
       getNextNodeNumber(currentNodeNumber).forEach(nextNodeNumber => {
-        if (nextNodeNumber < 0 || nextNodeNumber >= width * height - 1) return
+        if (nextNodeNumber < 0 || nextNodeNumber >= width * height) return
 
         const nextPosition = getPositionByNodeNumber(nextNodeNumber)
         const trainLine = trainLineMatrix[currentNodeNumber][nextNodeNumber]
@@ -197,6 +197,8 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
       destinationNodeNumber,
     )
 
+    if (tracedNodeNumberList.length === 0) return []
+
     return tracedNodeNumberList.reduce<TrainPathSectionType[]>(
       (list, nodeNumber, index) => {
         const nextNodeNumberInLine = getNextNodeNumber(nodeNumber).filter(
@@ -276,7 +278,7 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
   const removeLineWithSelectedLine = (
     nodeNumber: number,
     selectedLine: TrainLineType,
-  ) => {
+  ): number => {
     const removeTrainLine = (
       currentNodeNumber: number,
       nextNodeNumber: number,
@@ -290,7 +292,14 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
         }),
       )
 
-    findPathWithBFS(nodeNumber, selectedLine.lineId, removeTrainLine)
+    const routes = findPathWithBFS(
+      nodeNumber,
+      selectedLine.lineId,
+      removeTrainLine,
+    )
+    const { row, column } = routes[routes.length - 1]
+
+    return getNodeNumberByPosition(row, column)
   }
 
   return {

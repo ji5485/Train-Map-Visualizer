@@ -7,6 +7,7 @@ import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
 import { TrainLineColorName } from 'types/Train.types'
 import TrainLineItemButton from 'components/ModifyTrainPlatform/TrainLineItemButton'
 import AppendTrainLineItem from 'components/ModifyTrainPlatform/AppendTrainLineItem'
+import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
 
 const TrainLineItemForm: FunctionComponent = function () {
   const {
@@ -15,6 +16,7 @@ const TrainLineItemForm: FunctionComponent = function () {
   } = useManageModifyTrainPlatformForm()
   const { nextNodeNumber } = useGetPositionByNodeNumber(nodeNumber)
   const { trainLineMatrix } = useManageTrainLine()
+  const { width, height } = useGetCoordinatePlaneSize()
 
   const filteredTrainLine = useGetFilteredTrainLineItem(
     line.map(({ name }) => name),
@@ -22,6 +24,7 @@ const TrainLineItemForm: FunctionComponent = function () {
 
   const checkTrainLineItemIsNotUsed = (color: TrainLineColorName) =>
     Object.values(nextNodeNumber).every((next: number) => {
+      if (next < 0 || next >= width * height) return true
       const trainLine = trainLineMatrix[nodeNumber][next]
       return trainLine === null ? true : trainLine.color !== color
     })
