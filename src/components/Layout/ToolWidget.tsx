@@ -9,6 +9,7 @@ import { useResetTrainForm } from 'state/FloatingForm/TrainPlatformFormState'
 import { useManageFindTrainPathForm } from 'state/FloatingForm/FindTrainPathState'
 import useGoBackOrCancelDrawingTrainLine from 'hooks/useGoBackOrCancelDrawingTrainLine'
 import { useManageModifyTrainPlatformFormStatus } from 'state/FloatingForm/ModifyTrainPlatformState'
+import { useManageCoordinateSystemPathHighlight } from 'state/CoordinateSystem/coordinateSystemPathHightlightState'
 import { CoordinateSystemCurrentModeType } from 'types/CoordinateSystem.types'
 import {
   FloatingFormType,
@@ -24,6 +25,9 @@ const ToolWidget: FunctionComponent = function () {
     resetModifyTrainPlatformFormStatus,
   } = useManageModifyTrainPlatformFormStatus()
   const { resetFindTrainPathForm } = useManageFindTrainPathForm()
+  const {
+    resetCoordinateSystemPathHighlight,
+  } = useManageCoordinateSystemPathHighlight()
 
   const handleClickToolMenu = (
     openOrNot: boolean,
@@ -33,7 +37,10 @@ const ToolWidget: FunctionComponent = function () {
     if (menu === 'append') resetTrainForm()
     else if (menu === 'line') cancelDrawingTrainLine()
     else if (menu === 'select_platform') resetModifyTrainPlatformFormStatus()
-    else if (menu === 'path') resetFindTrainPathForm()
+    else if (menu === 'path') {
+      resetFindTrainPathForm()
+      resetCoordinateSystemPathHighlight()
+    }
 
     const nextFloatingFormState = (prevState: FloatingFormType) => ({
       isOpen: openOrNot,
@@ -51,6 +58,10 @@ const ToolWidget: FunctionComponent = function () {
     if (menu === 'append') resetTrainForm()
     else if (menu === 'line') cancelDrawingTrainLine()
     else if (menu === 'select_platform') resetModifyTrainPlatformFormStatus()
+    else if (menu === 'path') {
+      resetFindTrainPathForm()
+      resetCoordinateSystemPathHighlight()
+    }
 
     setFloatingForm(prev => ({ ...prev, isOpen: false }))
   }

@@ -1,4 +1,8 @@
-import { TrainPlatformType, TrainLineType } from './Train.types'
+import {
+  TrainPlatformType,
+  TrainMapGraphEdgeType,
+  TrainLineColorName,
+} from './Train.types'
 
 // Converted Train Map Graph Type
 export type AdjacencyListNodeType = {
@@ -10,7 +14,13 @@ export type AdjacencyListNodeType = {
 export type TrainPathSectionType = {
   start: TrainPlatformType
   destination: TrainPlatformType | null
-  line: TrainLineType
+  line: TrainLineColorName
   time: number
-  pass: number
+  pass: TrainMapGraphEdgeType[]
+}
+
+// Type of Find Path Result
+export type TrainPathResultType = {
+  platforms: number[]
+  sections: TrainPathSectionType[]
 }

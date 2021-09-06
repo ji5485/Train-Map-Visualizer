@@ -10,6 +10,7 @@ import {
   TrainLineDirectionForNodeType,
   TrainLineDirection,
 } from 'types/Train.types'
+import { CoordinateSystemPathHighlightType } from 'types/CoordinateSystem.types'
 
 type NodeProps = {
   row: number
@@ -17,6 +18,7 @@ type NodeProps = {
   nodeNumber: number
   trainPlatform: TrainPlatformType | null
   trainLine: TrainLineForNodeType
+  highlightedComponents: CoordinateSystemPathHighlightType['highlightedComponents']
 }
 
 const Node: FunctionComponent<NodeProps> = function ({
@@ -25,6 +27,7 @@ const Node: FunctionComponent<NodeProps> = function ({
   nodeNumber,
   trainPlatform,
   trainLine,
+  highlightedComponents,
 }) {
   const nodeRef = useRef<HTMLDivElement | null>(null)
   const {

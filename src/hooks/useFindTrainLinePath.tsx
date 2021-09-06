@@ -14,6 +14,7 @@ import { CoordinatePositionType } from 'types/CoordinateSystem.types'
 import {
   AdjacencyListNodeType,
   TrainPathSectionType,
+  TrainPathResultType,
 } from 'types/TrainPath.types'
 import PriorityQueue from 'utils/priorityQueue'
 import produce from 'immer'
@@ -51,7 +52,7 @@ type useFindTrainLinePathType = {
   findLineWithSelectedPlatforms: (
     startNodeNumber: number,
     destinationNodeNumber: number,
-  ) => TrainPathSectionType[]
+  ) => TrainPathResultType
   removeLineWithSelectedLine: (
     nodeNumber: number,
     selectedLine: TrainLineType,
@@ -191,15 +192,13 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
   const findLineWithSelectedPlatforms = (
     startNodeNumber: number,
     destinationNodeNumber: number,
-  ): TrainPathSectionType[] => {
+  ): TrainPathResultType => {
     const tracedNodeNumberList = findPathWithDijkstra(
       startNodeNumber,
       destinationNodeNumber,
     )
 
-    if (tracedNodeNumberList.length === 0) return []
-
-    return tracedNodeNumberList.reduce<TrainPathSectionType[]>(
+    const sections = tracedNodeNumberList.reduce<TrainPathSectionType[]>(
       (list, nodeNumber, index) => {
         const nextNodeNumberInLine = getNextNodeNumber(nodeNumber).filter(
           nextNodeNumber => {
@@ -240,9 +239,9 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
           const firstSection: TrainPathSectionType = {
             start: trainPlatformMatrix[row][column]!,
             destination: null,
-            line: trainLineMatrix[nodeNumber][nextNodeNumberInLine[0]]!,
+            line: trainLineMatrix[nodeNumber][nextNodeNumberInLine[0]]!.color,
             time: 0,
-            pass: 0,
+            pass: [trainMapGraph[nodeNumber][tracedNodeNumberList[index + 1]]!],
           }
 
           list.push(firstSection)
@@ -260,19 +259,24 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
         else if (index === tracedNodeNumberList.length - 1) completeSection()
         else if (
           nextTrainLine !== null &&
-          lastSection.line.color !== nextTrainLine.color
+          lastSection.line !== nextTrainLine.color
         ) {
           completeSection()
           createNewSection()
         } else {
           lastSection.time += lastSectionTime
-          lastSection.pass += 1
+          lastSection.pass = [
+            ...lastSection.pass,
+            trainMapGraph[nodeNumber][tracedNodeNumberList[index + 1]]!,
+          ]
         }
 
         return list
       },
       [],
     )
+
+    return { platforms: tracedNodeNumberList, sections }
   }
 
   const removeLineWithSelectedLine = (

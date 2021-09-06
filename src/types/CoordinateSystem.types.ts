@@ -26,3 +26,12 @@ export type CoordinateSystemDrawingLineStatusType = {
   startTrainPlatform: TrainPlatformType | null
   drawingLine: TrainLineItemType | null
 }
+
+// Coordinate System Path Highlight Type
+export type CoordinateSystemPathHighlightType = {
+  highlight: boolean
+  highlightedComponents: {
+    platforms: number[]
+    lines: string[]
+  }
+}

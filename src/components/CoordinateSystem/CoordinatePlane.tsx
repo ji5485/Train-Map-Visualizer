@@ -10,6 +10,7 @@ import {
   useManageTrainPlatform,
   useManageTrainLine,
 } from 'state/Train/TrainMapState'
+import { useManageCoordinateSystemPathHighlight } from 'state/CoordinateSystem/coordinateSystemPathHightlightState'
 import useChangeCursor from 'hooks/useChangeCursor'
 import useScrollWithMouse from 'hooks/useScrollWithMouse'
 
@@ -24,6 +25,9 @@ const CoordinatePlane: FunctionComponent = function () {
     width: calculatedWidth,
     height: calculatedHeight,
   } = useGetCalculatedCoordinatePlaneSize()
+  const {
+    coordinateSystemPathHighlight: { highlight, highlightedComponents },
+  } = useManageCoordinateSystemPathHighlight()
 
   const { trainPlatformMatrix } = useManageTrainPlatform()
   const { trainLineMatrix } = useManageTrainLine()
@@ -80,6 +84,7 @@ const CoordinatePlane: FunctionComponent = function () {
                           nodeNumber={nodeNumber}
                           trainPlatform={trainPlatformMatrix[row][column]}
                           trainLine={trainLine}
+                          highlightedComponents={highlightedComponents}
                         />
                       )
                     },
@@ -87,6 +92,8 @@ const CoordinatePlane: FunctionComponent = function () {
                 </div>
               ),
             )}
+
+            {highlight ? <div css={coordHighlightPlaneStyle} /> : null}
           </div>
         </div>
       )}
@@ -150,6 +157,16 @@ const coordPlaneContentStyle = css`
 
 const rowStyle = css`
   display: flex;
+`
+
+const coordHighlightPlaneStyle = css`
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.7);
 `
 
 export default CoordinatePlane

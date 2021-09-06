@@ -13,7 +13,7 @@ type FindTrainPathResultSectionProps = {
 const FindTrainPathResultSection: FunctionComponent<FindTrainPathResultSectionProps> = function ({
   section: { start, destination, line, time, pass },
 }) {
-  const { name, color } = useGetTrainLineItemByColor(line.color)
+  const { name, color } = useGetTrainLineItemByColor(line)
 
   return (
     <div css={findTrainPathResultSectionStyle}>
@@ -29,7 +29,7 @@ const FindTrainPathResultSection: FunctionComponent<FindTrainPathResultSectionPr
           {name}
         </div>
         <div css={findTrainPathResultInfoContentStyle}>
-          {pass !== 0 ? `${String(pass)}개 역 이동 / ` : null}
+          {pass.length !== 0 ? `${String(pass.length)}개 역 이동 / ` : null}
           {time / 60 >= 1 ? `${Math.floor(time / 60)}시간 ` : ''}
           {time % 60 !== 0 ? `${time % 60}분` : ''} 소요
         </div>

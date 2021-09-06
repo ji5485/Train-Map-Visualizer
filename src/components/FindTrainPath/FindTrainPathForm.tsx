@@ -2,6 +2,7 @@ import { useState, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import FindPathTrainFormItem from 'components/FindTrainPath/FindTrainPathFormItem'
 import { useManageFindTrainPathForm } from 'state/FloatingForm/FindTrainPathState'
+import { useManageCoordinateSystemPathHighlight } from 'state/CoordinateSystem/coordinateSystemPathHightlightState'
 import useFindTrainLinePath from 'hooks/useFindTrainLinePath'
 import { TrainPathSectionType } from 'types/TrainPath.types'
 import FindTrainPathResult from 'components/FindTrainPath/FindTrainPathResult'
@@ -11,6 +12,10 @@ const FindTrainPathForm: FunctionComponent = function () {
     findTrainPathForm: { start, destination },
     resetFindTrainPathForm,
   } = useManageFindTrainPathForm()
+  const {
+    setCoordinateSystemPathHighlight,
+    resetCoordinateSystemPathHighlight,
+  } = useManageCoordinateSystemPathHighlight()
   const { findLineWithSelectedPlatforms } = useFindTrainLinePath()
   const [{ isVisible, result }, setResultForm] = useState<{
     isVisible: boolean
@@ -24,18 +29,39 @@ const FindTrainPathForm: FunctionComponent = function () {
   const findTrainPath = () => {
     if (!formIsValid) return
 
+    const { platforms, sections } = findLineWithSelectedPlatforms(
+      start!.nodeNumber,
+      destination!.nodeNumber,
+    )
+
+    if (platforms.length !== 0) {
+      const highlightedLinesId = sections.reduce<string[]>(
+        (result, section) => {
+          const linesId = section.pass.map(line => line.id)
+          return [...result, ...linesId]
+        },
+        [],
+      )
+
+      setCoordinateSystemPathHighlight({
+        highlight: true,
+        highlightedComponents: {
+          platforms,
+          lines: highlightedLinesId,
+        },
+      })
+    }
+
     setResultForm({
       isVisible: true,
-      result: findLineWithSelectedPlatforms(
-        start!.nodeNumber,
-        destination!.nodeNumber,
-      ),
+      result: sections,
     })
   }
 
   const handleResetForm = () => {
     resetFindTrainPathForm()
     setResultForm({ isVisible: false, result: [] })
+    resetCoordinateSystemPathHighlight()
   }
 
   if (isVisible)

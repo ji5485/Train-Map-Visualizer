@@ -1,19 +1,19 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { TrainLineType } from 'types/Train.types'
+import { TrainLineColorName } from 'types/Train.types'
 import { useGetTrainLineItemByColor } from 'state/Train/TrainLineItemState'
 
 type FindTrainPathResultTransferProps = {
-  from: TrainLineType
-  to: TrainLineType
+  from: TrainLineColorName
+  to: TrainLineColorName
 }
 
 const FindTrainPathResultTransfer: FunctionComponent<FindTrainPathResultTransferProps> = function ({
   from,
   to,
 }) {
-  const fromTrainLine = useGetTrainLineItemByColor(from.color)
-  const toTrainLine = useGetTrainLineItemByColor(to.color)
+  const fromTrainLine = useGetTrainLineItemByColor(from)
+  const toTrainLine = useGetTrainLineItemByColor(to)
 
   return (
     <div css={findTrainPathResultTransferStyle}>
