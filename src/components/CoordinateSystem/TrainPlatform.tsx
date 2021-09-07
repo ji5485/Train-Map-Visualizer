@@ -12,6 +12,7 @@ type TrainPlatformProps = {
   platformName: string
   trainLine: TrainLineItemType[]
   isPreview: boolean
+  isHighlighted: boolean
 }
 
 const TrainPlatform: FunctionComponent<TrainPlatformProps> = function ({
@@ -19,6 +20,7 @@ const TrainPlatform: FunctionComponent<TrainPlatformProps> = function ({
   platformName,
   trainLine,
   isPreview,
+  isHighlighted,
 }) {
   const trainPlatformRef = useRef<HTMLDivElement | null>(null)
   useSelectCoordComponent('platform', trainPlatformRef, nodeNumber, null)
@@ -30,6 +32,7 @@ const TrainPlatform: FunctionComponent<TrainPlatformProps> = function ({
           ? TRANSFER_TRAIN_PLATFORM_COLOR
           : TRAIN_LINE_COLOR[trainLine[0].color],
         isPreview,
+        isHighlighted,
       )}
       ref={trainPlatformRef}
     >
@@ -43,11 +46,15 @@ const TrainPlatform: FunctionComponent<TrainPlatformProps> = function ({
   )
 }
 
-const trainPlatformStyle = (trainLineColor: string, isPreview: boolean) => css`
+const trainPlatformStyle = (
+  trainLineColor: string,
+  isPreview: boolean,
+  isHighlighted: boolean,
+) => css`
   display: grid;
   place-items: center;
   position: relative;
-  z-index: 10;
+  z-index: ${isHighlighted ? '30' : '10'};
   width: 100px;
   height: 100px;
   background: ${trainLineColor};

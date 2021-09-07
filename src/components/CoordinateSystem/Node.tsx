@@ -18,6 +18,7 @@ type NodeProps = {
   nodeNumber: number
   trainPlatform: TrainPlatformType | null
   trainLine: TrainLineForNodeType
+  highlight: boolean
   highlightedComponents: CoordinateSystemPathHighlightType['highlightedComponents']
 }
 
@@ -27,7 +28,8 @@ const Node: FunctionComponent<NodeProps> = function ({
   nodeNumber,
   trainPlatform,
   trainLine,
-  highlightedComponents,
+  highlight,
+  highlightedComponents: { platforms, lines },
 }) {
   const nodeRef = useRef<HTMLDivElement | null>(null)
   const {
@@ -48,6 +50,7 @@ const Node: FunctionComponent<NodeProps> = function ({
           platformName={platformName}
           trainLine={selectedTrainLine}
           isPreview
+          isHighlighted={false}
         />
       )}
 
@@ -57,6 +60,7 @@ const Node: FunctionComponent<NodeProps> = function ({
           platformName={trainPlatform.name}
           trainLine={trainPlatform.line}
           isPreview={false}
+          isHighlighted={highlight && platforms.includes(nodeNumber)}
         />
       )}
 
@@ -65,6 +69,7 @@ const Node: FunctionComponent<NodeProps> = function ({
           nodeNumber={nodeNumber}
           color={currentDrawingLine.color}
           direction={currentDrawingLine.direction}
+          isHighlighted={false}
         />
       )}
 
@@ -76,6 +81,7 @@ const Node: FunctionComponent<NodeProps> = function ({
             nodeNumber={nodeNumber}
             color={line.color}
             direction={direction as TrainLineDirection}
+            isHighlighted={highlight && lines.includes(line.lineId)}
             key={index}
           />
         )

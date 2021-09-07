@@ -8,19 +8,28 @@ type TrainLineProps = {
   nodeNumber: number
   color: TrainLineColorName
   direction: TrainLineDirection | null
+  isHighlighted: boolean
 }
 
 const TrainLine: FunctionComponent<TrainLineProps> = function ({
   nodeNumber,
   color,
   direction,
+  isHighlighted,
 }) {
   if (direction === null) return null
 
   const trainLineRef = useRef<HTMLDivElement | null>(null)
   useSelectCoordComponent('line', trainLineRef, nodeNumber, direction)
 
-  return <div css={trainLineStyle(color, direction)} ref={trainLineRef} />
+  console.log(isHighlighted)
+
+  return (
+    <div
+      css={trainLineStyle(color, direction, isHighlighted)}
+      ref={trainLineRef}
+    />
+  )
 }
 
 const RORATE_DEG_BY_DIRECTION = {
@@ -33,11 +42,12 @@ const RORATE_DEG_BY_DIRECTION = {
 const trainLineStyle = (
   color: TrainLineColorName,
   direction: TrainLineDirection,
+  isHighlighted: boolean,
 ) => css`
   position: absolute;
   bottom: calc(50% - 5px);
   left: calc(50% - 5px);
-  z-index: 5;
+  z-index: ${isHighlighted ? '25' : '5'};
 
   width: 10px;
   height: 130px;
