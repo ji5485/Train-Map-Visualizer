@@ -29,7 +29,7 @@ const FindTrainPathResultSection: FunctionComponent<FindTrainPathResultSectionPr
           {name}
         </div>
         <div css={findTrainPathResultInfoContentStyle}>
-          {pass.length !== 0 ? `${String(pass.length)}개 역 이동 / ` : null}
+          {pass.length > 1 ? `${String(pass.length - 1)}개 역 이동 / ` : null}
           {time / 60 >= 1 ? `${Math.floor(time / 60)}시간 ` : ''}
           {time % 60 !== 0 ? `${time % 60}분` : ''} 소요
         </div>

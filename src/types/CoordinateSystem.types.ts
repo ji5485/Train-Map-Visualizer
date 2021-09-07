@@ -17,7 +17,7 @@ export type CoordinateSystemCurrentModeType =
   | 'hand'
   | 'select'
   | 'append'
-  | 'line'
+  | 'draw'
 
 // Coordinate System Drawing Line Type
 export type CoordinateSystemDrawingLineStatusType = {

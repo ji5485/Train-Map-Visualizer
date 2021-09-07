@@ -3,13 +3,13 @@ import { jsx, css } from '@emotion/react'
 import { RiSubwayFill } from 'react-icons/ri'
 import ToolItem from 'components/Layout/ToolItem'
 import FloatingForm from 'components/Layout/FloatingForm'
-import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
+import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/CoordinateSystemCurrentModeState'
 import { useStateFloatingForm } from 'state/FloatingForm/FloatingFormState'
 import { useResetTrainForm } from 'state/FloatingForm/TrainPlatformFormState'
 import { useManageFindTrainPathForm } from 'state/FloatingForm/FindTrainPathState'
 import useGoBackOrCancelDrawingTrainLine from 'hooks/useGoBackOrCancelDrawingTrainLine'
 import { useManageModifyTrainPlatformFormStatus } from 'state/FloatingForm/ModifyTrainPlatformState'
-import { useManageCoordinateSystemPathHighlight } from 'state/CoordinateSystem/coordinateSystemPathHightlightState'
+import { useManageCoordinateSystemPathHighlight } from 'state/CoordinateSystem/CoordinateSystemPathHightlightState'
 import { CoordinateSystemCurrentModeType } from 'types/CoordinateSystem.types'
 import {
   FloatingFormType,
@@ -35,7 +35,7 @@ const ToolWidget: FunctionComponent = function () {
     floatingFormMenu: FloatingFormContentType | null = null,
   ) => () => {
     if (menu === 'append') resetTrainForm()
-    else if (menu === 'line') cancelDrawingTrainLine()
+    else if (menu === 'draw') cancelDrawingTrainLine()
     else if (menu === 'select_platform') resetModifyTrainPlatformFormStatus()
     else if (menu === 'path') {
       resetFindTrainPathForm()
@@ -56,7 +56,7 @@ const ToolWidget: FunctionComponent = function () {
 
   const closeFloatingForm = () => {
     if (menu === 'append') resetTrainForm()
-    else if (menu === 'line') cancelDrawingTrainLine()
+    else if (menu === 'draw') cancelDrawingTrainLine()
     else if (menu === 'select_platform') resetModifyTrainPlatformFormStatus()
     else if (menu === 'path') {
       resetFindTrainPathForm()
@@ -87,13 +87,18 @@ const ToolWidget: FunctionComponent = function () {
             currentMode={currentMode}
           />
           <ToolItem
+            type="line"
+            onClick={handleClickToolMenu(true, 'hand', 'line')}
+            currentMode={currentMode}
+          />
+          <ToolItem
             type="append"
             onClick={handleClickToolMenu(true, 'hand', 'append')}
             currentMode={currentMode}
           />
           <ToolItem
-            type="line"
-            onClick={handleClickToolMenu(false, 'line')}
+            type="draw"
+            onClick={handleClickToolMenu(false, 'draw')}
             currentMode={currentMode}
           />
           <ToolItem

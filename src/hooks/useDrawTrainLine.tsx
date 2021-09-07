@@ -1,7 +1,7 @@
 import { useState, useEffect, MutableRefObject } from 'react'
 import produce from 'immer'
-import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
-import { useManageCoordinateSystemDrawingLineStatus } from 'state/CoordinateSystem/coordinateSystemDrawingLineState'
+import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/CoordinateSystemCurrentModeState'
+import { useManageCoordinateSystemDrawingLineStatus } from 'state/CoordinateSystem/CoordinateSystemDrawingLineState'
 import {
   useManageTrainPlatform,
   useManageTrainLine,
@@ -290,7 +290,7 @@ export default function useDrawTrainLine(
 
   // startDrawing 함수와 finishDrawing 함수를 실행시키기 위한 부분
   useEffect(() => {
-    if (currentMode !== 'line' || (isDrawing && currentNode !== nodeNumber))
+    if (currentMode !== 'draw' || (isDrawing && currentNode !== nodeNumber))
       return
 
     if (isDrawing) {

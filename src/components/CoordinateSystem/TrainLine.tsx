@@ -22,8 +22,6 @@ const TrainLine: FunctionComponent<TrainLineProps> = function ({
   const trainLineRef = useRef<HTMLDivElement | null>(null)
   useSelectCoordComponent('line', trainLineRef, nodeNumber, direction)
 
-  console.log(isHighlighted)
-
   return (
     <div
       css={trainLineStyle(color, direction, isHighlighted)}

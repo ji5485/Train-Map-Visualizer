@@ -1,4 +1,4 @@
-import { useManageCoordinateSystemDrawingLineStatus } from 'state/CoordinateSystem/coordinateSystemDrawingLineState'
+import { useManageCoordinateSystemDrawingLineStatus } from 'state/CoordinateSystem/CoordinateSystemDrawingLineState'
 import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
 import { useSetDrawingLineList } from 'state/FloatingForm/DrawingLineListState'
 import { TrainLineItemType } from 'types/Train.types'
@@ -15,7 +15,7 @@ export default function useSelectDrawingTrainLine(): useSelectDrawingTrainLineTy
 
   const openDrawingLineList = (trainLine: TrainLineItemType[]) => {
     setDrawingLineList(trainLine)
-    setFloatingForm({ isOpen: true, menu: 'line' })
+    setFloatingForm({ isOpen: true, menu: 'draw' })
   }
 
   const selectDrawingLine = (selectedTrainLine: TrainLineItemType) => {

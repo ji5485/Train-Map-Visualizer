@@ -1,5 +1,5 @@
 import { useState, useEffect, MutableRefObject } from 'react'
-import { useGetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
+import { useGetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/CoordinateSystemCurrentModeState'
 
 type PositionType = {
   scrollX: number

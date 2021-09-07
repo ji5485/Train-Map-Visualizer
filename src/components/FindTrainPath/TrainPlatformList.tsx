@@ -86,13 +86,13 @@ const TrainPlatformList: FunctionComponent<TrainPlatformListProps> = function ({
 const trainPlatformListStyle = css`
   position: absolute;
   left: 0;
-  top: 45px;
+  top: 60px;
   z-index: 10;
 
   overflow-y: auto;
   width: 100%;
   max-height: 200px;
-  background: #f8f9fa;
+  background: #ffffff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 
   &::-webkit-scrollbar {

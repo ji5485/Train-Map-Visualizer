@@ -16,7 +16,7 @@ const ModifyTrainLineTime: FunctionComponent<ModifyTrainLineTimeProps> = functio
     setTrainLineTime(event.target.value)
 
   const validateTrainLineTime = () => {
-    if (!/^[0-9]{2,5}$/.test(trainLineTime)) setTrainLineTime(String(time))
+    if (!/^[0-9]{1,5}$/.test(trainLineTime)) setTrainLineTime(String(time))
     else if (parseInt(trainLineTime) <= 0 || parseInt(trainLineTime) > 1000)
       setTrainLineTime(String(time))
     else setSelectedTrainLineTime(parseInt(trainLineTime))

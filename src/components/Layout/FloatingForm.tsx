@@ -9,14 +9,16 @@ import ModifyTrainPlatformForm from 'components/ModifyTrainPlatform/ModifyTrainP
 import ModifyTrainLineForm from 'components/ModifyTrainLine/ModifyTrainLineForm'
 import SettingMenuContent from 'components/SettingMenu/SettingMenuContent'
 import FindTrainPathContent from 'components/FindTrainPath/FindTrainPathContent'
+import ManageTrainLineItemForm from 'components/ManageTrainLineItem/ManageTrainLineItemForm'
 
 // constants.ts 파일에 두면 순환 종속성 문제로 인한 에러 발생
 const TOOL_FORM_CONTENT = {
   setting: SettingMenuContent,
   select_platform: ModifyTrainPlatformForm,
   select_line: ModifyTrainLineForm,
+  line: ManageTrainLineItemForm,
   append: TrainPlatformForm,
-  line: DrawingLineForm,
+  draw: DrawingLineForm,
   path: FindTrainPathContent,
 }
 

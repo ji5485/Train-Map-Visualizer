@@ -1,5 +1,5 @@
 import { useEffect, MutableRefObject } from 'react'
-import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
+import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/CoordinateSystemCurrentModeState'
 import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
 import { useManageModifyTrainPlatformForm } from 'state/FloatingForm/ModifyTrainPlatformState'
 import { useManageModifyTrainLineForm } from 'state/FloatingForm/ModifyTrainLineState'

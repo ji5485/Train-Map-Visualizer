@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { useGetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
+import { useGetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/CoordinateSystemCurrentModeState'
 import { MESSAGE_TYPE } from 'utils/constants'
 
 const MessageWidget: FunctionComponent = function () {

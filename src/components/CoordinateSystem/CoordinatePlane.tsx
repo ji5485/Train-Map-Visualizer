@@ -10,7 +10,7 @@ import {
   useManageTrainPlatform,
   useManageTrainLine,
 } from 'state/Train/TrainMapState'
-import { useManageCoordinateSystemPathHighlight } from 'state/CoordinateSystem/coordinateSystemPathHightlightState'
+import { useManageCoordinateSystemPathHighlight } from 'state/CoordinateSystem/CoordinateSystemPathHightlightState'
 import useChangeCursor from 'hooks/useChangeCursor'
 import useScrollWithMouse from 'hooks/useScrollWithMouse'
 

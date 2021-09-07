@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import useModifyOrCancelAppendingTrain from 'hooks/useModifyOrCancelAppendingTrain'
 import useGoBackOrCancelDrawingTrainLine from 'hooks/useGoBackOrCancelDrawingTrainLine'
-import { useGetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
+import { useGetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/CoordinateSystemCurrentModeState'
 import { RiQuillPenFill } from 'react-icons/ri'
 import { IoTrashBin } from 'react-icons/io5'
 import { ImCancelCircle } from 'react-icons/im'
@@ -38,7 +38,7 @@ const HelperWidget: FunctionComponent = function () {
       </div>
     )
 
-  if (currentMode === 'line')
+  if (currentMode === 'draw')
     return (
       <div css={helperWidgetStyle}>
         <div css={widgetIconStyle('#69db7c')} onClick={goBackDrawingTrainLine}>

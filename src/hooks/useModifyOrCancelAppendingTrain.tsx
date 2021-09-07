@@ -1,6 +1,6 @@
 import { useResetTrainForm } from 'state/FloatingForm/TrainPlatformFormState'
 import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
-import { useSetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
+import { useSetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/CoordinateSystemCurrentModeState'
 
 type useModifyOrCancelAppendingTrainType = {
   modify: () => void

@@ -6,7 +6,7 @@ import {
   useGetTrainForm,
   useResetTrainForm,
 } from 'state/FloatingForm/TrainPlatformFormState'
-import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
+import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/CoordinateSystemCurrentModeState'
 import { TrainPlatformType, TrainLineItemType } from 'types/Train.types'
 
 type useAppendTrainPlatformType = {

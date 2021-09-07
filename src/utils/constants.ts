@@ -5,6 +5,7 @@ import { BiAddToQueue } from 'react-icons/bi'
 import { HiCursorClick } from 'react-icons/hi'
 import { IoHandRightSharp } from 'react-icons/io5'
 import { GiPathDistance } from 'react-icons/gi'
+import { FaRoad } from 'react-icons/fa'
 
 // Train Line Color
 export const TRAIN_LINE_COLOR = {
@@ -39,7 +40,7 @@ export const TRAIN_LINE_ITEM_ICON = {
 export const MESSAGE_TYPE = {
   append: '적절한 위치에 지하철 역을 추가해주세요.',
   select: '지하철 역 또는 선로를 선택해 속성을 변경할 수 있습니다.',
-  line: '지하철 역 사이에 선로를 추가해주세요.',
+  draw: '지하철 역 사이에 선로를 추가해주세요.',
 }
 
 // Used in ToolForm.tsx
@@ -47,8 +48,9 @@ export const TOOL_FORM_TITLE = {
   setting: '프로젝트 메뉴',
   select_platform: '선택한 지하철역',
   select_line: '선택한 선로',
+  line: '노선 관리',
   append: '지하철역 추가',
-  line: '그릴 선로 선택',
+  draw: '그릴 선로 선택',
   path: '경로 찾기',
 }
 
@@ -56,8 +58,9 @@ export const TOOL_FORM_TITLE = {
 export const TOOL_ITEM_ICON = {
   hand: IoHandRightSharp,
   select: HiCursorClick,
+  line: FaRoad,
   append: BiAddToQueue,
-  line: AiOutlineEdit,
+  draw: AiOutlineEdit,
   path: GiPathDistance,
 }
 

@@ -4,9 +4,9 @@ import {
   useManagePreviewTrainLineTrace,
   useManagePreviewTrainLineStack,
 } from 'state/Train/PreviewTrainLineState'
-import { useManageCoordinateSystemDrawingLineStatus } from 'state/CoordinateSystem/coordinateSystemDrawingLineState'
+import { useManageCoordinateSystemDrawingLineStatus } from 'state/CoordinateSystem/CoordinateSystemDrawingLineState'
 import { useManageTrainLine } from 'state/Train/TrainMapState'
-import { useSetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/coordinateSystemCurrentModeState'
+import { useSetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/CoordinateSystemCurrentModeState'
 import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
 
 type useGoBackOrCancelDrawingTrainLineType = {
