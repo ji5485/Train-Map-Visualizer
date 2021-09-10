@@ -1,10 +1,12 @@
 import { FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import TrainLineItemList from 'components/ManageTrainLineItem/TrainLineItemList'
 
 const ManageTrainLineItemForm: FunctionComponent = function () {
-  return <div css={manageTrainLineItemFormStyle}>ab</div>
+  return (
+    <div>
+      <TrainLineItemList />
+    </div>
+  )
 }
-
-const manageTrainLineItemFormStyle = css``
 
 export default ManageTrainLineItemForm
