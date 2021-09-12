@@ -8,9 +8,6 @@ import TrainLineItem from 'components/ManageTrainLineItem/TrainLineItem'
 const TrainLineItemList: FunctionComponent = function () {
   const { trainLineItem, setTrainLineItem } = useManageTrainLineItem()
 
-  const findTrainLineItemIndex = (id: string) =>
-    trainLineItem.indexOf((item: TrainLineItemType) => item.id === id)
-
   const moveTrainLineItem = (dragIndex: number, hoverIndex: number) => {
     const selectedTrainLineItem: TrainLineItemType = trainLineItem[dragIndex]
 
@@ -30,10 +27,10 @@ const TrainLineItemList: FunctionComponent = function () {
         ? trainLineItem.map(
             ({ id, name, color }: TrainLineItemType, index: number) => (
               <TrainLineItem
+                id={id}
                 name={name}
                 color={color}
                 index={index}
-                findTrainLineItemIndex={findTrainLineItemIndex}
                 moveTrainLineItem={moveTrainLineItem}
                 key={id}
               />

@@ -1,4 +1,4 @@
-import { useRef, FunctionComponent, MutableRefObject } from 'react'
+import { useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { GrDrag } from 'react-icons/gr'
 import { IoIosArrowDown } from 'react-icons/io'
@@ -7,29 +7,74 @@ import { TrainLineColorName } from 'types/Train.types'
 import { TRAIN_LINE_COLOR } from 'utils/constants'
 
 type TrainLineItemProps = {
+  id: string
   name: string
   color: TrainLineColorName
   index: number
-  findTrainLineItemIndex: (id: string) => number
   moveTrainLineItem: (dragIndex: number, hoverIndex: number) => void
 }
 
+interface DragItem {
+  index: number
+  id: string
+}
+
+const DRAG_ITEM_TYPE = 'TrainLineItem'
+
 const TrainLineItem: FunctionComponent<TrainLineItemProps> = function ({
+  id,
   name,
   color,
   index,
-  findTrainLineItemIndex,
   moveTrainLineItem,
 }) {
-  const itemRef = useRef<MutableRefObject | null>(null)
+  const itemRef = useRef<HTMLDivElement | null>(null)
 
-  const [, drop] = useDrop({
-    accept: 'TrainLineItem',
+  const [{ isDragging }, drag, preview] = useDrag<
+    DragItem,
+    unknown,
+    { isDragging: boolean }
+  >({
+    type: DRAG_ITEM_TYPE,
+    item: { id, index },
+    collect: monitor => ({
+      isDragging: monitor.isDragging(),
+    }),
   })
 
+  const [, drop] = useDrop({
+    accept: DRAG_ITEM_TYPE,
+    hover(item: DragItem, monitor: DropTargetMonitor) {
+      if (!itemRef.current) return
+
+      const dragIndex = item.index
+      const hoverIndex = index
+
+      if (dragIndex === hoverIndex) return
+
+      const { top, bottom } = itemRef.current?.getBoundingClientRect()
+
+      const hoverMiddleY = (bottom - top) / 2
+      const hoverClientY = monitor.getClientOffset()!.y - top
+
+      if (
+        (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) ||
+        (dragIndex > hoverIndex && hoverClientY > hoverMiddleY)
+      )
+        return
+
+      moveTrainLineItem(dragIndex, hoverIndex)
+      item.index = hoverIndex
+    },
+  })
+
+  drop(preview(itemRef))
+
   return (
-    <div css={trainLineItemStyle}>
-      <GrDrag />
+    <div css={trainLineItemStyle(isDragging)} ref={itemRef}>
+      <div css={trainLineItemDragBoxStyle} ref={ref => drag(ref)}>
+        <GrDrag />
+      </div>
       <div css={trainColorBoxStyle(color)} />
       {name}
       <IoIosArrowDown css={trainLineItemFormHandlerStyle} />
@@ -37,10 +82,17 @@ const TrainLineItem: FunctionComponent<TrainLineItemProps> = function ({
   )
 }
 
-const trainLineItemStyle = css`
+const trainLineItemStyle = (isDragging: boolean) => css`
   display: flex;
   align-items: center;
   height: 50px;
+  opacity: ${isDragging ? '0.5' : '1'};
+`
+
+const trainLineItemDragBoxStyle = css`
+  display: grid;
+  place-items: center;
+  cursor: grab;
 `
 
 const trainColorBoxStyle = (color: TrainLineColorName) => css`
