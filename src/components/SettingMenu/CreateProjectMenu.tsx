@@ -18,8 +18,8 @@ const CreateProjectMenu: FunctionComponent = function () {
     { width, height },
     setCoordinateSize,
   ] = useState<CoordinatePlaneSizeType>({
-    width: 10,
-    height: 6,
+    width: 8,
+    height: 5,
   })
 
   const { width: prevWidth, height: prevHeight } = useGetCoordinatePlaneSize()

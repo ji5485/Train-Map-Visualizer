@@ -1,10 +1,11 @@
-import { useRef, FunctionComponent } from 'react'
+import { useState, useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { GrDrag } from 'react-icons/gr'
 import { IoIosArrowDown } from 'react-icons/io'
 import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd'
 import { TrainLineColorName } from 'types/Train.types'
 import { TRAIN_LINE_COLOR } from 'utils/constants'
+import ModifyTrainLineItem from 'components/ManageTrainLineItem/ModifyTrainLineItem'
 
 type TrainLineItemProps = {
   id: string
@@ -29,12 +30,11 @@ const TrainLineItem: FunctionComponent<TrainLineItemProps> = function ({
   moveTrainLineItem,
 }) {
   const itemRef = useRef<HTMLDivElement | null>(null)
+  const [isVisible, setIsVisible] = useState<boolean>(false)
 
-  const [{ isDragging }, drag, preview] = useDrag<
-    DragItem,
-    unknown,
-    { isDragging: boolean }
-  >({
+  const handleToggleVisible = () => setIsVisible(prev => !prev)
+
+  const [{ isDragging }, drag, preview] = useDrag({
     type: DRAG_ITEM_TYPE,
     item: { id, index },
     collect: monitor => ({
@@ -71,22 +71,28 @@ const TrainLineItem: FunctionComponent<TrainLineItemProps> = function ({
   drop(preview(itemRef))
 
   return (
-    <div css={trainLineItemStyle(isDragging)} ref={itemRef}>
-      <div css={trainLineItemDragBoxStyle} ref={ref => drag(ref)}>
-        <GrDrag />
+    <div style={{ opacity: isDragging ? '0.5' : '1' }} ref={itemRef}>
+      <div css={trainLineItemStyle}>
+        <div css={trainLineItemDragBoxStyle} ref={ref => drag(ref)}>
+          <GrDrag />
+        </div>
+        <div css={trainColorBoxStyle(color)} />
+        {name}
+        <IoIosArrowDown
+          css={trainLineItemFormHandlerStyle(isVisible)}
+          onClick={handleToggleVisible}
+        />
       </div>
-      <div css={trainColorBoxStyle(color)} />
-      {name}
-      <IoIosArrowDown css={trainLineItemFormHandlerStyle} />
+
+      {isVisible ? <ModifyTrainLineItem /> : null}
     </div>
   )
 }
 
-const trainLineItemStyle = (isDragging: boolean) => css`
+const trainLineItemStyle = css`
   display: flex;
   align-items: center;
   height: 50px;
-  opacity: ${isDragging ? '0.5' : '1'};
 `
 
 const trainLineItemDragBoxStyle = css`
@@ -103,10 +109,12 @@ const trainColorBoxStyle = (color: TrainLineColorName) => css`
   background: ${TRAIN_LINE_COLOR[color]};
 `
 
-const trainLineItemFormHandlerStyle = css`
+const trainLineItemFormHandlerStyle = (isVisible: boolean) => css`
   margin-left: auto;
   font-size: 1.3rem;
   cursor: pointer;
+  transform: rotate(${isVisible ? '180deg' : '0'});
+  transition: 0.3s transform;
 `
 
 export default TrainLineItem
