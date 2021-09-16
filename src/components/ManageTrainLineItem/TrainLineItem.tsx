@@ -84,7 +84,7 @@ const TrainLineItem: FunctionComponent<TrainLineItemProps> = function ({
         />
       </div>
 
-      {isVisible ? <ModifyTrainLineItem /> : null}
+      {isVisible ? <ModifyTrainLineItem id={id} /> : null}
     </div>
   )
 }
