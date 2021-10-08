@@ -25,20 +25,22 @@ const ModifyTrainLineForm: FunctionComponent = function () {
       }),
     )
 
-  const setTrainLineMap = (
-    trainLineMapSetter: (
-      firstNodeNumber: number,
-      secondNodeNumber: number,
-    ) => void,
-  ) => () => {
-    if (connectedTrainPlatform.length !== 2) return
+  const setTrainLineMap =
+    (
+      trainLineMapSetter: (
+        firstNodeNumber: number,
+        secondNodeNumber: number,
+      ) => void,
+    ) =>
+    () => {
+      if (connectedTrainPlatform.length !== 2) return
 
-    const firstNodeNumber = connectedTrainPlatform[0].nodeNumber
-    const secondNodeNumber = connectedTrainPlatform[1].nodeNumber
+      const firstNodeNumber = connectedTrainPlatform[0].nodeNumber
+      const secondNodeNumber = connectedTrainPlatform[1].nodeNumber
 
-    trainLineMapSetter(firstNodeNumber, secondNodeNumber)
-    setFloatingForm(prev => ({ ...prev, isOpen: false }))
-  }
+      trainLineMapSetter(firstNodeNumber, secondNodeNumber)
+      setFloatingForm(prev => ({ ...prev, isOpen: false }))
+    }
 
   const modifyTrainLine = (
     firstNodeNumber: number,

@@ -64,9 +64,10 @@ export default function useSelectCoordComponent(
       nodeNumber,
       selectedTrainLine,
     )
-    const selectedTrainLineTime = trainMapGraph[
-      connectedTrainPlatform[0].nodeNumber
-    ][connectedTrainPlatform[1].nodeNumber]!.time
+    const selectedTrainLineTime =
+      trainMapGraph[connectedTrainPlatform[0].nodeNumber][
+        connectedTrainPlatform[1].nodeNumber
+      ]!.time
 
     setModifyTrainLineForm({
       selectedTrainLine,

@@ -33,10 +33,8 @@ export default function useAppendTrainPlatform(
     trainPlatform: { name },
   } = useGetTrainForm()
   const resetTrainForm = useResetTrainForm()
-  const [
-    visibleTrainPlatformPreview,
-    setVisibleTrainPlatformPreview,
-  ] = useState<boolean>(false)
+  const [visibleTrainPlatformPreview, setVisibleTrainPlatformPreview] =
+    useState<boolean>(false)
   const { setTrainPlatformMatrix } = useManageTrainPlatform()
 
   const showTrainPreview = () => setVisibleTrainPlatformPreview(true)

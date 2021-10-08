@@ -4,8 +4,8 @@ import { RiScreenshot2Fill } from 'react-icons/ri'
 import html2canvas from 'html2canvas'
 
 const CaptureProjectMenu: FunctionComponent = function () {
-  const trainMapDOM = document.getElementById('root')!.children[0].children[0]
-    .children[0]
+  const trainMapDOM =
+    document.getElementById('root')!.children[0].children[0].children[0]
   const isActiveCapture = trainMapDOM.className.includes('Background')
 
   const handleCapture = async () => {

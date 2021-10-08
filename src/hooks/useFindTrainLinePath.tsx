@@ -64,10 +64,8 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
   const { trainLineMatrix, setTrainLineMatrix } = useManageTrainLine()
   const { trainMapGraph } = useManageTrainMapGraph()
   const { width, height } = useGetCoordinatePlaneSize()
-  const {
-    getPositionByNodeNumber,
-    getNodeNumberByPosition,
-  } = useGetPositionByNodeNumber()
+  const { getPositionByNodeNumber, getNodeNumberByPosition } =
+    useGetPositionByNodeNumber()
 
   const getNextNodeNumber = (nodeNumber: number) => [
     nodeNumber - width,

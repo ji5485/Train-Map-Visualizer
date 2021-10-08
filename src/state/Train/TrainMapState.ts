@@ -50,9 +50,8 @@ export const useManageTrainLine = (): {
   setTrainLineMatrix: Setter<TrainLineMatrixType>
   resetTrainLineMatrix: Resetter
 } => {
-  const [trainLineMatrix, setTrainLineMatrix] = useRecoilState(
-    trainLineMatrixAtom,
-  )
+  const [trainLineMatrix, setTrainLineMatrix] =
+    useRecoilState(trainLineMatrixAtom)
   const resetTrainLineMatrix = useResetRecoilState(trainLineMatrixAtom)
 
   return {

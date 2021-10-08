@@ -19,19 +19,21 @@ const filteredTrainLineItemSelector = selectorFamily<
   string | string[]
 >({
   key: 'filteredTrainLineList',
-  get: trainLineName => ({ get }) => {
-    const trainLine = get(trainLineItemAtom)
+  get:
+    trainLineName =>
+    ({ get }) => {
+      const trainLine = get(trainLineItemAtom)
 
-    if (typeof trainLineName === 'string')
-      return trainLineName === ''
-        ? trainLine
-        : trainLine.filter(({ name }) => name.includes(trainLineName))
+      if (typeof trainLineName === 'string')
+        return trainLineName === ''
+          ? trainLine
+          : trainLine.filter(({ name }) => name.includes(trainLineName))
 
-    return trainLine.filter(
-      ({ name }) =>
-        !trainLineName.find(alreadyUseName => alreadyUseName === name),
-    )
-  },
+      return trainLine.filter(
+        ({ name }) =>
+          !trainLineName.find(alreadyUseName => alreadyUseName === name),
+      )
+    },
 })
 
 export const useManageTrainLineItem = (): {

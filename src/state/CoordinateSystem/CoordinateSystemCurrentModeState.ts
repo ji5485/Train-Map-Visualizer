@@ -7,11 +7,14 @@ const coordinateSystemCurrentModeAtom = atom<CoordinateSystemCurrentModeType>({
   default: 'hand',
 })
 
-export const useGetCoordinateSystemCurrentMode = (): Getter<CoordinateSystemCurrentModeType> =>
-  useRecoilValue(coordinateSystemCurrentModeAtom)
+export const useGetCoordinateSystemCurrentMode =
+  (): Getter<CoordinateSystemCurrentModeType> =>
+    useRecoilValue(coordinateSystemCurrentModeAtom)
 
-export const useSetCoordinateSystemCurrentMode = (): Setter<CoordinateSystemCurrentModeType> =>
-  useSetRecoilState(coordinateSystemCurrentModeAtom)
+export const useSetCoordinateSystemCurrentMode =
+  (): Setter<CoordinateSystemCurrentModeType> =>
+    useSetRecoilState(coordinateSystemCurrentModeAtom)
 
-export const useStateCoordinateSystemCurrentMode = (): GetterAndSetter<CoordinateSystemCurrentModeType> =>
-  useRecoilState(coordinateSystemCurrentModeAtom)
+export const useStateCoordinateSystemCurrentMode =
+  (): GetterAndSetter<CoordinateSystemCurrentModeType> =>
+    useRecoilState(coordinateSystemCurrentModeAtom)

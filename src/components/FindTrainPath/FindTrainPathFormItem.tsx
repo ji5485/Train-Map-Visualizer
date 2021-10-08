@@ -10,59 +10,53 @@ type FindTrainPathFormItemProps = {
   type: keyof FindTrainPathFormType
 }
 
-const FindTrainPathFormItem: FunctionComponent<FindTrainPathFormItemProps> = function ({
-  type,
-}) {
-  const [trainPlatformName, setTrainPlatformName] = useState<string>('')
-  const {
-    findTrainPathForm,
-    setFindTrainPathForm,
-  } = useManageFindTrainPathForm()
-  const {
-    ref,
-    isVisible,
-    setIsVisible,
-    showComponent,
-  } = useHandleClickOutSide()
+const FindTrainPathFormItem: FunctionComponent<FindTrainPathFormItemProps> =
+  function ({ type }) {
+    const [trainPlatformName, setTrainPlatformName] = useState<string>('')
+    const { findTrainPathForm, setFindTrainPathForm } =
+      useManageFindTrainPathForm()
+    const { ref, isVisible, setIsVisible, showComponent } =
+      useHandleClickOutSide()
 
-  const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
-    setTrainPlatformName(value)
+    const handleChange = ({
+      target: { value },
+    }: ChangeEvent<HTMLInputElement>) => setTrainPlatformName(value)
 
-  const handleResetSelectedTrainPlatform = () =>
-    setFindTrainPathForm(prev => ({ ...prev, [type]: null }))
+    const handleResetSelectedTrainPlatform = () =>
+      setFindTrainPathForm(prev => ({ ...prev, [type]: null }))
 
-  return (
-    <div css={findTrainPathFormItemStyle(type)} ref={ref}>
-      {findTrainPathForm[type] === null ? (
-        <input
-          css={findTrainPathFormItemInputStyle(type)}
-          type="text"
-          value={trainPlatformName}
-          onChange={handleChange}
-          onFocus={showComponent}
-          placeholder={`${
-            type === 'start' ? '출발' : '도착'
-          }역을 입력해주세요.`}
-        />
-      ) : (
-        <TrainPlatformItem
-          trainPlatform={findTrainPathForm[type]!}
-          iconType="cancel"
-          onClick={handleResetSelectedTrainPlatform}
-        />
-      )}
+    return (
+      <div css={findTrainPathFormItemStyle(type)} ref={ref}>
+        {findTrainPathForm[type] === null ? (
+          <input
+            css={findTrainPathFormItemInputStyle(type)}
+            type="text"
+            value={trainPlatformName}
+            onChange={handleChange}
+            onFocus={showComponent}
+            placeholder={`${
+              type === 'start' ? '출발' : '도착'
+            }역을 입력해주세요.`}
+          />
+        ) : (
+          <TrainPlatformItem
+            trainPlatform={findTrainPathForm[type]!}
+            iconType="cancel"
+            onClick={handleResetSelectedTrainPlatform}
+          />
+        )}
 
-      {isVisible && trainPlatformName !== '' ? (
-        <TrainPlatformList
-          type={type}
-          trainPlatformName={trainPlatformName}
-          handleClose={() => setIsVisible(false)}
-          handleResetInput={() => setTrainPlatformName('')}
-        />
-      ) : null}
-    </div>
-  )
-}
+        {isVisible && trainPlatformName !== '' ? (
+          <TrainPlatformList
+            type={type}
+            trainPlatformName={trainPlatformName}
+            handleClose={() => setIsVisible(false)}
+            handleResetInput={() => setTrainPlatformName('')}
+          />
+        ) : null}
+      </div>
+    )
+  }
 
 const findTrainPathFormItemStyle = (type: keyof FindTrainPathFormType) => css`
   position: relative;

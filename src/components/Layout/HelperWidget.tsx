@@ -15,10 +15,8 @@ const HelperWidget: FunctionComponent = function () {
     modify: modifyAppendingTrainPlatform,
     cancel: cancelAppendingTrainPlatform,
   } = useModifyOrCancelAppendingTrain()
-  const {
-    goBack: goBackDrawingTrainLine,
-    cancel: cancelDrawingTrainLine,
-  } = useGoBackOrCancelDrawingTrainLine()
+  const { goBack: goBackDrawingTrainLine, cancel: cancelDrawingTrainLine } =
+    useGoBackOrCancelDrawingTrainLine()
 
   if (currentMode === 'append')
     return (

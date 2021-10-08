@@ -10,38 +10,37 @@ type FindTrainPathResultSectionProps = {
   section: TrainPathSectionType
 }
 
-const FindTrainPathResultSection: FunctionComponent<FindTrainPathResultSectionProps> = function ({
-  section: { start, destination, line, time, pass },
-}) {
-  const { name, color } = useGetTrainLineItemByColor(line)
+const FindTrainPathResultSection: FunctionComponent<FindTrainPathResultSectionProps> =
+  function ({ section: { start, destination, line, time, pass } }) {
+    const { name, color } = useGetTrainLineItemByColor(line)
 
-  return (
-    <div css={findTrainPathResultSectionStyle}>
-      <div css={findTrainPathResultTrainLineVertexStyle(color)} />
-      <div css={findTrainPathResultPlatformStyle}>{start.name}역 승차</div>
+    return (
+      <div css={findTrainPathResultSectionStyle}>
+        <div css={findTrainPathResultTrainLineVertexStyle(color)} />
+        <div css={findTrainPathResultPlatformStyle}>{start.name}역 승차</div>
 
-      <div css={findTrainPathResultTrainLineEdgeStyle(color)} />
-      <div css={findTrainPathResultInfoStyle}>
-        <div css={findTrainPathResultInfoLineStyle}>
-          <div css={findTrainPathResultInfoIconStyle(color)}>
-            <RiSubwayLine />
+        <div css={findTrainPathResultTrainLineEdgeStyle(color)} />
+        <div css={findTrainPathResultInfoStyle}>
+          <div css={findTrainPathResultInfoLineStyle}>
+            <div css={findTrainPathResultInfoIconStyle(color)}>
+              <RiSubwayLine />
+            </div>
+            {name}
           </div>
-          {name}
+          <div css={findTrainPathResultInfoContentStyle}>
+            {pass.length > 1 ? `${String(pass.length - 1)}개 역 이동 / ` : null}
+            {time / 60 >= 1 ? `${Math.floor(time / 60)}시간 ` : ''}
+            {time % 60 !== 0 ? `${time % 60}분` : ''} 소요
+          </div>
         </div>
-        <div css={findTrainPathResultInfoContentStyle}>
-          {pass.length > 1 ? `${String(pass.length - 1)}개 역 이동 / ` : null}
-          {time / 60 >= 1 ? `${Math.floor(time / 60)}시간 ` : ''}
-          {time % 60 !== 0 ? `${time % 60}분` : ''} 소요
-        </div>
-      </div>
 
-      <div css={findTrainPathResultTrainLineVertexStyle(color)} />
-      <div css={findTrainPathResultPlatformStyle}>
-        {destination!.name}역 하차
+        <div css={findTrainPathResultTrainLineVertexStyle(color)} />
+        <div css={findTrainPathResultPlatformStyle}>
+          {destination!.name}역 하차
+        </div>
       </div>
-    </div>
-  )
-}
+    )
+  }
 
 const findTrainPathResultSectionStyle = css`
   display: grid;

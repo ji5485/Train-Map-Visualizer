@@ -21,38 +21,38 @@ const ToolWidget: FunctionComponent = function () {
   const [currentMode, setCurrentMode] = useStateCoordinateSystemCurrentMode()
   const resetTrainForm = useResetTrainForm()
   const { cancel: cancelDrawingTrainLine } = useGoBackOrCancelDrawingTrainLine()
-  const {
-    resetModifyTrainPlatformFormStatus,
-  } = useManageModifyTrainPlatformFormStatus()
+  const { resetModifyTrainPlatformFormStatus } =
+    useManageModifyTrainPlatformFormStatus()
   const { resetFindTrainPathForm } = useManageFindTrainPathForm()
-  const {
-    resetCoordinateSystemPathHighlight,
-  } = useManageCoordinateSystemPathHighlight()
+  const { resetCoordinateSystemPathHighlight } =
+    useManageCoordinateSystemPathHighlight()
 
-  const handleClickToolMenu = (
-    openOrNot: boolean,
-    mode: CoordinateSystemCurrentModeType,
-    floatingFormMenu: FloatingFormContentType | null = null,
-  ) => () => {
-    if (menu === 'append') resetTrainForm()
-    else if (menu === 'draw') cancelDrawingTrainLine()
-    else if (menu === 'select_platform') resetModifyTrainPlatformFormStatus()
-    else if (menu === 'path') {
-      resetFindTrainPathForm()
-      resetCoordinateSystemPathHighlight()
+  const handleClickToolMenu =
+    (
+      openOrNot: boolean,
+      mode: CoordinateSystemCurrentModeType,
+      floatingFormMenu: FloatingFormContentType | null = null,
+    ) =>
+    () => {
+      if (menu === 'append') resetTrainForm()
+      else if (menu === 'draw') cancelDrawingTrainLine()
+      else if (menu === 'select_platform') resetModifyTrainPlatformFormStatus()
+      else if (menu === 'path') {
+        resetFindTrainPathForm()
+        resetCoordinateSystemPathHighlight()
+      }
+
+      const nextFloatingFormState = (prevState: FloatingFormType) => ({
+        isOpen: openOrNot,
+        menu:
+          openOrNot && floatingFormMenu !== null
+            ? floatingFormMenu
+            : prevState.menu,
+      })
+
+      setFloatingForm(nextFloatingFormState)
+      setCurrentMode(mode)
     }
-
-    const nextFloatingFormState = (prevState: FloatingFormType) => ({
-      isOpen: openOrNot,
-      menu:
-        openOrNot && floatingFormMenu !== null
-          ? floatingFormMenu
-          : prevState.menu,
-    })
-
-    setFloatingForm(nextFloatingFormState)
-    setCurrentMode(mode)
-  }
 
   const closeFloatingForm = () => {
     if (menu === 'append') resetTrainForm()

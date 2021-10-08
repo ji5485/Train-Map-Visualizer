@@ -18,15 +18,11 @@ export default function useGoBackOrCancelDrawingTrainLine(): useGoBackOrCancelDr
   const setCurrentMode = useSetCoordinateSystemCurrentMode()
   const { width } = useGetCoordinatePlaneSize()
 
-  const {
-    setDrawingLineStatus,
-    resetDrawingLineStatus,
-  } = useManageCoordinateSystemDrawingLineStatus()
+  const { setDrawingLineStatus, resetDrawingLineStatus } =
+    useManageCoordinateSystemDrawingLineStatus()
   const { setTrainLineMatrix } = useManageTrainLine()
-  const {
-    setPreviewTrainLineTrace,
-    resetPreviewTrainLineTrace,
-  } = useManagePreviewTrainLineTrace()
+  const { setPreviewTrainLineTrace, resetPreviewTrainLineTrace } =
+    useManagePreviewTrainLineTrace()
   const {
     previewTrainLineStack,
     setPreviewTrainLineStack,
@@ -52,9 +48,8 @@ export default function useGoBackOrCancelDrawingTrainLine(): useGoBackOrCancelDr
 
     if (previewTrainLineStack.length === 0) return
 
-    const { start, destination, row, column } = previewTrainLineStack[
-      previewTrainLineStack.length - 1
-    ]
+    const { start, destination, row, column } =
+      previewTrainLineStack[previewTrainLineStack.length - 1]
 
     removeTrainLine({ start, destination })
     setPreviewTrainLineTrace(prev =>

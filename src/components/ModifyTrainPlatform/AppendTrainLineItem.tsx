@@ -10,50 +10,45 @@ type AppendTrainLineItemProps = {
   line: TrainLineItemType[]
 }
 
-const AppendTrainLineItem: FunctionComponent<AppendTrainLineItemProps> = function ({
-  line,
-}) {
-  const { setModifyTrainPlatformForm } = useManageModifyTrainPlatformForm()
-  const {
-    ref,
-    isVisible,
-    showComponent,
-    hideComponent,
-  } = useHandleClickOutSide()
+const AppendTrainLineItem: FunctionComponent<AppendTrainLineItemProps> =
+  function ({ line }) {
+    const { setModifyTrainPlatformForm } = useManageModifyTrainPlatformForm()
+    const { ref, isVisible, showComponent, hideComponent } =
+      useHandleClickOutSide()
 
-  const appendTrainLineItem = (lineItem: TrainLineItemType) => {
-    setModifyTrainPlatformForm(({ line, ...rest }) => ({
-      line: [...line, lineItem],
-      ...rest,
-    }))
-    hideComponent()
+    const appendTrainLineItem = (lineItem: TrainLineItemType) => {
+      setModifyTrainPlatformForm(({ line, ...rest }) => ({
+        line: [...line, lineItem],
+        ...rest,
+      }))
+      hideComponent()
+    }
+
+    return (
+      <div css={appendLineButtonStyle} onClick={showComponent}>
+        <GrAdd />
+
+        {isVisible && line.length !== 0 ? (
+          <div css={trainLineListStyle} ref={ref}>
+            {line.map(lineItem => {
+              const { id, color } = lineItem
+
+              return (
+                <div
+                  css={trainLineItemStyle(color)}
+                  onClick={event => {
+                    event.stopPropagation()
+                    appendTrainLineItem(lineItem)
+                  }}
+                  key={id}
+                />
+              )
+            })}
+          </div>
+        ) : null}
+      </div>
+    )
   }
-
-  return (
-    <div css={appendLineButtonStyle} onClick={showComponent}>
-      <GrAdd />
-
-      {isVisible && line.length !== 0 ? (
-        <div css={trainLineListStyle} ref={ref}>
-          {line.map(lineItem => {
-            const { id, color } = lineItem
-
-            return (
-              <div
-                css={trainLineItemStyle(color)}
-                onClick={event => {
-                  event.stopPropagation()
-                  appendTrainLineItem(lineItem)
-                }}
-                key={id}
-              />
-            )
-          })}
-        </div>
-      ) : null}
-    </div>
-  )
-}
 
 const appendLineButtonStyle = css`
   position: relative;

@@ -15,9 +15,9 @@ export const useGetTrainLineColor = (): Getter<TrainLineColorType> =>
 export const useGetRandomUnusedColor = (): Getter<TrainLineColorName> => {
   const { trainLineItem } = useManageTrainLineItem()
   const usedColor = trainLineItem.map(({ color }) => color)
-  const unusedColor = (Object.keys(
-    useGetTrainLineColor(),
-  ) as TrainLineColorName[]).filter(name => !usedColor.includes(name))
+  const unusedColor = (
+    Object.keys(useGetTrainLineColor()) as TrainLineColorName[]
+  ).filter(name => !usedColor.includes(name))
 
   return unusedColor[Math.floor(Math.random() * unusedColor.length)]
 }

@@ -29,5 +29,6 @@ export const useGetCoordinatePlaneSize = (): Getter<CoordinatePlaneSizeType> =>
 export const useSetCoordinatePlaneSize = (): Setter<CoordinatePlaneSizeType> =>
   useSetRecoilState(coordinatePlaneSizeAtom)
 
-export const useGetCalculatedCoordinatePlaneSize = (): Getter<CoordinatePlaneSizeType> =>
-  useRecoilValue(calculatedCoordinatePlaneSizeSelector)
+export const useGetCalculatedCoordinatePlaneSize =
+  (): Getter<CoordinatePlaneSizeType> =>
+    useRecoilValue(calculatedCoordinatePlaneSizeSelector)

@@ -52,9 +52,8 @@ export default function useDrawTrainLine(
   } = useManageCoordinateSystemDrawingLineStatus()
 
   // Drawing Mode of Current Node
-  const [isDrawingCurrentNode, setIsDrawingCurrentNode] = useState<boolean>(
-    false,
-  )
+  const [isDrawingCurrentNode, setIsDrawingCurrentNode] =
+    useState<boolean>(false)
   const [direction, setDirection] = useState<TrainLineDirection | null>(null)
 
   // Train Info Setter
@@ -74,11 +73,8 @@ export default function useDrawTrainLine(
 
   // Train Map Graph
   const { setTrainMapGraph } = useManageTrainMapGraph()
-  const {
-    trainMapGraphEdge,
-    setTrainMapGraphEdge,
-    resetTrainMapGraphEdge,
-  } = useManageTrainMapGraphEdge()
+  const { trainMapGraphEdge, setTrainMapGraphEdge, resetTrainMapGraphEdge } =
+    useManageTrainMapGraphEdge()
 
   // Node Position Information
   const {
@@ -268,9 +264,8 @@ export default function useDrawTrainLine(
           color: drawingLine.color,
         }
 
-        draft[start][destination] = draft[destination][
-          start
-        ] = newPreviewTrainLine
+        draft[start][destination] = draft[destination][start] =
+          newPreviewTrainLine
         return draft
       }),
     )

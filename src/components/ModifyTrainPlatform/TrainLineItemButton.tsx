@@ -12,25 +12,21 @@ type TrainLineItemButtonProps = {
   removeTrainLine: (lineId: string) => void
 }
 
-const TrainLineItemButton: FunctionComponent<TrainLineItemButtonProps> = function ({
-  id,
-  color,
-  canRemove,
-  removeTrainLine,
-}) {
-  return (
-    <div css={trainLineItemButton(color, canRemove)}>
-      {canRemove ? (
-        <div
-          css={trainLineItemRemoveButton}
-          onClick={() => removeTrainLine(id)}
-        >
-          <AiOutlineCloseCircle />
-        </div>
-      ) : null}
-    </div>
-  )
-}
+const TrainLineItemButton: FunctionComponent<TrainLineItemButtonProps> =
+  function ({ id, color, canRemove, removeTrainLine }) {
+    return (
+      <div css={trainLineItemButton(color, canRemove)}>
+        {canRemove ? (
+          <div
+            css={trainLineItemRemoveButton}
+            onClick={() => removeTrainLine(id)}
+          >
+            <AiOutlineCloseCircle />
+          </div>
+        ) : null}
+      </div>
+    )
+  }
 
 const trainLineItemButton = (
   color: TrainLineColorName,

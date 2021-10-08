@@ -8,22 +8,20 @@ type FindTrainPathResultTransferProps = {
   to: TrainLineColorName
 }
 
-const FindTrainPathResultTransfer: FunctionComponent<FindTrainPathResultTransferProps> = function ({
-  from,
-  to,
-}) {
-  const fromTrainLine = useGetTrainLineItemByColor(from)
-  const toTrainLine = useGetTrainLineItemByColor(to)
+const FindTrainPathResultTransfer: FunctionComponent<FindTrainPathResultTransferProps> =
+  function ({ from, to }) {
+    const fromTrainLine = useGetTrainLineItemByColor(from)
+    const toTrainLine = useGetTrainLineItemByColor(to)
 
-  return (
-    <div css={findTrainPathResultTransferStyle}>
-      <div css={findTrainPathResultTransferLineStyle} />
-      <div css={findTrainPathResultTransferInfoStyle}>
-        {fromTrainLine.name}에서 {toTrainLine.name}으로 환승
+    return (
+      <div css={findTrainPathResultTransferStyle}>
+        <div css={findTrainPathResultTransferLineStyle} />
+        <div css={findTrainPathResultTransferInfoStyle}>
+          {fromTrainLine.name}에서 {toTrainLine.name}으로 환승
+        </div>
       </div>
-    </div>
-  )
-}
+    )
+  }
 
 const findTrainPathResultTransferStyle = css`
   display: grid;

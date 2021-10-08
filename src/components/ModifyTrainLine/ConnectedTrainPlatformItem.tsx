@@ -10,25 +10,24 @@ type ConnectedTrainPlatformItemProps = {
   trainPlatform: TrainPlatformType
 }
 
-const ConnectedTrainPlatformItem: FunctionComponent<ConnectedTrainPlatformItemProps> = function ({
-  trainPlatform: { name, line },
-}) {
-  const color =
-    line.length > 1
-      ? TRANSFER_TRAIN_PLATFORM_COLOR
-      : TRAIN_LINE_COLOR[line[0].color]
+const ConnectedTrainPlatformItem: FunctionComponent<ConnectedTrainPlatformItemProps> =
+  function ({ trainPlatform: { name, line } }) {
+    const color =
+      line.length > 1
+        ? TRANSFER_TRAIN_PLATFORM_COLOR
+        : TRAIN_LINE_COLOR[line[0].color]
 
-  return (
-    <div css={connectedTrainPlatformItemStyle(color)}>
-      <div css={connectedTrainPlatformContentStyle}>
-        <div css={connectedTrainPlatformLineStyle(color)}>
-          {line.length > 1 ? '환승역' : line[0].name}
+    return (
+      <div css={connectedTrainPlatformItemStyle(color)}>
+        <div css={connectedTrainPlatformContentStyle}>
+          <div css={connectedTrainPlatformLineStyle(color)}>
+            {line.length > 1 ? '환승역' : line[0].name}
+          </div>
+          <div css={connectedTrainPlatformNameStyle}>{name}</div>
         </div>
-        <div css={connectedTrainPlatformNameStyle}>{name}</div>
       </div>
-    </div>
-  )
-}
+    )
+  }
 
 const connectedTrainPlatformItemStyle = (color: string) => css`
   display: grid;

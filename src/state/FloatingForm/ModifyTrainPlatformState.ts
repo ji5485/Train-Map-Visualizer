@@ -15,15 +15,14 @@ const modifyTrainPlatformFormAtom = atom<ModifyTrainPlatformFormType>({
   },
 })
 
-const modifyTrainPlatformFormStatusAtom = atom<ModifyTrainPlatformFormStatusType>(
-  {
+const modifyTrainPlatformFormStatusAtom =
+  atom<ModifyTrainPlatformFormStatusType>({
     key: 'idModifyingPlatformFormStatus',
     default: {
       isModifyingName: false,
       error: '',
     },
-  },
-)
+  })
 
 export const useManageModifyTrainPlatformForm = (): {
   modifyTrainPlatformForm: Getter<ModifyTrainPlatformFormType>
@@ -49,10 +48,8 @@ export const useManageModifyTrainPlatformFormStatus = (): {
   setModifyTrainPlatformFormStatus: Setter<ModifyTrainPlatformFormStatusType>
   resetModifyTrainPlatformFormStatus: Resetter
 } => {
-  const [
-    modifyTrainPlatformFormStatus,
-    setModifyTrainPlatformFormStatus,
-  ] = useRecoilState(modifyTrainPlatformFormStatusAtom)
+  const [modifyTrainPlatformFormStatus, setModifyTrainPlatformFormStatus] =
+    useRecoilState(modifyTrainPlatformFormStatusAtom)
   const resetModifyTrainPlatformFormStatus = useResetRecoilState(
     modifyTrainPlatformFormStatusAtom,
   )

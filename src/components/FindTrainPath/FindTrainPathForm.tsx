@@ -30,8 +30,8 @@ const FindTrainPathForm: FunctionComponent = function () {
     if (!formIsValid) return
 
     const { platforms, sections } = findLineWithSelectedPlatforms(
-      start!.nodeNumber,
-      destination!.nodeNumber,
+      start.nodeNumber,
+      destination.nodeNumber,
     )
 
     if (platforms.length !== 0) {

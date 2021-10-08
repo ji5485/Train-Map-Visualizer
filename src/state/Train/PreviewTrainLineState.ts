@@ -24,8 +24,9 @@ const previewTrainLineStackAtom = atom<PreviewTrainLineStackType>({
   default: [],
 })
 
-export const useGetPreviewTrainLineTrace = (): Getter<PreviewTrainLineTraceType> =>
-  useRecoilValue(previewTrainLineTraceAtom)
+export const useGetPreviewTrainLineTrace =
+  (): Getter<PreviewTrainLineTraceType> =>
+    useRecoilValue(previewTrainLineTraceAtom)
 
 export const useManagePreviewTrainLineTrace = (): {
   previewTrainLineTrace: Getter<PreviewTrainLineTraceType>

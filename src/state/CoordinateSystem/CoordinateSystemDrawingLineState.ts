@@ -2,8 +2,8 @@ import { atom, useRecoilState, Resetter, useResetRecoilState } from 'recoil'
 import { CoordinateSystemDrawingLineStatusType } from 'types/CoordinateSystem.types'
 import { Getter, Setter } from 'types/RecoilMethods.types'
 
-const coordinateSystemDrawingLineStatusAtom = atom<CoordinateSystemDrawingLineStatusType>(
-  {
+const coordinateSystemDrawingLineStatusAtom =
+  atom<CoordinateSystemDrawingLineStatusType>({
     key: 'coordinateSystemDrawingLineStatus',
     default: {
       isDrawing: false,
@@ -11,8 +11,7 @@ const coordinateSystemDrawingLineStatusAtom = atom<CoordinateSystemDrawingLineSt
       startTrainPlatform: null,
       drawingLine: null,
     },
-  },
-)
+  })
 
 export const useManageCoordinateSystemDrawingLineStatus = (): {
   drawingLineStatus: Getter<CoordinateSystemDrawingLineStatusType>

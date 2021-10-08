@@ -16,12 +16,8 @@ const SelectTrainLine: FunctionComponent = function () {
     setTrainForm,
   ] = useStateTrainForm()
   const [trainLineName, setTrainLineName] = useState<string>('')
-  const {
-    ref,
-    isVisible,
-    setIsVisible,
-    showComponent,
-  } = useHandleClickOutSide()
+  const { ref, isVisible, setIsVisible, showComponent } =
+    useHandleClickOutSide()
 
   const handleTrainLineNameChange = (event: ChangeEvent<HTMLInputElement>) =>
     setTrainLineName(event.target.value)

@@ -22,6 +22,9 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "baseUrl": "./src",
+    "paths": {
+      "components/*": ["./components/*"]
+    },
     "isolatedModules": true,
     "downlevelIteration": true
   },

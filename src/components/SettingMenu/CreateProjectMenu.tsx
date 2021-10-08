@@ -14,13 +14,11 @@ import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlan
 
 const CreateProjectMenu: FunctionComponent = function () {
   const [isVisible, setIsVisible] = useState<boolean>(false)
-  const [
-    { width, height },
-    setCoordinateSize,
-  ] = useState<CoordinatePlaneSizeType>({
-    width: 8,
-    height: 5,
-  })
+  const [{ width, height }, setCoordinateSize] =
+    useState<CoordinatePlaneSizeType>({
+      width: 8,
+      height: 5,
+    })
 
   const { width: prevWidth, height: prevHeight } = useGetCoordinatePlaneSize()
   const setCoordinatePlaneSize = useSetCoordinatePlaneSize()

@@ -6,37 +6,35 @@ type ModifyTrainLineTimeProps = {
   setSelectedTrainLineTime: (time: number) => void
 }
 
-const ModifyTrainLineTime: FunctionComponent<ModifyTrainLineTimeProps> = function ({
-  time,
-  setSelectedTrainLineTime,
-}) {
-  const [trainLineTime, setTrainLineTime] = useState<string>(String(time))
+const ModifyTrainLineTime: FunctionComponent<ModifyTrainLineTimeProps> =
+  function ({ time, setSelectedTrainLineTime }) {
+    const [trainLineTime, setTrainLineTime] = useState<string>(String(time))
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
-    setTrainLineTime(event.target.value)
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
+      setTrainLineTime(event.target.value)
 
-  const validateTrainLineTime = () => {
-    if (!/^[0-9]{1,5}$/.test(trainLineTime)) setTrainLineTime(String(time))
-    else if (parseInt(trainLineTime) <= 0 || parseInt(trainLineTime) > 1000)
-      setTrainLineTime(String(time))
-    else setSelectedTrainLineTime(parseInt(trainLineTime))
+    const validateTrainLineTime = () => {
+      if (!/^[0-9]{1,5}$/.test(trainLineTime)) setTrainLineTime(String(time))
+      else if (parseInt(trainLineTime) <= 0 || parseInt(trainLineTime) > 1000)
+        setTrainLineTime(String(time))
+      else setSelectedTrainLineTime(parseInt(trainLineTime))
+    }
+
+    return (
+      <div css={modifyTrainLineTimeStyle}>
+        <div css={modifyTrainLineTimeTitleStyle}>소요 시간 변경</div>
+
+        <input
+          css={modifyTrainLineTimeInputStyle}
+          type="text"
+          placeholder="해당 경로 소요 시간을 입력해주세요."
+          value={trainLineTime}
+          onChange={handleChange}
+          onBlur={validateTrainLineTime}
+        />
+      </div>
+    )
   }
-
-  return (
-    <div css={modifyTrainLineTimeStyle}>
-      <div css={modifyTrainLineTimeTitleStyle}>소요 시간 변경</div>
-
-      <input
-        css={modifyTrainLineTimeInputStyle}
-        type="text"
-        placeholder="해당 경로 소요 시간을 입력해주세요."
-        value={trainLineTime}
-        onChange={handleChange}
-        onBlur={validateTrainLineTime}
-      />
-    </div>
-  )
-}
 
 const modifyTrainLineTimeStyle = css`
   margin-top: 30px;

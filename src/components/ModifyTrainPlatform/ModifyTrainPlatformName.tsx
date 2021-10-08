@@ -10,9 +10,8 @@ const ModifyTrainPlatformName: FunctionComponent = function () {
     modifyTrainPlatformForm: { name },
     setModifyTrainPlatformForm,
   } = useManageModifyTrainPlatformForm()
-  const {
-    setModifyTrainPlatformFormStatus,
-  } = useManageModifyTrainPlatformFormStatus()
+  const { setModifyTrainPlatformFormStatus } =
+    useManageModifyTrainPlatformFormStatus()
 
   const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
     setModifyTrainPlatformForm(prev => ({

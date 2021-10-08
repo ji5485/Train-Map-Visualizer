@@ -20,10 +20,8 @@ const TrainPlatformList: FunctionComponent<TrainPlatformListProps> = function ({
   handleResetInput,
 }) {
   const { trainPlatformMatrix } = useManageTrainPlatform()
-  const {
-    findTrainPathForm,
-    setFindTrainPathForm,
-  } = useManageFindTrainPathForm()
+  const { findTrainPathForm, setFindTrainPathForm } =
+    useManageFindTrainPathForm()
 
   const selectableTrainPlatformList = useMemo<TrainPlatformType[]>(() => {
     const usedPlatform =

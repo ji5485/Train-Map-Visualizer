@@ -21,10 +21,8 @@ const CoordinatePlane: FunctionComponent = function () {
 
   const { width, height } = useGetCoordinatePlaneSize()
   const zoom = useGetCoordinatePlaneZoom()
-  const {
-    width: calculatedWidth,
-    height: calculatedHeight,
-  } = useGetCalculatedCoordinatePlaneSize()
+  const { width: calculatedWidth, height: calculatedHeight } =
+    useGetCalculatedCoordinatePlaneSize()
   const {
     coordinateSystemPathHighlight: { highlight, highlightedComponents },
   } = useManageCoordinateSystemPathHighlight()

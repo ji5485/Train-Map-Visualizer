@@ -12,39 +12,42 @@ type SelectTrainLineItemColorProps = {
   setTrainLineItemColor: (color: TrainLineColorName) => void
 }
 
-const SelectTrainLineItemColor: FunctionComponent<SelectTrainLineItemColorProps> = function ({
-  selectedTrainLineItem: { color: selectedTrainLineItemColor },
-  trainLineItem,
-  setTrainLineItemColor,
-}) {
-  const trainLineColor = useGetTrainLineColor()
+const SelectTrainLineItemColor: FunctionComponent<SelectTrainLineItemColorProps> =
+  function ({
+    selectedTrainLineItem: { color: selectedTrainLineItemColor },
+    trainLineItem,
+    setTrainLineItemColor,
+  }) {
+    const trainLineColor = useGetTrainLineColor()
 
-  return (
-    <div css={selectTrainLineItemColorStyle}>
-      {(Object.keys(trainLineColor) as TrainLineColorName[]).map(
-        (color, index) => {
-          const isSelectable = !trainLineItem.find(item => item.color === color)
+    return (
+      <div css={selectTrainLineItemColorStyle}>
+        {(Object.keys(trainLineColor) as TrainLineColorName[]).map(
+          (color, index) => {
+            const isSelectable = !trainLineItem.find(
+              item => item.color === color,
+            )
 
-          return (
-            <div
-              css={selectableColorBoxStyle(color, isSelectable)}
-              onClick={
-                isSelectable ? () => setTrainLineItemColor(color) : undefined
-              }
-              key={index}
-            >
-              {color === selectedTrainLineItemColor ? (
-                <HiCheckCircle />
-              ) : !isSelectable ? (
-                <IoMdCloseCircle />
-              ) : null}
-            </div>
-          )
-        },
-      )}
-    </div>
-  )
-}
+            return (
+              <div
+                css={selectableColorBoxStyle(color, isSelectable)}
+                onClick={
+                  isSelectable ? () => setTrainLineItemColor(color) : undefined
+                }
+                key={index}
+              >
+                {color === selectedTrainLineItemColor ? (
+                  <HiCheckCircle />
+                ) : !isSelectable ? (
+                  <IoMdCloseCircle />
+                ) : null}
+              </div>
+            )
+          },
+        )}
+      </div>
+    )
+  }
 
 const selectTrainLineItemColorStyle = css`
   display: flex;
