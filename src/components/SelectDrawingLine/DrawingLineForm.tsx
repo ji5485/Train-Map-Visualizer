@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import DrawingLineItem from '../SelectDrawingLine/DrawingLineItem'
 import { useGetDrawingLineList } from '../../state/FloatingForm/DrawingLineListState'
 import useSelectDrawingTrainLine from '../../hooks/useSelectDrawingTrainLine'

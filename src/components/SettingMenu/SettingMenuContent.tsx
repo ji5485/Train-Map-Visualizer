@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import CreateProjectMenu from '../SettingMenu/CreateProjectMenu'
 import CaptureProjectMenu from '../SettingMenu/CaptureProjectMenu'
 import ProjectDescription from '../SettingMenu/ProjectDescription'

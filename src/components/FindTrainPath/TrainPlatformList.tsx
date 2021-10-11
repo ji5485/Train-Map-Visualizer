@@ -1,5 +1,5 @@
 import { FunctionComponent, useMemo } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import { FindTrainPathFormType } from '../../types/FloatingForm.types'
 import { useManageFindTrainPathForm } from '../../state/FloatingForm/FindTrainPathState'
 import { useManageTrainPlatform } from '../../state/Train/TrainMapState'

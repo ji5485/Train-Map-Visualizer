@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import { IoMdCloseCircle } from 'react-icons/io'
 import { HiCheckCircle } from 'react-icons/hi'
 import { useGetTrainLineColor } from '../../state/Train/TrainLineColorState'

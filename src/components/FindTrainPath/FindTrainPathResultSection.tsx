@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import { RiSubwayLine } from 'react-icons/ri'
 import { TrainPathSectionType } from '../../types/TrainPath.types'
 import { TrainLineColorName } from '../../types/Train.types'

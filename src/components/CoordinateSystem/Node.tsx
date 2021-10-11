@@ -1,5 +1,5 @@
 import { useRef, FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import useAppendTrainPlatform from '../../hooks/useAppendTrainPlatform'
 import useDrawTrainLine from '../../hooks/useDrawTrainLine'
 import TrainPlatform from '../CoordinateSystem/TrainPlatform'

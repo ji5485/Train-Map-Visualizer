@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import produce from 'immer'
 import { useManageModifyTrainLineForm } from '../../state/FloatingForm/ModifyTrainLineState'
 import { useManageTrainMapGraph } from '../../state/Train/TrainMapGraphState'

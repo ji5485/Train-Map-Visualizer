@@ -1,5 +1,5 @@
 import { useRef, FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import Node from '../CoordinateSystem/Node'
 import { useGetCoordinatePlaneZoom } from '../../state/CoordinateSystem/CoordinatePlaneSizeState'
 import {

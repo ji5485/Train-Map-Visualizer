@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import { RiSubwayFill } from 'react-icons/ri'
 import ToolItem from '../Layout/ToolItem'
 import FloatingForm from '../Layout/FloatingForm'

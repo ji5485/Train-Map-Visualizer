@@ -1,5 +1,5 @@
 import { useState, FunctionComponent, ChangeEvent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import { MdNoteAdd } from 'react-icons/md'
 import { CoordinatePlaneSizeType } from '../../types/CoordinateSystem.types'
 import { useSetCoordinatePlaneSize } from '../../state/CoordinateSystem/CoordinatePlaneSizeState'

@@ -1,5 +1,5 @@
 import { useState, FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import FindPathTrainFormItem from '../FindTrainPath/FindTrainPathFormItem'
 import { useManageFindTrainPathForm } from '../../state/FloatingForm/FindTrainPathState'
 import { useManageCoordinateSystemPathHighlight } from '../../state/CoordinateSystem/CoordinateSystemPathHightlightState'

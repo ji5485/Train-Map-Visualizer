@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import { useManageTrainLine } from '../../state/Train/TrainMapState'
 import { useGetFilteredTrainLineItem } from '../../state/Train/TrainLineItemState'
 import { useManageModifyTrainPlatformForm } from '../../state/FloatingForm/ModifyTrainPlatformState'

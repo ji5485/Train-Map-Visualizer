@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import { RiScreenshot2Fill } from 'react-icons/ri'
 import html2canvas from 'html2canvas'
 

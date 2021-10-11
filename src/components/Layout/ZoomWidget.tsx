@@ -1,5 +1,5 @@
 import { FunctionComponent, ChangeEvent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import { FaSearch } from 'react-icons/fa'
 import { useStateCoordinatePlaneZoom } from '../../state/CoordinateSystem/CoordinatePlaneSizeState'
 

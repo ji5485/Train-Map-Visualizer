@@ -1,5 +1,5 @@
 import { useState, useRef, FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import { GrDrag } from 'react-icons/gr'
 import { IoIosArrowDown } from 'react-icons/io'
 import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd'

@@ -1,5 +1,5 @@
 import { Fragment, FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import { TrainPathSectionType } from '../../types/TrainPath.types'
 import FindTrainPathResultSection from '../FindTrainPath/FindTrainPathResultSection'
 import FindTrainPathResultTransfer from '../FindTrainPath/FindTrainPathResultTransfer'

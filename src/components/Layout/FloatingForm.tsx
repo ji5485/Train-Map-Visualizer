@@ -1,5 +1,5 @@
 import { createElement, FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import { VscChromeClose } from 'react-icons/vsc'
 import { TOOL_FORM_TITLE } from '../../utils/constants'
 import { FloatingFormContentType } from '../../types/FloatingForm.types'

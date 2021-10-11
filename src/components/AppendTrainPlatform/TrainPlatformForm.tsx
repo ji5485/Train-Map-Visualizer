@@ -1,5 +1,5 @@
 import { useState, useEffect, FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import { useGetTrainForm } from '../../state/FloatingForm/TrainPlatformFormState'
 import { useSetFloatingForm } from '../../state/FloatingForm/FloatingFormState'
 import { useSetCoordinateSystemCurrentMode } from '../../state/CoordinateSystem/CoordinateSystemCurrentModeState'

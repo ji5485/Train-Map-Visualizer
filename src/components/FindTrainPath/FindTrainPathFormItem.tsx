@@ -1,5 +1,5 @@
 import { useState, FunctionComponent, ChangeEvent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import { FindTrainPathFormType } from '../../types/FloatingForm.types'
 import useHandleClickOutSide from '../../hooks/useHandleClickOutSide'
 import { useManageFindTrainPathForm } from '../../state/FloatingForm/FindTrainPathState'

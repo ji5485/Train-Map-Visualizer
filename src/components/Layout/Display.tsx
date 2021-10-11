@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import CoordinatePlane from '../CoordinateSystem/CoordinatePlane'
 import ToolWidget from '../Layout/ToolWidget'
 import ZoomWidget from '../Layout/ZoomWidget'

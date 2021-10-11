@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { FunctionComponent } from 'react'
+import { css } from '@emotion/react'
 import useModifyOrCancelAppendingTrain from '../../hooks/useModifyOrCancelAppendingTrain'
 import useGoBackOrCancelDrawingTrainLine from '../../hooks/useGoBackOrCancelDrawingTrainLine'
 import { useGetCoordinateSystemCurrentMode } from '../../state/CoordinateSystem/CoordinateSystemCurrentModeState'

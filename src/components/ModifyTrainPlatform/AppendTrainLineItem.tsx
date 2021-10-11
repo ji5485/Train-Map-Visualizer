@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import { TrainLineItemType, TrainLineColorName } from '../../types/Train.types'
 import { TRAIN_LINE_COLOR } from '../../utils/constants'
 import { GrAdd } from 'react-icons/gr'

@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import produce from 'immer'
 import TrainLineItemForm from '../ModifyTrainPlatform/TrainLineItemForm'
 import ModifyTrainPlatformName from '../ModifyTrainPlatform/ModifyTrainPlatformName'

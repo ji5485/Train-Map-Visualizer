@@ -1,5 +1,5 @@
 import { useEffect, FunctionComponent } from 'react'
-import { jsx, css } from '@emotion/react'
+import { css } from '@emotion/react'
 import {
   useManageModifyTrainPlatformForm,
   useManageModifyTrainPlatformFormStatus,
