@@ -110,7 +110,7 @@ const emptyTrainLine = css`
   height: 100px;
   background: #f8f9fa;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-  font-weight: 800;
+  font-weight: 700;
 `
 
 const appendTrainLineStyle = css`

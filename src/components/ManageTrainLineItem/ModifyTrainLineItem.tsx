@@ -9,7 +9,7 @@ import {
   useManageTrainLineItem,
   useGetTrainLineItemById,
 } from '../../state/Train/TrainLineItemState'
-import { useGetCoordinatePlaneSize } from '../../state/CoordinateSystem/coordinatePlaneSizeState'
+import { useGetCoordinatePlaneSize } from '../../state/CoordinateSystem/CoordinatePlaneSizeState'
 import { TrainLineColorName } from '../../types/Train.types'
 import useGetPositionByNodeNumber from '../../hooks/useGetPositionByNodeNumber'
 import SelectTrainLineItemColor from '../ManageTrainLineItem/SelectTrainLineItemColor'

@@ -113,7 +113,7 @@ const modifyButtonStyle = css`
   background: #1971c2;
   border-radius: 10px;
   font-size: 0.9rem;
-  font-weight: 800;
+  font-weight: 700;
   color: #ffffff;
   cursor: pointer;
   user-select: none;
@@ -130,7 +130,7 @@ const removeButtonStyle = css`
   border-radius: 10px;
   border: 2px solid #fa5252;
   font-size: 0.9rem;
-  font-weight: 800;
+  font-weight: 700;
   color: #fa5252;
   cursor: pointer;
   user-select: none;

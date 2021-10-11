@@ -7,7 +7,7 @@ import useGetPositionByNodeNumber from '../../hooks/useGetPositionByNodeNumber'
 import { TrainLineColorName } from '../../types/Train.types'
 import TrainLineItemButton from '../ModifyTrainPlatform/TrainLineItemButton'
 import AppendTrainLineItem from '../ModifyTrainPlatform/AppendTrainLineItem'
-import { useGetCoordinatePlaneSize } from '../../state/CoordinateSystem/coordinatePlaneSizeState'
+import { useGetCoordinatePlaneSize } from '../../state/CoordinateSystem/CoordinatePlaneSizeState'
 
 const TrainLineItemForm: FunctionComponent = function () {
   const {

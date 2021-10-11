@@ -48,7 +48,7 @@ const findTrainPathResultTransferLineStyle = css`
 const findTrainPathResultTransferInfoStyle = css`
   padding: 15px 0;
   font-size: 0.85rem;
-  font-weight: 800;
+  font-weight: 700;
   color: rgba(0, 0, 0, 0.7);
 `
 

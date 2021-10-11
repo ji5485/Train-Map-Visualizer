@@ -81,7 +81,7 @@ const trainLineTextStyle = css`
 
 const trainPlatformTextStyle = css`
   font-size: 0.8rem;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.3;
 `
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useGetCoordinatePlaneSize } from '../state/CoordinateSystem/coordinatePlaneSizeState'
+import { useGetCoordinatePlaneSize } from '../state/CoordinateSystem/CoordinatePlaneSizeState'
 import { TrainLineDirection } from '../types/Train.types'
 
 type PositionType = {

@@ -4,7 +4,7 @@ import {
   useManageTrainLine,
 } from '../state/Train/TrainMapState'
 import { useManageTrainMapGraph } from '../state/Train/TrainMapGraphState'
-import { useGetCoordinatePlaneSize } from '../state/CoordinateSystem/coordinatePlaneSizeState'
+import { useGetCoordinatePlaneSize } from '../state/CoordinateSystem/CoordinatePlaneSizeState'
 import {
   TrainLineType,
   TrainPlatformType,

@@ -80,7 +80,7 @@ const findTrainPathResultStyle = css`
 
 const findTrainPathResultTimeStyle = css`
   font-size: 1.5rem;
-  font-weight: 800;
+  font-weight: 700;
 `
 
 const findTrainPathResultLineStyle = css`
@@ -104,7 +104,7 @@ const findTrainPathResultReturnButtonStyle = css`
   margin-top: 20px;
   background: #1971c2;
   border-radius: 10px;
-  font-weight: 800;
+  font-weight: 700;
   color: #ffffff;
   cursor: pointer;
   user-select: none;

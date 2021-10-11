@@ -121,7 +121,7 @@ const emptyTrainPlatform = css`
   background: #f8f9fa;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
   font-size: 0.9rem;
-  font-weight: 800;
+  font-weight: 700;
 `
 
 export default TrainPlatformList

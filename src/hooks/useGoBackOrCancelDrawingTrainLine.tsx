@@ -7,7 +7,7 @@ import {
 import { useManageCoordinateSystemDrawingLineStatus } from '../state/CoordinateSystem/CoordinateSystemDrawingLineState'
 import { useManageTrainLine } from '../state/Train/TrainMapState'
 import { useSetCoordinateSystemCurrentMode } from '../state/CoordinateSystem/CoordinateSystemCurrentModeState'
-import { useGetCoordinatePlaneSize } from '../state/CoordinateSystem/coordinatePlaneSizeState'
+import { useGetCoordinatePlaneSize } from '../state/CoordinateSystem/CoordinatePlaneSizeState'
 
 type useGoBackOrCancelDrawingTrainLineType = {
   goBack: (event: MouseEvent<HTMLDivElement>) => void

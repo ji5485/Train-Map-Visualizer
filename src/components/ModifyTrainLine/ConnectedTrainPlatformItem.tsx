@@ -56,7 +56,7 @@ const connectedTrainPlatformLineStyle = (color: string) => css`
   border-radius: 50%;
   background: ${color};
   font-size: 0.5rem;
-  font-weight: 800;
+  font-weight: 700;
   color: #ffffff;
   text-align: center;
 `
@@ -64,7 +64,7 @@ const connectedTrainPlatformLineStyle = (color: string) => css`
 const connectedTrainPlatformNameStyle = css`
   margin-left: 5px;
   font-size: 0.8rem;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 0.85;
 `
 

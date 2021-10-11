@@ -2,7 +2,7 @@ import { useState, FunctionComponent, ChangeEvent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { MdNoteAdd } from 'react-icons/md'
 import { CoordinatePlaneSizeType } from '../../types/CoordinateSystem.types'
-import { useSetCoordinatePlaneSize } from '../../state/CoordinateSystem/coordinatePlaneSizeState'
+import { useSetCoordinatePlaneSize } from '../../state/CoordinateSystem/CoordinatePlaneSizeState'
 import {
   useManageTrainPlatform,
   useManageTrainLine,
@@ -10,7 +10,7 @@ import {
 import { useManageTrainMapGraph } from '../../state/Train/TrainMapGraphState'
 import { useManageTrainLineItem } from '../../state/Train/TrainLineItemState'
 import { useSetFloatingForm } from '../../state/FloatingForm/FloatingFormState'
-import { useGetCoordinatePlaneSize } from '../../state/CoordinateSystem/coordinatePlaneSizeState'
+import { useGetCoordinatePlaneSize } from '../../state/CoordinateSystem/CoordinatePlaneSizeState'
 
 const CreateProjectMenu: FunctionComponent = function () {
   const [isVisible, setIsVisible] = useState<boolean>(false)
@@ -149,7 +149,7 @@ const menuFormItemStyle = css`
   div {
     margin-bottom: 5px;
     font-size: 0.8rem;
-    font-weight: 800;
+    font-weight: 700;
     color: rgba(0, 0, 0, 0.7);
   }
 
@@ -183,7 +183,7 @@ const createProjectButtonStyle = css`
   background: #1971c2;
   border-radius: 10px;
   font-size: 0.85rem;
-  font-weight: 800;
+  font-weight: 700;
   color: #ffffff;
   cursor: pointer;
   user-select: none;

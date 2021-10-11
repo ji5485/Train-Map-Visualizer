@@ -4,7 +4,7 @@ import {
   useManageModifyTrainPlatformForm,
   useManageModifyTrainPlatformFormStatus,
 } from '../../state/FloatingForm/ModifyTrainPlatformState'
-import { useGetCoordinatePlaneSize } from '../../state/CoordinateSystem/coordinatePlaneSizeState'
+import { useGetCoordinatePlaneSize } from '../../state/CoordinateSystem/CoordinatePlaneSizeState'
 import { useManageTrainPlatform } from '../../state/Train/TrainMapState'
 
 const ModifyTrainPlatformError: FunctionComponent = function () {

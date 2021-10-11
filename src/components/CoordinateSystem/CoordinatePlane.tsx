@@ -1,11 +1,11 @@
 import { useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import Node from '../CoordinateSystem/Node'
-import { useGetCoordinatePlaneZoom } from '../../state/CoordinateSystem/coordinatePlaneZoomState'
+import { useGetCoordinatePlaneZoom } from '../../state/CoordinateSystem/CoordinatePlaneSizeState'
 import {
   useGetCoordinatePlaneSize,
   useGetCalculatedCoordinatePlaneSize,
-} from '../../state/CoordinateSystem/coordinatePlaneSizeState'
+} from '../../state/CoordinateSystem/CoordinatePlaneSizeState'
 import {
   useManageTrainPlatform,
   useManageTrainLine,
@@ -138,7 +138,7 @@ const coordPlaneInfoStyle = css`
   align-items: center;
   margin: auto;
   font-size: 2rem;
-  font-weight: 800;
+  font-weight: 700;
   color: rgba(0, 0, 0, 0.3);
   user-select: none;
 

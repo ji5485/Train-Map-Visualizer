@@ -20,7 +20,7 @@ const messageWidgetStyle = css`
   background: #495057;
   border-radius: 5px;
   color: #ffffff;
-  font-weight: 800;
+  font-weight: 700;
   user-select: none;
 `
 

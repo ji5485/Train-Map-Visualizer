@@ -99,7 +99,7 @@ const findPathButtonStyle = (formIsValid: boolean) => css`
   margin-top: 30px;
   background: ${formIsValid ? '#1971c2' : 'rgba(0, 0, 0, 0.2)'};
   border-radius: 10px;
-  font-weight: 800;
+  font-weight: 700;
   color: #ffffff;
   cursor: ${formIsValid ? 'pointer' : 'not-allowed'};
   user-select: none;
