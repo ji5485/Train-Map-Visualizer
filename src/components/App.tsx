@@ -1,13 +1,13 @@
-import { FunctionComponent } from 'react'
+import { Fragment, FunctionComponent } from 'react'
 import { Global, css } from '@emotion/react'
 import Display from './Layout/Display'
 
 const App: FunctionComponent = function () {
   return (
-    <>
+    <Fragment>
       <Global styles={globalStyle} />
       <Display />
-    </>
+    </Fragment>
   )
 }
 
