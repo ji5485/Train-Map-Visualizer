@@ -3,9 +3,9 @@ import { jsx, css } from '@emotion/react'
 import { GrDrag } from 'react-icons/gr'
 import { IoIosArrowDown } from 'react-icons/io'
 import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd'
-import { TrainLineColorName } from 'types/Train.types'
-import { TRAIN_LINE_COLOR } from 'utils/constants'
-import ModifyTrainLineItem from 'components/ManageTrainLineItem/ModifyTrainLineItem'
+import { TrainLineColorName } from '../../types/Train.types'
+import { TRAIN_LINE_COLOR } from '../../utils/constants'
+import ModifyTrainLineItem from '../ManageTrainLineItem/ModifyTrainLineItem'
 
 type TrainLineItemProps = {
   id: string

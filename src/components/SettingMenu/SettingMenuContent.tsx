@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import CreateProjectMenu from 'components/SettingMenu/CreateProjectMenu'
-import CaptureProjectMenu from 'components/SettingMenu/CaptureProjectMenu'
-import ProjectDescription from 'components/SettingMenu/ProjectDescription'
+import CreateProjectMenu from '../SettingMenu/CreateProjectMenu'
+import CaptureProjectMenu from '../SettingMenu/CaptureProjectMenu'
+import ProjectDescription from '../SettingMenu/ProjectDescription'
 
 const SettingMenuContent: FunctionComponent = function () {
   return (

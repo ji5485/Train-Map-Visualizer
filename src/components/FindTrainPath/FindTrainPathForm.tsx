@@ -1,11 +1,11 @@
 import { useState, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import FindPathTrainFormItem from 'components/FindTrainPath/FindTrainPathFormItem'
-import { useManageFindTrainPathForm } from 'state/FloatingForm/FindTrainPathState'
-import { useManageCoordinateSystemPathHighlight } from 'state/CoordinateSystem/CoordinateSystemPathHightlightState'
-import useFindTrainLinePath from 'hooks/useFindTrainLinePath'
-import { TrainPathSectionType } from 'types/TrainPath.types'
-import FindTrainPathResult from 'components/FindTrainPath/FindTrainPathResult'
+import FindPathTrainFormItem from '../FindTrainPath/FindTrainPathFormItem'
+import { useManageFindTrainPathForm } from '../../state/FloatingForm/FindTrainPathState'
+import { useManageCoordinateSystemPathHighlight } from '../../state/CoordinateSystem/CoordinateSystemPathHightlightState'
+import useFindTrainLinePath from '../../hooks/useFindTrainLinePath'
+import { TrainPathSectionType } from '../../types/TrainPath.types'
+import FindTrainPathResult from '../FindTrainPath/FindTrainPathResult'
 
 const FindTrainPathForm: FunctionComponent = function () {
   const {

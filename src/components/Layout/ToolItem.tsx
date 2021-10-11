@@ -1,6 +1,6 @@
 import { createElement, FunctionComponent } from 'react'
-import { TOOL_ITEM_ICON } from 'utils/constants'
-import { CoordinateSystemCurrentModeType } from 'types/CoordinateSystem.types'
+import { TOOL_ITEM_ICON } from '../../utils/constants'
+import { CoordinateSystemCurrentModeType } from '../../types/CoordinateSystem.types'
 
 type ToolItemProps = {
   type: keyof typeof TOOL_ITEM_ICON

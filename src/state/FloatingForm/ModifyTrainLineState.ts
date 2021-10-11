@@ -1,6 +1,6 @@
 import { atom, useRecoilState, useResetRecoilState, Resetter } from 'recoil'
-import { ModifyTrainLineFormType } from 'types/FloatingForm.types'
-import { Getter, Setter } from 'types/RecoilMethods.types'
+import { ModifyTrainLineFormType } from '../../types/FloatingForm.types'
+import { Getter, Setter } from '../../types/RecoilMethods.types'
 
 const modifyTrainLineFormAtom = atom<ModifyTrainLineFormType>({
   key: 'modifyTrainLineForm',

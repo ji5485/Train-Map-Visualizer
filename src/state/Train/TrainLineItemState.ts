@@ -6,8 +6,8 @@ import {
   Resetter,
   useResetRecoilState,
 } from 'recoil'
-import { TrainLineItemType, TrainLineColorName } from 'types/Train.types'
-import { Getter, Setter } from 'types/RecoilMethods.types'
+import { TrainLineItemType, TrainLineColorName } from '../../types/Train.types'
+import { Getter, Setter } from '../../types/RecoilMethods.types'
 
 const trainLineItemAtom = atom<TrainLineItemType[]>({
   key: 'trainLineItem',

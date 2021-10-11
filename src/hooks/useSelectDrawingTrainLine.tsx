@@ -1,7 +1,7 @@
-import { useManageCoordinateSystemDrawingLineStatus } from 'state/CoordinateSystem/CoordinateSystemDrawingLineState'
-import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
-import { useSetDrawingLineList } from 'state/FloatingForm/DrawingLineListState'
-import { TrainLineItemType } from 'types/Train.types'
+import { useManageCoordinateSystemDrawingLineStatus } from '../state/CoordinateSystem/CoordinateSystemDrawingLineState'
+import { useSetFloatingForm } from '../state/FloatingForm/FloatingFormState'
+import { useSetDrawingLineList } from '../state/FloatingForm/DrawingLineListState'
+import { TrainLineItemType } from '../types/Train.types'
 
 type useSelectDrawingTrainLineType = {
   openDrawingLineList: (trainLine: TrainLineItemType[]) => void

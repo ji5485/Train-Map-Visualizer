@@ -6,9 +6,9 @@ import {
   useResetRecoilState,
   Resetter,
 } from 'recoil'
-import { TrainFormType } from 'types/FloatingForm.types'
-import { TrainLineItemType } from 'types/Train.types'
-import { Getter, Setter, GetterAndSetter } from 'types/RecoilMethods.types'
+import { TrainFormType } from '../../types/FloatingForm.types'
+import { TrainLineItemType } from '../../types/Train.types'
+import { Getter, Setter, GetterAndSetter } from '../../types/RecoilMethods.types'
 
 export const defaultSelectedTrainLine: TrainLineItemType = {
   id: '',

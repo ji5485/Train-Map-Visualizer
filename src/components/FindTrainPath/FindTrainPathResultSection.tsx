@@ -1,10 +1,10 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { RiSubwayLine } from 'react-icons/ri'
-import { TrainPathSectionType } from 'types/TrainPath.types'
-import { TrainLineColorName } from 'types/Train.types'
-import { TRAIN_LINE_COLOR } from 'utils/constants'
-import { useGetTrainLineItemByColor } from 'state/Train/TrainLineItemState'
+import { TrainPathSectionType } from '../../types/TrainPath.types'
+import { TrainLineColorName } from '../../types/Train.types'
+import { TRAIN_LINE_COLOR } from '../../utils/constants'
+import { useGetTrainLineItemByColor } from '../../state/Train/TrainLineItemState'
 
 type FindTrainPathResultSectionProps = {
   section: TrainPathSectionType

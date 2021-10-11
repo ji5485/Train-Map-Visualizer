@@ -1,7 +1,10 @@
 import { atom, useRecoilState, Resetter, useResetRecoilState } from 'recoil'
-import { TrainMapGraphType, TrainMapGraphEdgeType } from 'types/Train.types'
-import { Getter, Setter } from 'types/RecoilMethods.types'
-import { TRAIN_MATRIX_MAX_LENGTH } from 'utils/constants'
+import {
+  TrainMapGraphType,
+  TrainMapGraphEdgeType,
+} from '../../types/Train.types'
+import { Getter, Setter } from '../../types/RecoilMethods.types'
+import { TRAIN_MATRIX_MAX_LENGTH } from '../../utils/constants'
 
 const trainMapGraphAtom = atom<TrainMapGraphType>({
   key: 'trainMapGraph',

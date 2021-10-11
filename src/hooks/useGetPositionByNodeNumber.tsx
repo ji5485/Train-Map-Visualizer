@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
-import { TrainLineDirection } from 'types/Train.types'
+import { useGetCoordinatePlaneSize } from '../state/CoordinateSystem/coordinatePlaneSizeState'
+import { TrainLineDirection } from '../types/Train.types'
 
 type PositionType = {
   row: number

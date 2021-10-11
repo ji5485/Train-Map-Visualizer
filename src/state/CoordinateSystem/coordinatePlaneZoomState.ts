@@ -1,5 +1,5 @@
 import { atom, useRecoilValue, useRecoilState } from 'recoil'
-import { Getter, GetterAndSetter } from 'types/RecoilMethods.types'
+import { Getter, GetterAndSetter } from '../../types/RecoilMethods.types'
 
 export const coordinatePlaneZoomAtom = atom<number>({
   key: 'coordinatePlaneZoom',

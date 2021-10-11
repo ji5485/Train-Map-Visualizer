@@ -1,13 +1,13 @@
 import { useState, useEffect, MutableRefObject } from 'react'
 import produce from 'immer'
-import shortId from 'utils/shortId'
-import { useManageTrainPlatform } from 'state/Train/TrainMapState'
+import shortId from '../utils//shortId'
+import { useManageTrainPlatform } from '../state/Train/TrainMapState'
 import {
   useGetTrainForm,
   useResetTrainForm,
-} from 'state/FloatingForm/TrainPlatformFormState'
-import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/CoordinateSystemCurrentModeState'
-import { TrainPlatformType, TrainLineItemType } from 'types/Train.types'
+} from '../state/FloatingForm/TrainPlatformFormState'
+import { useStateCoordinateSystemCurrentMode } from '../state/CoordinateSystem/CoordinateSystemCurrentModeState'
+import { TrainPlatformType, TrainLineItemType } from '../types/Train.types'
 
 type useAppendTrainPlatformType = {
   visibleTrainPlatformPreview: boolean

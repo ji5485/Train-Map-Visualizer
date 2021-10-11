@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { TrainLineColorName } from 'types/Train.types'
-import { useGetTrainLineItemByColor } from 'state/Train/TrainLineItemState'
+import { TrainLineColorName } from '../../types/Train.types'
+import { useGetTrainLineItemByColor } from '../../state/Train/TrainLineItemState'
 
 type FindTrainPathResultTransferProps = {
   from: TrainLineColorName

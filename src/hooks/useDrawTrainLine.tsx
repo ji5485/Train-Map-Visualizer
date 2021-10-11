@@ -1,29 +1,29 @@
 import { useState, useEffect, MutableRefObject } from 'react'
 import produce from 'immer'
-import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/CoordinateSystemCurrentModeState'
-import { useManageCoordinateSystemDrawingLineStatus } from 'state/CoordinateSystem/CoordinateSystemDrawingLineState'
+import { useStateCoordinateSystemCurrentMode } from '../state/CoordinateSystem/CoordinateSystemCurrentModeState'
+import { useManageCoordinateSystemDrawingLineStatus } from '../state/CoordinateSystem/CoordinateSystemDrawingLineState'
 import {
   useManageTrainPlatform,
   useManageTrainLine,
-} from 'state/Train/TrainMapState'
+} from '../state/Train/TrainMapState'
 import {
   useManagePreviewTrainLineTrace,
   useManagePreviewTrainLineStack,
-} from 'state/Train/PreviewTrainLineState'
+} from '../state/Train/PreviewTrainLineState'
 import {
   useManageTrainMapGraph,
   useManageTrainMapGraphEdge,
-} from 'state/Train/TrainMapGraphState'
+} from '../state/Train/TrainMapGraphState'
 import {
   TrainLineColorName,
   TrainPlatformType,
   TrainLineDirection,
   PreviewTrainLineStackItemType,
   TrainLineType,
-} from 'types/Train.types'
-import useSelectDrawingTrainLine from 'hooks/useSelectDrawingTrainLine'
-import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
-import shortId from 'utils/shortId'
+} from '../types/Train.types'
+import useSelectDrawingTrainLine from './useSelectDrawingTrainLine'
+import useGetPositionByNodeNumber from './useGetPositionByNodeNumber'
+import shortId from '../utils//shortId'
 
 type useDrawTrainLineType = {
   isDrawingCurrentNode: boolean

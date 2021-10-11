@@ -2,8 +2,8 @@ import {
   TrainLineItemType,
   TrainLineType,
   TrainPlatformType,
-} from 'types/Train.types'
-import { TOOL_FORM_TITLE } from 'utils/constants'
+} from './Train.types'
+import { TOOL_FORM_TITLE } from '../utils/constants'
 
 // FloatingForm Condition Type
 export type FloatingFormContentType = keyof typeof TOOL_FORM_TITLE

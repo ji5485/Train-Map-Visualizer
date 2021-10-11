@@ -2,9 +2,9 @@ import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { IoMdCloseCircle } from 'react-icons/io'
 import { HiCheckCircle } from 'react-icons/hi'
-import { useGetTrainLineColor } from 'state/Train/TrainLineColorState'
-import { TrainLineColorName, TrainLineItemType } from 'types/Train.types'
-import { TRAIN_LINE_COLOR } from 'utils/constants'
+import { useGetTrainLineColor } from '../../state/Train/TrainLineColorState'
+import { TrainLineColorName, TrainLineItemType } from '../../types/Train.types'
+import { TRAIN_LINE_COLOR } from '../../utils/constants'
 
 type SelectTrainLineItemColorProps = {
   selectedTrainLineItem: TrainLineItemType

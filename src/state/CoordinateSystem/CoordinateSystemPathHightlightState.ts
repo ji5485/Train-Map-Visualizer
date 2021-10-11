@@ -1,6 +1,6 @@
 import { atom, useRecoilState, Resetter, useResetRecoilState } from 'recoil'
-import { CoordinateSystemPathHighlightType } from 'types/CoordinateSystem.types'
-import { Getter, Setter } from 'types/RecoilMethods.types'
+import { CoordinateSystemPathHighlightType } from '../../types/CoordinateSystem.types'
+import { Getter, Setter } from '../../types/RecoilMethods.types'
 
 const coordinateSystemPathHighlightAtom =
   atom<CoordinateSystemPathHighlightType>({

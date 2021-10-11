@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
-import { TrainLineColorName } from 'types/Train.types'
-import { TRAIN_LINE_COLOR } from 'utils/constants'
+import { TrainLineColorName } from '../../types/Train.types'
+import { TRAIN_LINE_COLOR } from '../../utils/constants'
 
 type TrainLineItemButtonProps = {
   id: string

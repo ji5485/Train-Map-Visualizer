@@ -1,7 +1,7 @@
 import { atom, selector, useRecoilValue, useSetRecoilState } from 'recoil'
-import { coordinatePlaneZoomAtom } from 'state/CoordinateSystem/coordinatePlaneZoomState'
-import { CoordinatePlaneSizeType } from 'types/CoordinateSystem.types'
-import { Getter, Setter } from 'types/RecoilMethods.types'
+import { coordinatePlaneZoomAtom } from '../../state/CoordinateSystem/coordinatePlaneZoomState'
+import { CoordinatePlaneSizeType } from '../../types/CoordinateSystem.types'
+import { Getter, Setter } from '../../types/RecoilMethods.types'
 
 const coordinatePlaneSizeAtom = atom<CoordinatePlaneSizeType>({
   key: 'coordinatePlaneSize',

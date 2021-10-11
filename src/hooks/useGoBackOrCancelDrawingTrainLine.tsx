@@ -3,11 +3,11 @@ import produce from 'immer'
 import {
   useManagePreviewTrainLineTrace,
   useManagePreviewTrainLineStack,
-} from 'state/Train/PreviewTrainLineState'
-import { useManageCoordinateSystemDrawingLineStatus } from 'state/CoordinateSystem/CoordinateSystemDrawingLineState'
-import { useManageTrainLine } from 'state/Train/TrainMapState'
-import { useSetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/CoordinateSystemCurrentModeState'
-import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
+} from '../state/Train/PreviewTrainLineState'
+import { useManageCoordinateSystemDrawingLineStatus } from '../state/CoordinateSystem/CoordinateSystemDrawingLineState'
+import { useManageTrainLine } from '../state/Train/TrainMapState'
+import { useSetCoordinateSystemCurrentMode } from '../state/CoordinateSystem/CoordinateSystemCurrentModeState'
+import { useGetCoordinatePlaneSize } from '../state/CoordinateSystem/coordinatePlaneSizeState'
 
 type useGoBackOrCancelDrawingTrainLineType = {
   goBack: (event: MouseEvent<HTMLDivElement>) => void

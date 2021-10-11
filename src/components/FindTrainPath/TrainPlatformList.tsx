@@ -1,10 +1,10 @@
 import { FunctionComponent, useMemo } from 'react'
 import { jsx, css } from '@emotion/react'
-import { FindTrainPathFormType } from 'types/FloatingForm.types'
-import { useManageFindTrainPathForm } from 'state/FloatingForm/FindTrainPathState'
-import { useManageTrainPlatform } from 'state/Train/TrainMapState'
-import { TrainPlatformType } from 'types/Train.types'
-import TrainPlatformItem from 'components/FindTrainPath/TrainPlatformItem'
+import { FindTrainPathFormType } from '../../types/FloatingForm.types'
+import { useManageFindTrainPathForm } from '../../state/FloatingForm/FindTrainPathState'
+import { useManageTrainPlatform } from '../../state/Train/TrainMapState'
+import { TrainPlatformType } from '../../types/Train.types'
+import TrainPlatformItem from '../FindTrainPath/TrainPlatformItem'
 
 type TrainPlatformListProps = {
   type: keyof FindTrainPathFormType

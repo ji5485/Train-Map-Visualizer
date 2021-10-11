@@ -1,6 +1,6 @@
 import { atom, useRecoilState, Resetter, useResetRecoilState } from 'recoil'
-import { CoordinateSystemDrawingLineStatusType } from 'types/CoordinateSystem.types'
-import { Getter, Setter } from 'types/RecoilMethods.types'
+import { CoordinateSystemDrawingLineStatusType } from '../../types/CoordinateSystem.types'
+import { Getter, Setter } from '../../types/RecoilMethods.types'
 
 const coordinateSystemDrawingLineStatusAtom =
   atom<CoordinateSystemDrawingLineStatusType>({

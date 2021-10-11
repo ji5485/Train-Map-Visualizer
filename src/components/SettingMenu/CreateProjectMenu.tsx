@@ -1,16 +1,16 @@
 import { useState, FunctionComponent, ChangeEvent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { MdNoteAdd } from 'react-icons/md'
-import { CoordinatePlaneSizeType } from 'types/CoordinateSystem.types'
-import { useSetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
+import { CoordinatePlaneSizeType } from '../../types/CoordinateSystem.types'
+import { useSetCoordinatePlaneSize } from '../../state/CoordinateSystem/coordinatePlaneSizeState'
 import {
   useManageTrainPlatform,
   useManageTrainLine,
-} from 'state/Train/TrainMapState'
-import { useManageTrainMapGraph } from 'state/Train/TrainMapGraphState'
-import { useManageTrainLineItem } from 'state/Train/TrainLineItemState'
-import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
-import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
+} from '../../state/Train/TrainMapState'
+import { useManageTrainMapGraph } from '../../state/Train/TrainMapGraphState'
+import { useManageTrainLineItem } from '../../state/Train/TrainLineItemState'
+import { useSetFloatingForm } from '../../state/FloatingForm/FloatingFormState'
+import { useGetCoordinatePlaneSize } from '../../state/CoordinateSystem/coordinatePlaneSizeState'
 
 const CreateProjectMenu: FunctionComponent = function () {
   const [isVisible, setIsVisible] = useState<boolean>(false)

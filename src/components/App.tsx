@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { Global, css, jsx } from '@emotion/react'
-import Display from 'components/Layout/Display'
+import Display from './Layout/Display'
 
 const App: FunctionComponent = function () {
   return (

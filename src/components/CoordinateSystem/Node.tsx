@@ -1,16 +1,16 @@
 import { useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import useAppendTrainPlatform from 'hooks/useAppendTrainPlatform'
-import useDrawTrainLine from 'hooks/useDrawTrainLine'
-import TrainPlatform from 'components/CoordinateSystem/TrainPlatform'
-import TrainLine from 'components/CoordinateSystem/TrainLine'
+import useAppendTrainPlatform from '../../hooks/useAppendTrainPlatform'
+import useDrawTrainLine from '../../hooks/useDrawTrainLine'
+import TrainPlatform from '../CoordinateSystem/TrainPlatform'
+import TrainLine from '../CoordinateSystem/TrainLine'
 import {
   TrainPlatformType,
   TrainLineForNodeType,
   TrainLineDirectionForNodeType,
   TrainLineDirection,
-} from 'types/Train.types'
-import { CoordinateSystemPathHighlightType } from 'types/CoordinateSystem.types'
+} from '../../types/Train.types'
+import { CoordinateSystemPathHighlightType } from '../../types/CoordinateSystem.types'
 
 type NodeProps = {
   row: number

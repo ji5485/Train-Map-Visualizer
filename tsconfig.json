@@ -21,10 +21,7 @@
     "jsxImportSource": "@emotion/react",
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "baseUrl": "./src",
-    "paths": {
-      "components/*": ["./components/*"]
-    },
+    "baseUrl": "src",
     "isolatedModules": true,
     "downlevelIteration": true
   },

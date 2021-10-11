@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import TrainLineItemList from 'components/ManageTrainLineItem/TrainLineItemList'
+import TrainLineItemList from '../ManageTrainLineItem/TrainLineItemList'
 
 const ManageTrainLineItemForm: FunctionComponent = function () {
   return (

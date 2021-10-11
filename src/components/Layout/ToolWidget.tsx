@@ -1,20 +1,20 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import { RiSubwayFill } from 'react-icons/ri'
-import ToolItem from 'components/Layout/ToolItem'
-import FloatingForm from 'components/Layout/FloatingForm'
-import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/CoordinateSystemCurrentModeState'
-import { useStateFloatingForm } from 'state/FloatingForm/FloatingFormState'
-import { useResetTrainForm } from 'state/FloatingForm/TrainPlatformFormState'
-import { useManageFindTrainPathForm } from 'state/FloatingForm/FindTrainPathState'
-import useGoBackOrCancelDrawingTrainLine from 'hooks/useGoBackOrCancelDrawingTrainLine'
-import { useManageModifyTrainPlatformFormStatus } from 'state/FloatingForm/ModifyTrainPlatformState'
-import { useManageCoordinateSystemPathHighlight } from 'state/CoordinateSystem/CoordinateSystemPathHightlightState'
-import { CoordinateSystemCurrentModeType } from 'types/CoordinateSystem.types'
+import ToolItem from '../Layout/ToolItem'
+import FloatingForm from '../Layout/FloatingForm'
+import { useStateCoordinateSystemCurrentMode } from '../../state/CoordinateSystem/CoordinateSystemCurrentModeState'
+import { useStateFloatingForm } from '../../state/FloatingForm/FloatingFormState'
+import { useResetTrainForm } from '../../state/FloatingForm/TrainPlatformFormState'
+import { useManageFindTrainPathForm } from '../../state/FloatingForm/FindTrainPathState'
+import useGoBackOrCancelDrawingTrainLine from '../../hooks/useGoBackOrCancelDrawingTrainLine'
+import { useManageModifyTrainPlatformFormStatus } from '../../state/FloatingForm/ModifyTrainPlatformState'
+import { useManageCoordinateSystemPathHighlight } from '../../state/CoordinateSystem/CoordinateSystemPathHightlightState'
+import { CoordinateSystemCurrentModeType } from '../../types/CoordinateSystem.types'
 import {
   FloatingFormType,
   FloatingFormContentType,
-} from 'types/FloatingForm.types'
+} from '../../types/FloatingForm.types'
 
 const ToolWidget: FunctionComponent = function () {
   const [{ isOpen, menu }, setFloatingForm] = useStateFloatingForm()

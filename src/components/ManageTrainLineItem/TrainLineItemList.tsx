@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'react'
 import produce from 'immer'
-import { TrainLineItemType } from 'types/Train.types'
-import { useManageTrainLineItem } from 'state/Train/TrainLineItemState'
-import TrainLineItem from 'components/ManageTrainLineItem/TrainLineItem'
+import { TrainLineItemType } from '../../types/Train.types'
+import { useManageTrainLineItem } from '../../state/Train/TrainLineItemState'
+import TrainLineItem from '../ManageTrainLineItem/TrainLineItem'
 
 const TrainLineItemList: FunctionComponent = function () {
   const { trainLineItem, setTrainLineItem } = useManageTrainLineItem()

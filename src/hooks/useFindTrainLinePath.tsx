@@ -1,22 +1,22 @@
-import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
+import useGetPositionByNodeNumber from './useGetPositionByNodeNumber'
 import {
   useManageTrainPlatform,
   useManageTrainLine,
-} from 'state/Train/TrainMapState'
-import { useManageTrainMapGraph } from 'state/Train/TrainMapGraphState'
-import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
+} from '../state/Train/TrainMapState'
+import { useManageTrainMapGraph } from '../state/Train/TrainMapGraphState'
+import { useGetCoordinatePlaneSize } from '../state/CoordinateSystem/coordinatePlaneSizeState'
 import {
   TrainLineType,
   TrainPlatformType,
   TrainMapGraphType,
-} from 'types/Train.types'
-import { CoordinatePositionType } from 'types/CoordinateSystem.types'
+} from '../types/Train.types'
+import { CoordinatePositionType } from '../types/CoordinateSystem.types'
 import {
   AdjacencyListNodeType,
   TrainPathSectionType,
   TrainPathResultType,
-} from 'types/TrainPath.types'
-import PriorityQueue from 'utils/priorityQueue'
+} from '../types/TrainPath.types'
+import PriorityQueue from '../utils//priorityQueue'
 import produce from 'immer'
 
 const convertToAdjacencyList = (

@@ -1,10 +1,10 @@
 import { useState, FunctionComponent, ChangeEvent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { FindTrainPathFormType } from 'types/FloatingForm.types'
-import useHandleClickOutSide from 'hooks/useHandleClickOutSide'
-import { useManageFindTrainPathForm } from 'state/FloatingForm/FindTrainPathState'
-import TrainPlatformList from 'components/FindTrainPath/TrainPlatformList'
-import TrainPlatformItem from 'components/FindTrainPath/TrainPlatformItem'
+import { FindTrainPathFormType } from '../../types/FloatingForm.types'
+import useHandleClickOutSide from '../../hooks/useHandleClickOutSide'
+import { useManageFindTrainPathForm } from '../../state/FloatingForm/FindTrainPathState'
+import TrainPlatformList from '../FindTrainPath/TrainPlatformList'
+import TrainPlatformItem from '../FindTrainPath/TrainPlatformItem'
 
 type FindTrainPathFormItemProps = {
   type: keyof FindTrainPathFormType

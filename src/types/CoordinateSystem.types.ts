@@ -1,4 +1,4 @@
-import { TrainPlatformType, TrainLineItemType } from 'types/Train.types'
+import { TrainPlatformType, TrainLineItemType } from './Train.types'
 
 // Coordinate Plane Size Type
 export type CoordinatePlaneSizeType = {

@@ -4,9 +4,9 @@ import {
   TrainPlatformMatrixType,
   TrainLineType,
   TrainLineMatrixType,
-} from 'types/Train.types'
-import { Getter, Setter } from 'types/RecoilMethods.types'
-import { TRAIN_MATRIX_MAX_LENGTH } from 'utils/constants'
+} from '../../types/Train.types'
+import { Getter, Setter } from '../../types/RecoilMethods.types'
+import { TRAIN_MATRIX_MAX_LENGTH } from '../../utils/constants'
 
 const trainPlatformMatrixAtom = atom<TrainPlatformMatrixType>({
   key: 'trainPlatformMatrix',

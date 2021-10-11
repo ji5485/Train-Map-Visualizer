@@ -1,6 +1,6 @@
 import { atom, useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil'
-import { FloatingFormType } from 'types/FloatingForm.types'
-import { Getter, Setter, GetterAndSetter } from 'types/RecoilMethods.types'
+import { FloatingFormType } from '../../types/FloatingForm.types'
+import { Getter, Setter, GetterAndSetter } from '../../types/RecoilMethods.types'
 
 const floatingFormState = atom<FloatingFormType>({
   key: 'floatingForm',

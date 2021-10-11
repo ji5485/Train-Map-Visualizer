@@ -1,9 +1,9 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import DrawingLineItem from 'components/SelectDrawingLine/DrawingLineItem'
-import { useGetDrawingLineList } from 'state/FloatingForm/DrawingLineListState'
-import useSelectDrawingTrainLine from 'hooks/useSelectDrawingTrainLine'
-import { TrainLineItemType } from 'types/Train.types'
+import DrawingLineItem from '../SelectDrawingLine/DrawingLineItem'
+import { useGetDrawingLineList } from '../../state/FloatingForm/DrawingLineListState'
+import useSelectDrawingTrainLine from '../../hooks/useSelectDrawingTrainLine'
+import { TrainLineItemType } from '../../types/Train.types'
 
 const DrawingLineForm: FunctionComponent = function () {
   const drawingLineList = useGetDrawingLineList()

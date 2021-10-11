@@ -1,18 +1,18 @@
 import { useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import Node from 'components/CoordinateSystem/Node'
-import { useGetCoordinatePlaneZoom } from 'state/CoordinateSystem/coordinatePlaneZoomState'
+import Node from '../CoordinateSystem/Node'
+import { useGetCoordinatePlaneZoom } from '../../state/CoordinateSystem/coordinatePlaneZoomState'
 import {
   useGetCoordinatePlaneSize,
   useGetCalculatedCoordinatePlaneSize,
-} from 'state/CoordinateSystem/coordinatePlaneSizeState'
+} from '../../state/CoordinateSystem/coordinatePlaneSizeState'
 import {
   useManageTrainPlatform,
   useManageTrainLine,
-} from 'state/Train/TrainMapState'
-import { useManageCoordinateSystemPathHighlight } from 'state/CoordinateSystem/CoordinateSystemPathHightlightState'
-import useChangeCursor from 'hooks/useChangeCursor'
-import useScrollWithMouse from 'hooks/useScrollWithMouse'
+} from '../../state/Train/TrainMapState'
+import { useManageCoordinateSystemPathHighlight } from '../../state/CoordinateSystem/CoordinateSystemPathHightlightState'
+import useChangeCursor from '../../hooks/useChangeCursor'
+import useScrollWithMouse from '../../hooks/useScrollWithMouse'
 
 const CoordinatePlane: FunctionComponent = function () {
   const coordPlaneRef = useRef<HTMLDivElement | null>(null)

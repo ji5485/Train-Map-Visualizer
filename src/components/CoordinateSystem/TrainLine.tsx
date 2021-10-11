@@ -1,8 +1,8 @@
 import { useRef, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { TRAIN_LINE_COLOR } from 'utils/constants'
-import { TrainLineDirection, TrainLineColorName } from 'types/Train.types'
-import useSelectCoordComponent from 'hooks/useSelectCoordComponent'
+import { TRAIN_LINE_COLOR } from '../../utils/constants'
+import { TrainLineDirection, TrainLineColorName } from '../../types/Train.types'
+import useSelectCoordComponent from '../../hooks/useSelectCoordComponent'
 
 type TrainLineProps = {
   nodeNumber: number

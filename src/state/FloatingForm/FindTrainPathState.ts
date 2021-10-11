@@ -1,6 +1,6 @@
 import { atom, useRecoilState, Resetter, useResetRecoilState } from 'recoil'
-import { FindTrainPathFormType } from 'types/FloatingForm.types'
-import { Getter, Setter } from 'types/RecoilMethods.types'
+import { FindTrainPathFormType } from '../../types/FloatingForm.types'
+import { Getter, Setter } from '../../types/RecoilMethods.types'
 
 const findTrainPathFormAtom = atom<FindTrainPathFormType>({
   key: 'findTrainPathForm',

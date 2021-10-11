@@ -1,10 +1,10 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import CoordinatePlane from 'components/CoordinateSystem/CoordinatePlane'
-import ToolWidget from 'components/Layout/ToolWidget'
-import ZoomWidget from 'components/Layout/ZoomWidget'
-import MessageWidget from 'components/Layout/MessageWidget'
-import HelperWidget from 'components/Layout/HelperWidget'
+import CoordinatePlane from '../CoordinateSystem/CoordinatePlane'
+import ToolWidget from '../Layout/ToolWidget'
+import ZoomWidget from '../Layout/ZoomWidget'
+import MessageWidget from '../Layout/MessageWidget'
+import HelperWidget from '../Layout/HelperWidget'
 
 const Display: FunctionComponent = function () {
   return (

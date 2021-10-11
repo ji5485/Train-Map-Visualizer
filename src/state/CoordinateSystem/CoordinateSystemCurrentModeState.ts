@@ -1,6 +1,6 @@
 import { atom, useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil'
-import { CoordinateSystemCurrentModeType } from 'types/CoordinateSystem.types'
-import { Getter, Setter, GetterAndSetter } from 'types/RecoilMethods.types'
+import { CoordinateSystemCurrentModeType } from '../../types/CoordinateSystem.types'
+import { Getter, Setter, GetterAndSetter } from '../../types/RecoilMethods.types'
 
 const coordinateSystemCurrentModeAtom = atom<CoordinateSystemCurrentModeType>({
   key: 'coordinateSystemCurrentMode',

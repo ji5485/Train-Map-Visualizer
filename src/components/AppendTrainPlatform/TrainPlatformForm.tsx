@@ -1,11 +1,11 @@
 import { useState, useEffect, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { useGetTrainForm } from 'state/FloatingForm/TrainPlatformFormState'
-import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
-import { useSetCoordinateSystemCurrentMode } from 'state/CoordinateSystem/CoordinateSystemCurrentModeState'
-import FormFieldUnit from 'components/AppendTrainPlatform/FormFieldUnit'
-import SelectTrainLine from 'components/AppendTrainPlatform/SelectTrainLine'
-import EnterTrainPlatformName from 'components/AppendTrainPlatform/EnterTrainPlatformName'
+import { useGetTrainForm } from '../../state/FloatingForm/TrainPlatformFormState'
+import { useSetFloatingForm } from '../../state/FloatingForm/FloatingFormState'
+import { useSetCoordinateSystemCurrentMode } from '../../state/CoordinateSystem/CoordinateSystemCurrentModeState'
+import FormFieldUnit from '../AppendTrainPlatform/FormFieldUnit'
+import SelectTrainLine from '../AppendTrainPlatform/SelectTrainLine'
+import EnterTrainPlatformName from '../AppendTrainPlatform/EnterTrainPlatformName'
 
 const TrainPlatformForm: FunctionComponent = function () {
   const {

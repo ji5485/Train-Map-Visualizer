@@ -8,9 +8,9 @@ import {
 import {
   PreviewTrainLineTraceType,
   PreviewTrainLineStackType,
-} from 'types/Train.types'
-import { Getter, Setter } from 'types/RecoilMethods.types'
-import { TRAIN_MATRIX_MAX_LENGTH } from 'utils/constants'
+} from '../../types/Train.types'
+import { Getter, Setter } from '../../types/RecoilMethods.types'
+import { TRAIN_MATRIX_MAX_LENGTH } from '../../utils/constants'
 
 const previewTrainLineTraceAtom = atom<PreviewTrainLineTraceType>({
   key: 'previewTrainLineTrace',

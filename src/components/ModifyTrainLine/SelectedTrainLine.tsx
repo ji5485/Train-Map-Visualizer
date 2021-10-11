@@ -4,9 +4,9 @@ import {
   TrainLineType,
   TrainPlatformType,
   TrainLineColorName,
-} from 'types/Train.types'
-import { TRAIN_LINE_COLOR } from 'utils/constants'
-import ConnectedTrainPlatformItem from 'components/ModifyTrainLine/ConnectedTrainPlatformItem'
+} from '../../types/Train.types'
+import { TRAIN_LINE_COLOR } from '../../utils/constants'
+import ConnectedTrainPlatformItem from '../ModifyTrainLine/ConnectedTrainPlatformItem'
 
 type SelectedTrainLineProps = {
   selectedTrainLine: TrainLineType

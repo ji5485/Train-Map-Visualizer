@@ -1,18 +1,18 @@
 import { useEffect, MutableRefObject } from 'react'
-import { useStateCoordinateSystemCurrentMode } from 'state/CoordinateSystem/CoordinateSystemCurrentModeState'
-import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
-import { useManageModifyTrainPlatformForm } from 'state/FloatingForm/ModifyTrainPlatformState'
-import { useManageModifyTrainLineForm } from 'state/FloatingForm/ModifyTrainLineState'
+import { useStateCoordinateSystemCurrentMode } from '../state/CoordinateSystem/CoordinateSystemCurrentModeState'
+import { useSetFloatingForm } from '../state/FloatingForm/FloatingFormState'
+import { useManageModifyTrainPlatformForm } from '../state/FloatingForm/ModifyTrainPlatformState'
+import { useManageModifyTrainLineForm } from '../state/FloatingForm/ModifyTrainLineState'
 import {
   useManageTrainPlatform,
   useManageTrainLine,
-} from 'state/Train/TrainMapState'
-import { useManageTrainMapGraph } from 'state/Train/TrainMapGraphState'
-import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
-import useFindTrainLinePath from 'hooks/useFindTrainLinePath'
-import { TrainLineDirection } from 'types/Train.types'
-import { FloatingFormContentType } from 'types/FloatingForm.types'
-import { TRAIN_LINE_NEXT_POSITION } from 'utils/constants'
+} from '../state/Train/TrainMapState'
+import { useManageTrainMapGraph } from '../state/Train/TrainMapGraphState'
+import useGetPositionByNodeNumber from './useGetPositionByNodeNumber'
+import useFindTrainLinePath from './useFindTrainLinePath'
+import { TrainLineDirection } from '../types/Train.types'
+import { FloatingFormContentType } from '../types/FloatingForm.types'
+import { TRAIN_LINE_NEXT_POSITION } from '../utils//constants'
 
 export default function useSelectCoordComponent(
   type: 'platform' | 'line',

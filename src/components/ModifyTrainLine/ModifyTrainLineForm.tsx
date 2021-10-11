@@ -1,12 +1,12 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import produce from 'immer'
-import { useManageModifyTrainLineForm } from 'state/FloatingForm/ModifyTrainLineState'
-import { useManageTrainMapGraph } from 'state/Train/TrainMapGraphState'
-import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
-import SelectedTrainLine from 'components/ModifyTrainLine/SelectedTrainLine'
-import ModifyTrainLineTime from 'components/ModifyTrainLine/ModifyTrainLineTime'
-import useFindTrainLinePath from 'hooks/useFindTrainLinePath'
+import { useManageModifyTrainLineForm } from '../../state/FloatingForm/ModifyTrainLineState'
+import { useManageTrainMapGraph } from '../../state/Train/TrainMapGraphState'
+import { useSetFloatingForm } from '../../state/FloatingForm/FloatingFormState'
+import SelectedTrainLine from '../ModifyTrainLine/SelectedTrainLine'
+import ModifyTrainLineTime from '../ModifyTrainLine/ModifyTrainLineTime'
+import useFindTrainLinePath from '../../hooks/useFindTrainLinePath'
 
 const ModifyTrainLineForm: FunctionComponent = function () {
   const {

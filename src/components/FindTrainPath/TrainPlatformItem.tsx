@@ -1,11 +1,11 @@
 import { createElement, FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { TrainPlatformType } from 'types/Train.types'
+import { TrainPlatformType } from '../../types/Train.types'
 import {
   TRAIN_LINE_COLOR,
   TRAIN_LINE_ITEM_ICON,
   TRANSFER_TRAIN_PLATFORM_COLOR,
-} from 'utils/constants'
+} from '../../utils/constants'
 
 type TrainPlatformItemProps = {
   trainPlatform: TrainPlatformType

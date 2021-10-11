@@ -3,10 +3,10 @@ import { jsx, css } from '@emotion/react'
 import {
   defaultSelectedTrainLine,
   useStateTrainForm,
-} from 'state/FloatingForm/TrainPlatformFormState'
-import useHandleClickOutSide from 'hooks/useHandleClickOutSide'
-import TrainLineList from 'components/AppendTrainPlatform/TrainLineList'
-import TrainLineItem from 'components/AppendTrainPlatform/TrainLineItem'
+} from '../../state/FloatingForm/TrainPlatformFormState'
+import useHandleClickOutSide from '../../hooks/useHandleClickOutSide'
+import TrainLineList from '../AppendTrainPlatform/TrainLineList'
+import TrainLineItem from '../AppendTrainPlatform/TrainLineItem'
 
 const SelectTrainLine: FunctionComponent = function () {
   const [

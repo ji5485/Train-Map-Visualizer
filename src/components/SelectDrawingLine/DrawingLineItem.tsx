@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { TRAIN_LINE_COLOR } from 'utils/constants'
-import { TrainLineColorName } from 'types/Train.types'
+import { TRAIN_LINE_COLOR } from '../../utils/constants'
+import { TrainLineColorName } from '../../types/Train.types'
 
 type DrawingLineItemProps = {
   color: TrainLineColorName

@@ -1,10 +1,10 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { TrainLineItemType, TrainLineColorName } from 'types/Train.types'
-import { TRAIN_LINE_COLOR } from 'utils/constants'
+import { TrainLineItemType, TrainLineColorName } from '../../types/Train.types'
+import { TRAIN_LINE_COLOR } from '../../utils/constants'
 import { GrAdd } from 'react-icons/gr'
-import useHandleClickOutSide from 'hooks/useHandleClickOutSide'
-import { useManageModifyTrainPlatformForm } from 'state/FloatingForm/ModifyTrainPlatformState'
+import useHandleClickOutSide from '../../hooks/useHandleClickOutSide'
+import { useManageModifyTrainPlatformForm } from '../../state/FloatingForm/ModifyTrainPlatformState'
 
 type AppendTrainLineItemProps = {
   line: TrainLineItemType[]

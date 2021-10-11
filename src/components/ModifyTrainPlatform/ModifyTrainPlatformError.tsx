@@ -3,9 +3,9 @@ import { jsx, css } from '@emotion/react'
 import {
   useManageModifyTrainPlatformForm,
   useManageModifyTrainPlatformFormStatus,
-} from 'state/FloatingForm/ModifyTrainPlatformState'
-import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
-import { useManageTrainPlatform } from 'state/Train/TrainMapState'
+} from '../../state/FloatingForm/ModifyTrainPlatformState'
+import { useGetCoordinatePlaneSize } from '../../state/CoordinateSystem/coordinatePlaneSizeState'
+import { useManageTrainPlatform } from '../../state/Train/TrainMapState'
 
 const ModifyTrainPlatformError: FunctionComponent = function () {
   const {

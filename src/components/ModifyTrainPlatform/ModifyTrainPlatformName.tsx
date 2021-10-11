@@ -3,7 +3,7 @@ import { jsx, css } from '@emotion/react'
 import {
   useManageModifyTrainPlatformForm,
   useManageModifyTrainPlatformFormStatus,
-} from 'state/FloatingForm/ModifyTrainPlatformState'
+} from '../../state/FloatingForm/ModifyTrainPlatformState'
 
 const ModifyTrainPlatformName: FunctionComponent = function () {
   const {

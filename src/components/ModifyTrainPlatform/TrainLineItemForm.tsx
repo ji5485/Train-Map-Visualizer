@@ -1,13 +1,13 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
-import { useManageTrainLine } from 'state/Train/TrainMapState'
-import { useGetFilteredTrainLineItem } from 'state/Train/TrainLineItemState'
-import { useManageModifyTrainPlatformForm } from 'state/FloatingForm/ModifyTrainPlatformState'
-import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
-import { TrainLineColorName } from 'types/Train.types'
-import TrainLineItemButton from 'components/ModifyTrainPlatform/TrainLineItemButton'
-import AppendTrainLineItem from 'components/ModifyTrainPlatform/AppendTrainLineItem'
-import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
+import { useManageTrainLine } from '../../state/Train/TrainMapState'
+import { useGetFilteredTrainLineItem } from '../../state/Train/TrainLineItemState'
+import { useManageModifyTrainPlatformForm } from '../../state/FloatingForm/ModifyTrainPlatformState'
+import useGetPositionByNodeNumber from '../../hooks/useGetPositionByNodeNumber'
+import { TrainLineColorName } from '../../types/Train.types'
+import TrainLineItemButton from '../ModifyTrainPlatform/TrainLineItemButton'
+import AppendTrainLineItem from '../ModifyTrainPlatform/AppendTrainLineItem'
+import { useGetCoordinatePlaneSize } from '../../state/CoordinateSystem/coordinatePlaneSizeState'
 
 const TrainLineItemForm: FunctionComponent = function () {
   const {

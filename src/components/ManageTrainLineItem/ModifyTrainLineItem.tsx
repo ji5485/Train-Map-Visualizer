@@ -4,16 +4,16 @@ import produce from 'immer'
 import {
   useManageTrainPlatform,
   useManageTrainLine,
-} from 'state/Train/TrainMapState'
+} from '../../state/Train/TrainMapState'
 import {
   useManageTrainLineItem,
   useGetTrainLineItemById,
-} from 'state/Train/TrainLineItemState'
-import { useGetCoordinatePlaneSize } from 'state/CoordinateSystem/coordinatePlaneSizeState'
-import { TrainLineColorName } from 'types/Train.types'
-import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
-import SelectTrainLineItemColor from 'components/ManageTrainLineItem/SelectTrainLineItemColor'
-import EnterTrainLineItemName from 'components/ManageTrainLineItem/EnterTrainLineItemName'
+} from '../../state/Train/TrainLineItemState'
+import { useGetCoordinatePlaneSize } from '../../state/CoordinateSystem/coordinatePlaneSizeState'
+import { TrainLineColorName } from '../../types/Train.types'
+import useGetPositionByNodeNumber from '../../hooks/useGetPositionByNodeNumber'
+import SelectTrainLineItemColor from '../ManageTrainLineItem/SelectTrainLineItemColor'
+import EnterTrainLineItemName from '../ManageTrainLineItem/EnterTrainLineItemName'
 
 type ModifyTrainLineItemProps = {
   id: string

@@ -1,11 +1,11 @@
 import { FunctionComponent, Dispatch, SetStateAction } from 'react'
 import { jsx, css } from '@emotion/react'
-import useVisibleNewTrainLineItem from 'hooks/useVisibleNewTrainLineItem'
-import useManageTrainLine from 'hooks/useManageTrainLineList'
-import { useGetFilteredTrainLineItem } from 'state/Train/TrainLineItemState'
-import { useSetTrainForm } from 'state/FloatingForm/TrainPlatformFormState'
-import TrainLineItem from 'components/AppendTrainPlatform/TrainLineItem'
-import { TrainLineItemType } from 'types/Train.types'
+import useVisibleNewTrainLineItem from '../../hooks/useVisibleNewTrainLineItem'
+import useManageTrainLine from '../../hooks/useManageTrainLineList'
+import { useGetFilteredTrainLineItem } from '../../state/Train/TrainLineItemState'
+import { useSetTrainForm } from '../../state/FloatingForm/TrainPlatformFormState'
+import TrainLineItem from '../AppendTrainPlatform/TrainLineItem'
+import { TrainLineItemType } from '../../types/Train.types'
 
 type TrainLineListProps = {
   trainLineName: string

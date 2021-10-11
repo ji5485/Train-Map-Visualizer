@@ -2,8 +2,8 @@ import { atom, useRecoilState, useResetRecoilState, Resetter } from 'recoil'
 import {
   ModifyTrainPlatformFormType,
   ModifyTrainPlatformFormStatusType,
-} from 'types/FloatingForm.types'
-import { Getter, Setter } from 'types/RecoilMethods.types'
+} from '../../types/FloatingForm.types'
+import { Getter, Setter } from '../../types/RecoilMethods.types'
 
 const modifyTrainPlatformFormAtom = atom<ModifyTrainPlatformFormType>({
   key: 'modifyTrainPlatformForm',

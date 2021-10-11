@@ -1,22 +1,22 @@
 import { FunctionComponent } from 'react'
 import { jsx, css } from '@emotion/react'
 import produce from 'immer'
-import TrainLineItemForm from 'components/ModifyTrainPlatform/TrainLineItemForm'
-import ModifyTrainPlatformName from 'components/ModifyTrainPlatform/ModifyTrainPlatformName'
-import ModifyTrainPlatformError from 'components/ModifyTrainPlatform/ModifyTrainPlatformError'
+import TrainLineItemForm from '../ModifyTrainPlatform/TrainLineItemForm'
+import ModifyTrainPlatformName from '../ModifyTrainPlatform/ModifyTrainPlatformName'
+import ModifyTrainPlatformError from '../ModifyTrainPlatform/ModifyTrainPlatformError'
 import {
   useManageModifyTrainPlatformForm,
   useManageModifyTrainPlatformFormStatus,
-} from 'state/FloatingForm/ModifyTrainPlatformState'
+} from '../../state/FloatingForm/ModifyTrainPlatformState'
 import {
   useManageTrainPlatform,
   useManageTrainLine,
-} from 'state/Train/TrainMapState'
-import { useSetFloatingForm } from 'state/FloatingForm/FloatingFormState'
-import { useManageTrainMapGraph } from 'state/Train/TrainMapGraphState'
-import useGetPositionByNodeNumber from 'hooks/useGetPositionByNodeNumber'
-import useFindTrainLinePath from 'hooks/useFindTrainLinePath'
-import { TrainPlatformType, TrainLineDirection } from 'types/Train.types'
+} from '../../state/Train/TrainMapState'
+import { useSetFloatingForm } from '../../state/FloatingForm/FloatingFormState'
+import { useManageTrainMapGraph } from '../../state/Train/TrainMapGraphState'
+import useGetPositionByNodeNumber from '../../hooks/useGetPositionByNodeNumber'
+import useFindTrainLinePath from '../../hooks/useFindTrainLinePath'
+import { TrainPlatformType, TrainLineDirection } from '../../types/Train.types'
 
 const ModifyForm: FunctionComponent = function () {
   const { modifyTrainPlatformForm } = useManageModifyTrainPlatformForm()
