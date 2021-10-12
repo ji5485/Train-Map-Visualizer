@@ -29,9 +29,9 @@ const TrainLineItemForm: FunctionComponent = function () {
       return trainLine === null ? true : trainLine.color !== color
     })
 
-  const removeTrainLine = (lineId: string) =>
+  const removeTrainLine = (graphEdgeId: string) =>
     setModifyTrainPlatformForm(({ line, ...rest }) => {
-      const modifiedList = line.filter(({ id }) => id !== lineId)
+      const modifiedList = line.filter(({ id }) => id !== graphEdgeId)
 
       return {
         line: modifiedList,

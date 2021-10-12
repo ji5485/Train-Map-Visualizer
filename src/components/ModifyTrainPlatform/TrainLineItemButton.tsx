@@ -9,7 +9,7 @@ type TrainLineItemButtonProps = {
   name: string
   color: TrainLineColorName
   canRemove: boolean
-  removeTrainLine: (lineId: string) => void
+  removeTrainLine: (graphEdgeId: string) => void
 }
 
 const TrainLineItemButton: FunctionComponent<TrainLineItemButtonProps> =

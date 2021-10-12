@@ -81,7 +81,7 @@ const Node: FunctionComponent<NodeProps> = function ({
             nodeNumber={nodeNumber}
             color={line.color}
             direction={direction as TrainLineDirection}
-            isHighlighted={highlight && lines.includes(line.lineId)}
+            isHighlighted={highlight && lines.includes(line.graphEdgeId)}
             key={index}
           />
         )

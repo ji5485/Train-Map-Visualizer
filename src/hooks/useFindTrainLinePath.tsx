@@ -102,7 +102,7 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
 
         if (
           trainLine &&
-          trainLine.lineId === selectedLineId &&
+          trainLine.graphEdgeId === selectedLineId &&
           !visited[nextPosition.row][nextPosition.column]
         ) {
           queue.push(nextNodeNumber)
@@ -173,7 +173,7 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
   ): TrainPlatformType[] => {
     const [firstPosition, secondPosition] = findPathWithBFS(
       nodeNumber,
-      selectedLine.lineId,
+      selectedLine.graphEdgeId,
     )
     const trainPlatforms = [
       trainPlatformMatrix[firstPosition.row][
@@ -213,7 +213,7 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
 
             if (trainLine === null || trainLineGraphEdge === null) return false
 
-            return trainLine.lineId === trainLineGraphEdge.id
+            return trainLine.graphEdgeId === trainLineGraphEdge.id
           },
         )
 
@@ -296,7 +296,7 @@ export default function useFindTrainLinePath(): useFindTrainLinePathType {
 
     const routes = findPathWithBFS(
       nodeNumber,
-      selectedLine.lineId,
+      selectedLine.graphEdgeId,
       removeTrainLine,
     )
     const { row, column } = routes[routes.length - 1]

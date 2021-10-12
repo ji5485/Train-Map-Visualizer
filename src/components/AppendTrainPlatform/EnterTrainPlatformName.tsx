@@ -65,7 +65,7 @@ const EnterTrainPlatformName: FunctionComponent = function () {
         '역 이름은 한글 2글자 ~ 5글자로 설정해주세요.',
       )
     else if (checkTrainPlatformAlreadyExists())
-      setValidationOfTrainPlatformName(false, '역 이름이 이미 사용 중입니다.')
+      setValidationOfTrainPlatformName(false, '해당 이름이 이미 사용 중입니다.')
     else setValidationOfTrainPlatformName(true, '')
   }
 
