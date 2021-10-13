@@ -37,7 +37,7 @@ const ModifyNameOrRemove: FunctionComponent<ModifyNameOrRemoveProps> =
       else if (currentName === '' || !/^[0-9가-힣]{2,5}$/.test(currentName))
         setNameIsValid({
           isValid: false,
-          error: '2글자 ~ 5글자로 설정해주세요.',
+          error: '한글 및 숫자 2글자 ~ 5글자로 설정해주세요.',
         })
       else if (trainLineItem.find(item => item.name === currentName))
         setNameIsValid({
@@ -57,9 +57,7 @@ const ModifyNameOrRemove: FunctionComponent<ModifyNameOrRemoveProps> =
             onChange={handleChange}
           />
           <button
-            css={enterTrainLineItemNameButtonStyle(
-              currentName !== prevName && isValid,
-            )}
+            css={enterTrainLineItemNameButtonStyle(isValid)}
             onClick={() => setTrainLineItemName(currentName)}
           >
             변경
@@ -80,9 +78,11 @@ const ModifyNameOrRemove: FunctionComponent<ModifyNameOrRemoveProps> =
 
 const enterTrainLineItemNameFormStyle = css`
   display: flex;
+  gap: 5px;
 `
 
 const enterTrainLineItemNameInputStyle = css`
+  width: 140px;
   padding: 5px 0;
   border: 0;
   border-bottom: 2px solid rgba(0, 0, 0, 0.5);
@@ -95,8 +95,6 @@ const enterTrainLineItemNameInputStyle = css`
 `
 
 const enterTrainLineItemNameButtonStyle = (formIsValid: boolean) => css`
-  flex-shrink: 0;
-  margin-left: 5px;
   padding: 0 10px;
   background: ${formIsValid ? '#1971c2' : 'rgba(0, 0, 0, 0.2)'};
   border: 0;
@@ -111,8 +109,6 @@ const enterTrainLineItemNameButtonStyle = (formIsValid: boolean) => css`
 `
 
 const removeTrainLineItemButtonStyle = css`
-  flex-shrink: 0;
-  margin-left: 5px;
   padding: 0 10px;
   background: #fa5252;
   border: 0;

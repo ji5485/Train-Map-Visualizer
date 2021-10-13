@@ -13,7 +13,7 @@ import { useGetCoordinatePlaneSize } from '../../state/CoordinateSystem/Coordina
 import { useManageTrainMapGraph } from '../../state/Train/TrainMapGraphState'
 import { TrainLineColorName } from '../../types/Train.types'
 import useGetPositionByNodeNumber from '../../hooks/useGetPositionByNodeNumber'
-import SelectTrainLineItemColor from '../ManageTrainLineItem/SelectTrainLineItemColor'
+import TrainLineItemColorList from './TrainLineItemColorList'
 import ModifyNameOrRemove from './ModifyNameOrRemove'
 
 type ModifyTrainLineItemProps = {
@@ -215,7 +215,7 @@ const ModifyTrainLineItem: FunctionComponent<ModifyTrainLineItemProps> =
 
     return (
       <div css={modifyTrainLineItemStyle}>
-        <SelectTrainLineItemColor
+        <TrainLineItemColorList
           selectedTrainLineItem={selectedTrainLineItem}
           trainLineItem={trainLineItem}
           setTrainLineItemColor={setTrainLineItemColor}
