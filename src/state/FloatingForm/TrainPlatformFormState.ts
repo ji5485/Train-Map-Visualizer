@@ -24,11 +24,7 @@ const trainFormAtom = atom<TrainFormType>({
   key: 'trainForm',
   default: {
     selectedTrainLine: defaultSelectedTrainLine,
-    trainPlatform: {
-      name: '',
-      isValid: false,
-      error: '',
-    },
+    trainPlatformName: '',
   },
 })
 

@@ -15,11 +15,11 @@ export type FloatingFormType = {
 // Train Form in FloatingForm Type
 export type TrainFormType = {
   selectedTrainLine: TrainLineItemType
-  trainPlatform: {
-    name: string
-    isValid: boolean
-    error: string
-  }
+  trainPlatformName: string
+}
+export type TrainFormValidityType = {
+  validity: boolean
+  error: string
 }
 
 // Modify Train Platform Form Type

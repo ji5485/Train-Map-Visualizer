@@ -1,4 +1,4 @@
-import { useRef, FunctionComponent } from 'react'
+import { memo, useRef, FunctionComponent } from 'react'
 import { css } from '@emotion/react'
 import { TrainLineItemType } from '../../types/Train.types'
 import {
@@ -85,4 +85,4 @@ const trainPlatformTextStyle = css`
   line-height: 1.3;
 `
 
-export default TrainPlatform
+export default memo(TrainPlatform)

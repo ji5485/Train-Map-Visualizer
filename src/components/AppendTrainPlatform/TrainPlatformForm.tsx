@@ -1,8 +1,9 @@
-import { useState, useEffect, FunctionComponent } from 'react'
+import { useState, FunctionComponent } from 'react'
 import { css } from '@emotion/react'
 import { useGetTrainForm } from '../../state/FloatingForm/TrainPlatformFormState'
 import { useSetFloatingForm } from '../../state/FloatingForm/FloatingFormState'
 import { useSetCoordinateSystemCurrentMode } from '../../state/CoordinateSystem/CoordinateSystemCurrentModeState'
+import { TrainFormValidityType } from '../../types/FloatingForm.types'
 import FormFieldUnit from '../AppendTrainPlatform/FormFieldUnit'
 import SelectTrainLine from '../AppendTrainPlatform/SelectTrainLine'
 import EnterTrainPlatformName from '../AppendTrainPlatform/EnterTrainPlatformName'
@@ -10,13 +11,13 @@ import EnterTrainPlatformName from '../AppendTrainPlatform/EnterTrainPlatformNam
 const TrainPlatformForm: FunctionComponent = function () {
   const {
     selectedTrainLine: { id },
-    trainPlatform: { isValid },
   } = useGetTrainForm()
   const setFloatingForm = useSetFloatingForm()
   const setCoordinateSystemCurrentMode = useSetCoordinateSystemCurrentMode()
-  const [formIsValid, setFormIsValid] = useState<boolean>(id !== '' && isValid)
-
-  useEffect(() => setFormIsValid(id !== '' && isValid), [id, isValid])
+  const [{ validity, error }, setValidity] = useState<TrainFormValidityType>({
+    validity: false,
+    error: '',
+  })
 
   const appendTrainPlatform = () => {
     setFloatingForm(prev => ({ ...prev, isOpen: false }))
@@ -29,12 +30,16 @@ const TrainPlatformForm: FunctionComponent = function () {
         <SelectTrainLine />
       </FormFieldUnit>
       <FormFieldUnit title="역 이름 입력">
-        <EnterTrainPlatformName />
+        <EnterTrainPlatformName
+          validity={validity}
+          error={error}
+          setValidity={setValidity}
+        />
       </FormFieldUnit>
 
       <div
-        css={createButtonStyle(formIsValid)}
-        onClick={formIsValid ? appendTrainPlatform : undefined}
+        css={createButtonStyle(id !== '' && validity)}
+        onClick={id !== '' && validity ? appendTrainPlatform : undefined}
       >
         추가하기
       </div>

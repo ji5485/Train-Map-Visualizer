@@ -1,4 +1,4 @@
-import { useRef, FunctionComponent } from 'react'
+import { memo, useRef, FunctionComponent } from 'react'
 import { css } from '@emotion/react'
 import useAppendTrainPlatform from '../../hooks/useAppendTrainPlatform'
 import useDrawTrainLine from '../../hooks/useDrawTrainLine'
@@ -116,4 +116,4 @@ const nodeStyle = css`
   }
 `
 
-export default Node
+export default memo(Node)

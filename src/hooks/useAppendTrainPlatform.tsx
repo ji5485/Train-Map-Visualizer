@@ -28,10 +28,7 @@ export default function useAppendTrainPlatform(
   trainPlatform: TrainPlatformType | null,
 ): useAppendTrainPlatformType {
   const [currentMode, setCurrentMode] = useStateCoordinateSystemCurrentMode()
-  const {
-    selectedTrainLine,
-    trainPlatform: { name },
-  } = useGetTrainForm()
+  const { selectedTrainLine, trainPlatformName } = useGetTrainForm()
   const resetTrainForm = useResetTrainForm()
   const [visibleTrainPlatformPreview, setVisibleTrainPlatformPreview] =
     useState<boolean>(false)
@@ -44,7 +41,7 @@ export default function useAppendTrainPlatform(
   const createTrainPlatform = () => {
     const newTrainPlatform: TrainPlatformType = {
       id: shortId(),
-      name,
+      name: trainPlatformName,
       line: [selectedTrainLine],
       nodeNumber,
     }
@@ -84,7 +81,7 @@ export default function useAppendTrainPlatform(
   return {
     visibleTrainPlatformPreview,
     previewTrainPlatform: {
-      platformName: name,
+      platformName: trainPlatformName,
       selectedTrainLine: [selectedTrainLine],
     },
     showTrainPreview,

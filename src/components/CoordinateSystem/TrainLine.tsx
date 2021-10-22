@@ -1,4 +1,4 @@
-import { useRef, FunctionComponent } from 'react'
+import { memo, useRef, FunctionComponent } from 'react'
 import { css } from '@emotion/react'
 import { TRAIN_LINE_COLOR } from '../../utils/constants'
 import { TrainLineDirection, TrainLineColorName } from '../../types/Train.types'
@@ -55,4 +55,4 @@ const trainLineStyle = (
   transform: rotate(${RORATE_DEG_BY_DIRECTION[direction]}deg);
 `
 
-export default TrainLine
+export default memo(TrainLine)
