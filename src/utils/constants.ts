@@ -82,3 +82,11 @@ export const TRANSFER_TRAIN_PLATFORM_COLOR = `
   radial-gradient(circle at 93.3% 75%, rgb(255, 212, 59), rgba(255, 212, 59, 0.1) 80%)
   beige
 `
+
+// Used in useChangeCursor.tsx
+export const CURSOR_BY_CURRENT_MODE = {
+  hand: 'grabbing',
+  select: 'pointer',
+  append: 'copy',
+  draw: 'crosshair',
+}

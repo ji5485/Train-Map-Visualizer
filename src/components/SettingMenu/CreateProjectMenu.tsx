@@ -41,7 +41,7 @@ const CreateProjectMenu: FunctionComponent = function () {
     if (
       !/^[0-9]{1,2}$/.test(value) ||
       parseInt(value) < 3 ||
-      parseInt(value) > 30
+      parseInt(value) > 20
     )
       setCoordinateSize(prev => ({ ...prev, [name]: 3 }))
     else setCoordinateSize(prev => ({ ...prev, [name]: parseInt(value) }))
@@ -93,11 +93,11 @@ const CreateProjectMenu: FunctionComponent = function () {
             </div>
           </div>
 
-          {prevWidth !== 0 && prevHeight !== 0 ? (
-            <div css={createProjectWarnStyle}>
-              기존 프로젝트는 복구할 수 없습니다.
-            </div>
-          ) : null}
+          <div css={createProjectWarnStyle}>
+            {prevWidth !== 0 && prevHeight !== 0
+              ? '기존 프로젝트는 복구할 수 없습니다.'
+              : '최대 노드 길이는 20입니다.'}
+          </div>
 
           <div css={createProjectButtonStyle} onClick={createNewProject}>
             프로젝트 만들기

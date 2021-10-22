@@ -1,6 +1,6 @@
 import { useState, useEffect, MutableRefObject } from 'react'
 import produce from 'immer'
-import shortId from '../utils//shortId'
+import shortId from '../utils/shortId'
 import { useManageTrainPlatform } from '../state/Train/TrainMapState'
 import {
   useGetTrainForm,

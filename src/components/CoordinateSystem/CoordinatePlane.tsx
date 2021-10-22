@@ -1,24 +1,25 @@
-import { useRef, FunctionComponent } from 'react'
+import { useEffect, useRef, FunctionComponent } from 'react'
 import { css } from '@emotion/react'
 import Node from '../CoordinateSystem/Node'
-import { useGetCoordinatePlaneZoom } from '../../state/CoordinateSystem/CoordinatePlaneSizeState'
 import {
   useGetCoordinatePlaneSize,
+  useGetCoordinatePlaneZoom,
   useGetCalculatedCoordinatePlaneSize,
 } from '../../state/CoordinateSystem/CoordinatePlaneSizeState'
+import { useGetCoordinateSystemCurrentMode } from '../../state/CoordinateSystem/CoordinateSystemCurrentModeState'
 import {
   useManageTrainPlatform,
   useManageTrainLine,
 } from '../../state/Train/TrainMapState'
 import { useManageCoordinateSystemPathHighlight } from '../../state/CoordinateSystem/CoordinateSystemPathHightlightState'
-import useChangeCursor from '../../hooks/useChangeCursor'
 import useScrollWithMouse from '../../hooks/useScrollWithMouse'
+import { CURSOR_BY_CURRENT_MODE } from '../../utils/constants'
 
 const CoordinatePlane: FunctionComponent = function () {
   const coordPlaneRef = useRef<HTMLDivElement | null>(null)
-  useChangeCursor(coordPlaneRef)
   useScrollWithMouse(coordPlaneRef)
 
+  const currentMode = useGetCoordinateSystemCurrentMode()
   const { width, height } = useGetCoordinatePlaneSize()
   const zoom = useGetCoordinatePlaneZoom()
   const { width: calculatedWidth, height: calculatedHeight } =
@@ -29,6 +30,11 @@ const CoordinatePlane: FunctionComponent = function () {
 
   const { trainPlatformMatrix } = useManageTrainPlatform()
   const { trainLineMatrix } = useManageTrainLine()
+
+  useEffect(() => {
+    if (coordPlaneRef.current === null) return
+    coordPlaneRef.current.style.cursor = CURSOR_BY_CURRENT_MODE[currentMode]
+  }, [currentMode])
 
   return (
     <div ref={coordPlaneRef} css={coordPlaneStyle}>
