@@ -3,7 +3,7 @@
 ![TypeScript](https://img.shields.io/badge/-TypeScript-white?style=flat-square&logo=typescript&logoColor=ffffff&color=007acc)
 ![React](https://img.shields.io/badge/-React-white?style=flat-square&logo=react&logoColor=ffffff&color=61DBFB)
 ![EmotionJS](https://img.shields.io/badge/-EmotionJS-white?style=flat-square&color=ff69b4)
-![Recoil](https://img.shields.io/badge/-Recoil-white?style=flat-square)
+![Recoil](https://img.shields.io/badge/-Recoil-white?style=flat-square&color=3577E5)
 
 ![Project Image](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7a747364-7664-486f-9cab-f868ded2a3f4/select_train_line.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211024%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211024T085156Z&X-Amz-Expires=86400&X-Amz-Signature=e52d7640ba13cfa30311ec6d9f682cf0d4bc4c6af9ee3c696f8de077db5346da&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22select%2520train%2520line.gif%22)
 
