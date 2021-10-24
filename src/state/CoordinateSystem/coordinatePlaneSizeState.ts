@@ -38,9 +38,6 @@ const calculatedCoordinatePlaneSizeSelector = selector<CoordinatePlaneSizeType>(
 )
 
 // Coordinate Plane Zoom Hooks
-export const useGetCoordinatePlaneZoom = (): Getter<number> =>
-  useRecoilValue(coordinatePlaneZoomAtom)
-
 export const useStateCoordinatePlaneZoom = (): GetterAndSetter<number> =>
   useRecoilState(coordinatePlaneZoomAtom)
 

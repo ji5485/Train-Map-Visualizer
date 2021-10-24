@@ -3,7 +3,7 @@ import { css } from '@emotion/react'
 import Node from '../CoordinateSystem/Node'
 import {
   useGetCoordinatePlaneSize,
-  useGetCoordinatePlaneZoom,
+  useStateCoordinatePlaneZoom,
   useGetCalculatedCoordinatePlaneSize,
 } from '../../state/CoordinateSystem/CoordinatePlaneSizeState'
 import { useGetCoordinateSystemCurrentMode } from '../../state/CoordinateSystem/CoordinateSystemCurrentModeState'
@@ -21,7 +21,7 @@ const CoordinatePlane: FunctionComponent = function () {
 
   const currentMode = useGetCoordinateSystemCurrentMode()
   const { width, height } = useGetCoordinatePlaneSize()
-  const zoom = useGetCoordinatePlaneZoom()
+  const [zoom] = useStateCoordinatePlaneZoom()
   const { width: calculatedWidth, height: calculatedHeight } =
     useGetCalculatedCoordinatePlaneSize()
   const {
