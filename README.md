@@ -5,7 +5,7 @@
 ![EmotionJS](https://img.shields.io/badge/-EmotionJS-white?style=flat-square&color=ff69b4)
 ![Recoil](https://img.shields.io/badge/-Recoil-white?style=flat-square&color=3577E5)
 
-![Project Image](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7a747364-7664-486f-9cab-f868ded2a3f4/select_train_line.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211024%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211024T085156Z&X-Amz-Expires=86400&X-Amz-Signature=e52d7640ba13cfa30311ec6d9f682cf0d4bc4c6af9ee3c696f8de077db5346da&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22select%2520train%2520line.gif%22)
+![Project Image](./train_map_visualizer_find_path.gif)
 
 Welcome, Let me introduce Train Map Visualizer Project! Train Map Visualizer is project that users can draw train route map as their want. I was inspired by the Subway Mission in Woowahan Tech Course, proceeded by Woowa Brothers Corporation. You can experience this project through the link below!
 
